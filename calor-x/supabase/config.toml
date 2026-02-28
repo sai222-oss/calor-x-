@@ -1,0 +1,7 @@
+project_id = "kguihdvqodvadmuzamoq"
+
+[functions.analyze-food]
+verify_jwt = false
+
+[functions.coach]
+verify_jwt = false

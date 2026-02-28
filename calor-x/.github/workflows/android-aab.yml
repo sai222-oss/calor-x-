@@ -1,0 +1,81 @@
+name: Build & Sign Android AAB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build Signed Android AAB
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: '18'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web assets
+        run: npm run build
+
+      - name: Ensure Capacitor Android platform
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap add android || true
+          fi
+
+      - name: Copy web assets to native
+        run: npm run cap:copy
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Decode keystore from secret
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/keystore.jks
+
+      - name: Build signed AAB
+        working-directory: android
+        env:
+          KEYSTORE_FILE: ${{ github.workspace }}/android/keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file="$KEYSTORE_FILE" \
+            -Pandroid.injected.signing.store.password="$KEYSTORE_PASSWORD" \
+            -Pandroid.injected.signing.key.alias="$KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$KEY_PASSWORD" \
+            --no-daemon
+
+      - name: Upload signed AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-signed-aab
+          path: android/app/build/outputs/bundle/release/*.aab
+
+      - name: Clean up keystore
+        if: always()
+        run: rm -f android/keystore.jks

@@ -1,0 +1,59 @@
+name: Build iOS IPA (macOS runner required)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS IPA
+    runs-on: macos-latest
+    env:
+      NODE_VERSION: '18'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web assets
+        run: npm run build
+
+      - name: Ensure Capacitor iOS platform
+        run: |
+          if [ ! -d "ios" ]; then
+            npx cap add ios || true
+          fi
+
+      - name: Copy web assets to native
+        run: npm run cap:copy
+
+      - name: Install CocoaPods
+        working-directory: ios/App
+        run: pod install --repo-update
+
+      - name: Archive with xcodebuild
+        run: |
+          # NOTE: replace 'App' with your Xcode scheme name if different.
+          xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath $PWD/build/App.xcarchive archive
+
+      - name: Export IPA
+        run: |
+          # The export step typically requires an exportOptions.plist configured for your team.
+          mkdir -p build/export
+          xcodebuild -exportArchive -archivePath $PWD/build/App.xcarchive -exportPath $PWD/build/export -exportOptionsPlist ios/exportOptions.plist || true
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-archive
+          path: build/export/**/*.ipa
+
+      - name: Notes
+        run: |
+          echo "iOS builds require signing credentials (Apple Developer) and an exportOptions.plist. Add your certificates and provisioning profile to the runner via secrets or use a tool like fastlane."
