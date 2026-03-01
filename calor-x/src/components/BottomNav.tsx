@@ -37,22 +37,22 @@ const BottomNav = () => {
                             className="flex flex-col items-center gap-1 py-3 px-2 transition-all duration-200"
                             aria-label={label}
                         >
-                            <div className={`relative p-1.5 rounded-2xl transition-all duration-200 ${active ? "bg-brand-green/10" : ""}`}>
+                            <div className={`relative p-1.5 rounded-2xl transition-all duration-200 ${active ? "bg-[#FF4500]/10" : ""}`}>
                                 <Icon
                                     className="w-5 h-5"
-                                    style={{ color: active ? "#1B4332" : "#6B7280" }}
+                                    style={{ color: active ? "#FF4500" : "#6B7280" }}
                                     strokeWidth={active ? 2.5 : 2}
                                 />
                                 {active && (
                                     <span
                                         className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full"
-                                        style={{ background: "#D4AF37" }}
+                                        style={{ background: "#FF8C00" }}
                                     />
                                 )}
                             </div>
                             <span
                                 className="text-[10px] font-bold leading-none"
-                                style={{ color: active ? "#1B4332" : "#4B5563" }}
+                                style={{ color: active ? "#FF4500" : "#4B5563" }}
                             >{label}</span>
                         </button>
                     );
@@ -65,9 +65,9 @@ const BottomNav = () => {
                     aria-label="Toggle language"
                 >
                     <div className="relative p-1.5 rounded-2xl transition-all duration-200" style={{ background: "rgba(212, 175, 55, 0.1)" }}>
-                        <Globe className="w-5 h-5" style={{ color: "#D4AF37" }} />
+                        <Globe className="w-5 h-5" style={{ color: "#FF8C00" }} />
                     </div>
-                    <span className="text-[10px] font-semibold leading-none" style={{ color: "#D4AF37" }}>
+                    <span className="text-[10px] font-semibold leading-none" style={{ color: "#FF8C00" }}>
                         {lang === "ar" ? "EN" : "عر"}
                     </span>
                 </button>

@@ -107,8 +107,8 @@ const Profile = () => {
   const bmi = profile?.weight_kg && profile?.height_cm ? (profile.weight_kg / Math.pow(profile.height_cm / 100, 2)).toFixed(1) : null;
   const bmiCategory = bmi
     ? Number(bmi) < 18.5 ? { label: t("prof_bmi_under"), color: "#3B82F6" }
-      : Number(bmi) < 25 ? { label: t("prof_bmi_healthy"), color: "#1B4332" }
-        : Number(bmi) < 30 ? { label: t("prof_bmi_over"), color: "#D4AF37" }
+      : Number(bmi) < 25 ? { label: t("prof_bmi_healthy"), color: "#FF4500" }
+        : Number(bmi) < 30 ? { label: t("prof_bmi_over"), color: "#FF8C00" }
           : { label: t("prof_bmi_obese"), color: "#EF4444" }
     : null;
 
@@ -124,25 +124,25 @@ const Profile = () => {
   const goal = profile?.health_goal ? goalLabels[profile.health_goal] : null;
 
   return (
-    <div className="min-h-screen pb-8" style={{ background: "#F8F8F8" }}>
+    <div className="min-h-screen pb-8" style={{ background: "#FFF5F0" }}>
       <div className="p-4 bg-white border-b shadow-sm flex items-center gap-3">
         <Button variant="ghost" size="icon" className="hover:bg-gray-100 p-0" onClick={() => navigate("/dashboard")}>
-          <ArrowLeft className="w-6 h-6 text-[#1B4332]" />
+          <ArrowLeft className="w-6 h-6 text-[#FF4500]" />
         </Button>
-        <h1 className="text-xl font-bold text-[#1B4332]">{t("prof_title")}</h1>
+        <h1 className="text-xl font-bold text-[#FF4500]">{t("prof_title")}</h1>
       </div>
 
       <div className="p-4 space-y-4">
         {loading ? (
-          <div className="py-16 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto" style={{ color: "#1B4332" }} /></div>
+          <div className="py-16 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto" style={{ color: "#FF4500" }} /></div>
         ) : (
           <>
             {/* Avatar */}
             <Card className="p-6 text-center premium-card">
-              <div className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)" }}>
+              <div className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #FF4500, #FF6B35)" }}>
                 <User className="w-12 h-12 text-white" />
               </div>
-              <h2 className="text-xl font-bold flex items-center justify-center gap-2" style={{ color: "#1B4332" }}>
+              <h2 className="text-xl font-bold flex items-center justify-center gap-2" style={{ color: "#FF4500" }}>
                 {profile?.full_name ?? t("prof_user")}
                 {isPro && (
                   <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-none px-2 py-0.5" style={{ background: "rgba(212, 175, 55, 0.2)", color: "#B8860B" }}>
@@ -156,7 +156,7 @@ const Profile = () => {
               {!isPro && (
                 <Button
                   className="mt-4 py-5 rounded-full w-full max-w-[200px] font-bold mx-auto flex items-center gap-2"
-                  style={{ background: "#D4AF37", color: "#1c1c1c" }}
+                  style={{ background: "#FF8C00", color: "#1c1c1c" }}
                   onClick={handleUpgrade}
                   disabled={loadingCheckout}
                 >
@@ -174,8 +174,8 @@ const Profile = () => {
 
             {/* Biometrics */}
             <Card className="p-5 premium-card">
-              <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: "#1B4332" }}>
-                <Activity className="w-4 h-4" style={{ color: "#D4AF37" }} />{t("prof_biometrics")}
+              <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: "#FF4500" }}>
+                <Activity className="w-4 h-4" style={{ color: "#FF8C00" }} />{t("prof_biometrics")}
               </h3>
               <div className="grid grid-cols-3 gap-3 text-center">
                 {[
@@ -183,14 +183,14 @@ const Profile = () => {
                   { label: t("prof_height"), value: profile?.height_cm ? `${profile.height_cm}cm` : "—" },
                   { label: t("prof_age"), value: profile?.age ? `${profile.age}` : "—" },
                 ].map(({ label, value }) => (
-                  <div key={label} className="p-3 rounded-2xl" style={{ background: "#F9F9F2" }}>
-                    <div className="text-2xl font-bold" style={{ color: "#1B4332" }}>{value}</div>
+                  <div key={label} className="p-3 rounded-2xl" style={{ background: "#FFF5F0" }}>
+                    <div className="text-2xl font-bold" style={{ color: "#FF4500" }}>{value}</div>
                     <div className="text-xs text-muted-foreground mt-0.5">{label}</div>
                   </div>
                 ))}
               </div>
               {bmi && (
-                <div className="mt-4 p-3 rounded-2xl flex items-center justify-between" style={{ background: "#F9F9F2" }}>
+                <div className="mt-4 p-3 rounded-2xl flex items-center justify-between" style={{ background: "#FFF5F0" }}>
                   <p className="text-sm font-medium">{t("prof_bmi")}</p>
                   <div className="text-right">
                     <p className="text-2xl font-bold" style={{ color: bmiCategory?.color }}>{bmi}</p>
@@ -199,7 +199,7 @@ const Profile = () => {
                 </div>
               )}
               {profile?.activity_level && (
-                <div className="mt-3 p-3 rounded-2xl flex items-center justify-between" style={{ background: "#F9F9F2" }}>
+                <div className="mt-3 p-3 rounded-2xl flex items-center justify-between" style={{ background: "#FFF5F0" }}>
                   <p className="text-sm font-medium">{t("prof_activity")}</p>
                   <Badge variant="secondary">{activityLabels[profile.activity_level] ?? profile.activity_level}</Badge>
                 </div>
@@ -209,8 +209,8 @@ const Profile = () => {
             {/* Targets */}
             {goals && (
               <Card className="p-5 premium-card">
-                <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: "#1B4332" }}>
-                  <Target className="w-4 h-4" style={{ color: "#D4AF37" }} />{t("prof_daily_targets")}
+                <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: "#FF4500" }}>
+                  <Target className="w-4 h-4" style={{ color: "#FF8C00" }} />{t("prof_daily_targets")}
                 </h3>
                 <div className="space-y-3">
                   {[
@@ -221,7 +221,7 @@ const Profile = () => {
                   ].map(({ label, value, unit }) => (
                     <div key={label} className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">{label}</span>
-                      <span className="font-semibold text-sm" style={{ color: "#1B4332" }}>{Math.round(value)} {unit}</span>
+                      <span className="font-semibold text-sm" style={{ color: "#FF4500" }}>{Math.round(value)} {unit}</span>
                     </div>
                   ))}
                 </div>
@@ -230,14 +230,14 @@ const Profile = () => {
 
             {/* Weekly */}
             <Card className="p-5 premium-card">
-              <h3 className="font-bold mb-4" style={{ color: "#1B4332" }}>{t("prof_this_week")}</h3>
+              <h3 className="font-bold mb-4" style={{ color: "#FF4500" }}>{t("prof_this_week")}</h3>
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 rounded-2xl text-center" style={{ background: "#F9F9F2" }}>
-                  <p className="text-2xl font-bold" style={{ color: "#1B4332" }}>{weeklyMeals}</p>
+                <div className="p-3 rounded-2xl text-center" style={{ background: "#FFF5F0" }}>
+                  <p className="text-2xl font-bold" style={{ color: "#FF4500" }}>{weeklyMeals}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{t("prof_meals_logged")}</p>
                 </div>
-                <div className="p-3 rounded-2xl text-center" style={{ background: "#F9F9F2" }}>
-                  <p className="text-2xl font-bold" style={{ color: "#D4AF37" }}>{Math.round(totalCaloriesTracked / 1000 * 10) / 10}k</p>
+                <div className="p-3 rounded-2xl text-center" style={{ background: "#FFF5F0" }}>
+                  <p className="text-2xl font-bold" style={{ color: "#FF8C00" }}>{Math.round(totalCaloriesTracked / 1000 * 10) / 10}k</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{t("prof_kcal_tracked")}</p>
                 </div>
               </div>
@@ -245,10 +245,10 @@ const Profile = () => {
 
             {/* Support */}
             <Card className="p-5 premium-card" >
-              <h3 className="font-bold mb-3 flex items-center gap-2" style={{ color: "#1B4332" }}>
-                <Headphones className="w-4 h-4" style={{ color: "#D4AF37" }} />{t("support_title")}
+              <h3 className="font-bold mb-3 flex items-center gap-2" style={{ color: "#FF4500" }}>
+                <Headphones className="w-4 h-4" style={{ color: "#FF8C00" }} />{t("support_title")}
               </h3>
-              <div className="mb-3 p-3 rounded-2xl" style={{ background: "#F9F9F2" }}>
+              <div className="mb-3 p-3 rounded-2xl" style={{ background: "#FFF5F0" }}>
                 {isPro ? (
                   <Badge className="bg-yellow-50 text-yellow-700 border-0 text-xs">{t("support_priority")}</Badge>
                 ) : (
@@ -275,13 +275,13 @@ const Profile = () => {
 
             {/* Actions */}
             <Card className="divide-y premium-card overflow-hidden" style={{ borderColor: "rgba(27, 67, 50, 0.08)" }}>
-              <button className="w-full p-4 flex items-center gap-3 hover:bg-brand-green/5 transition-colors text-left" onClick={() => navigate("/profile-setup")}>
-                <Edit2 className="w-5 h-5" style={{ color: "#1B4332" }} /><span>{t("prof_edit")}</span>
+              <button className="w-full p-4 flex items-center gap-3 hover:bg-[#FF4500]/5 transition-colors text-left" onClick={() => navigate("/profile-setup")}>
+                <Edit2 className="w-5 h-5" style={{ color: "#FF4500" }} /><span>{t("prof_edit")}</span>
               </button>
-              <button className="w-full p-4 flex items-center gap-3 hover:bg-brand-green/5 transition-colors text-left" onClick={() => navigate("/privacy")}>
-                <Info className="w-5 h-5" style={{ color: "#D4AF37" }} /><span>{t("prof_privacy")}</span>
+              <button className="w-full p-4 flex items-center gap-3 hover:bg-[#FF4500]/5 transition-colors text-left" onClick={() => navigate("/privacy")}>
+                <Info className="w-5 h-5" style={{ color: "#FF8C00" }} /><span>{t("prof_privacy")}</span>
               </button>
-              <button className="w-full p-4 flex items-center gap-3 hover:bg-brand-green/5 transition-colors text-left" onClick={() => navigate("/terms")}>
+              <button className="w-full p-4 flex items-center gap-3 hover:bg-[#FF4500]/5 transition-colors text-left" onClick={() => navigate("/terms")}>
                 <Info className="w-5 h-5" style={{ color: "#6B7280" }} /><span>{t("prof_terms")}</span>
               </button>
               <button className="w-full p-4 flex items-center gap-3 hover:bg-red-50 transition-colors text-red-500 text-left" onClick={handleLogout}>

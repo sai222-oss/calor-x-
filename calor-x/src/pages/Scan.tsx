@@ -100,7 +100,7 @@ const Scan = () => {
 
   if (scanError) {
     return (
-      <div className="min-h-screen pb-24 flex items-center justify-center p-4 bg-red-50" style={{ background: "#F8F8F8" }}>
+      <div className="min-h-screen pb-24 flex items-center justify-center p-4 bg-red-50" style={{ background: "#FFF5F0" }}>
         <Card className="w-full max-w-md p-8 text-center space-y-6 premium-card animate-fade-in border-red-200">
           <div className="mx-auto w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-4">
             <AlertTriangle className="h-10 w-10 text-red-600" />
@@ -125,13 +125,13 @@ const Scan = () => {
   }
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F8F8F8" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
       {/* Header */}
       <div className="p-4 flex items-center justify-between bg-white border-b border-gray-100 shadow-sm">
         <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={() => navigate("/dashboard")}>
           <X className="w-5 h-5" />
         </Button>
-        <h1 className="text-lg font-bold text-[#1B4332]">{t("scan_title")}</h1>
+        <h1 className="text-lg font-bold text-[#FF4500]">{t("scan_title")}</h1>
         {previewImage && !isUploading ? (
           <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={handleReset}>
             <RefreshCcw className="w-5 h-5" />
@@ -149,13 +149,13 @@ const Scan = () => {
               border: `1px solid ${isAtLimit ? "rgba(239, 68, 68, 0.2)" : "rgba(27, 67, 50, 0.1)"}`,
             }}
           >
-            <span style={{ color: isAtLimit ? "#EF4444" : "#1B4332" }}>
+            <span style={{ color: isAtLimit ? "#EF4444" : "#FF4500" }}>
               {isAtLimit ? "🚫 " : "📷 "}{t("scan_title")}
             </span>
             <span
               className="font-bold px-2 py-0.5 rounded-full text-xs"
               style={{
-                background: isAtLimit ? "#EF4444" : "#1B4332",
+                background: isAtLimit ? "#EF4444" : "#FF4500",
                 color: "white",
               }}
             >
@@ -177,13 +177,13 @@ const Scan = () => {
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: "rgba(239, 68, 68, 0.1)" }}>
                 <Lock className="w-8 h-8 text-red-500" />
               </div>
-              <h2 className="text-xl font-black mb-1" style={{ color: "#1B4332" }}>{t("scan_limit_title")}</h2>
+              <h2 className="text-xl font-black mb-1" style={{ color: "#FF4500" }}>{t("scan_limit_title")}</h2>
               <p className="text-sm text-muted-foreground">{limitMsg}</p>
-              <p className="text-sm font-medium mt-1" style={{ color: "#D4AF37" }}>{t("scan_limit_cta")}</p>
+              <p className="text-sm font-medium mt-1" style={{ color: "#FF8C00" }}>{t("scan_limit_cta")}</p>
             </div>
             <Button
               className="w-full py-5 rounded-2xl font-bold text-white"
-              style={{ background: "#1B4332" }}
+              style={{ background: "#FF4500" }}
               onClick={() => navigate("/pricing")}
             >
               <TrendingUp className="w-5 h-5 mr-2" />
@@ -207,9 +207,9 @@ const Scan = () => {
           ) : (
             <div className="text-center space-y-4 p-8">
               <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto animate-pulse-glow" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                {isAtLimit ? <Lock className="w-12 h-12 text-red-400" /> : <Camera className="w-12 h-12" style={{ color: "#1B4332" }} />}
+                {isAtLimit ? <Lock className="w-12 h-12 text-red-400" /> : <Camera className="w-12 h-12" style={{ color: "#FF4500" }} />}
               </div>
-              <p className="text-lg font-semibold" style={{ color: isAtLimit ? "#EF4444" : "#1B4332" }}>
+              <p className="text-lg font-semibold" style={{ color: isAtLimit ? "#EF4444" : "#FF4500" }}>
                 {isAtLimit ? t("scan_limit_title") : t("scan_tap_to_pick")}
               </p>
               <p className="text-sm text-muted-foreground">
@@ -219,8 +219,8 @@ const Scan = () => {
           )}
           {isUploading && (
             <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 rounded-3xl">
-              <Loader2 className="w-12 h-12 animate-spin" style={{ color: "#1B4332" }} />
-              <p className="font-semibold text-lg" style={{ color: "#1B4332" }}>{t("scan_analysing")}</p>
+              <Loader2 className="w-12 h-12 animate-spin" style={{ color: "#FF4500" }} />
+              <p className="font-semibold text-lg" style={{ color: "#FF4500" }}>{t("scan_analysing")}</p>
               <p className="text-sm text-muted-foreground">{t("scan_please_wait")}</p>
             </div>
           )}
@@ -229,7 +229,7 @@ const Scan = () => {
         <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
 
         <div className="grid grid-cols-2 gap-4">
-          <Button size="lg" className="flex flex-col gap-2 h-auto py-5 rounded-full btn-glow" style={{ background: isAtLimit ? "#9CA3AF" : "#1B4332" }} onClick={handlePickFile} disabled={isUploading}>
+          <Button size="lg" className="flex flex-col gap-2 h-auto py-5 rounded-full btn-glow" style={{ background: isAtLimit ? "#9CA3AF" : "#FF4500" }} onClick={handlePickFile} disabled={isUploading}>
             <Camera className="w-7 h-7 text-white" /><span className="text-white">{t("scan_camera")}</span>
           </Button>
           <Button size="lg" variant="secondary" className="flex flex-col gap-2 h-auto py-5 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700" onClick={handlePickFile} disabled={isUploading}>
@@ -247,7 +247,7 @@ const Scan = () => {
           <h3 className="font-bold mb-3 text-sm text-muted-foreground uppercase tracking-wide">{t("scan_tips_title")}</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
             {(["scan_tip1", "scan_tip2", "scan_tip3", "scan_tip4"] as const).map(k => (
-              <li key={k} className="flex gap-2"><span style={{ color: "#D4AF37" }}>•</span>{t(k)}</li>
+              <li key={k} className="flex gap-2"><span style={{ color: "#FF8C00" }}>•</span>{t(k)}</li>
             ))}
           </ul>
         </Card>

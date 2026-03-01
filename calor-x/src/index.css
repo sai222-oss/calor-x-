@@ -6,60 +6,59 @@
 
 @layer base {
   :root {
-    /* ── Clean, minimal, light UI ── */
+    /* ── Energetic Fitness UI ── */
     --background: 0 0% 100%;
     /* White */
-    --foreground: 0 0% 18%;
+    --foreground: 0 0% 10%;
+    /* #1A1A1A */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 18%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 18%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Deep Forest Green primary */
-    --primary: 153 40% 18%;
-    /* #1B4332 */
+    /* Primary: #FF4500 (deep energetic orange-red) */
+    --primary: 15 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    /* Soft mint green */
-    --secondary: 125 41% 94%;
-    /* #E8F5E9 */
-    --secondary-foreground: 153 40% 18%;
+    /* Secondary: #FF6B35 (warm orange) */
+    --secondary: 16 100% 60%;
+    --secondary-foreground: 0 0% 100%;
 
-    /* Very light gray Background alternate */
-    --muted: 0 0% 97%;
-    /* #F8F8F8 */
-    --muted-foreground: 0 0% 45%;
+    /* Surface: #FFF5F0 (very light warm white) */
+    --muted: 20 100% 97%;
+    --muted-foreground: 0 0% 53%;
+    /* #888888 */
 
-    /* Gold accent just for Pro */
-    --accent: 43 65% 52%;
-    /* #D4AF37 */
+    /* Accent: #FF8C00 (bright orange) */
+    --accent: 33 100% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 65% 50%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 92%;
-    --input: 0 0% 92%;
-    --ring: 153 40% 18%;
+    /* Border: #FFE8E0 */
+    --border: 15 100% 94%;
+    --input: 15 100% 94%;
+    --ring: 15 100% 50%;
 
     --radius: 20px;
 
-    /* Soft shadows */
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
-    --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.08);
-    --shadow-glow-gold: 0 0 32px rgba(212, 175, 55, 0.15);
+    /* Custom warm shadows */
+    --shadow-card: 0 2px 16px rgba(255, 69, 0, 0.08);
+    --shadow-elevated: 0 8px 30px rgba(255, 69, 0, 0.12);
+    --shadow-glow-gold: 0 0 32px rgba(255, 69, 0, 0.2);
     --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 18%;
-    --sidebar-primary: 153 40% 18%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 15 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 125 41% 94%;
-    --sidebar-accent-foreground: 153 40% 18%;
-    --sidebar-border: 0 0% 92%;
-    --sidebar-ring: 153 40% 18%;
+    --sidebar-accent: 20 100% 97%;
+    --sidebar-accent-foreground: 15 100% 50%;
+    --sidebar-border: 15 100% 94%;
+    --sidebar-ring: 15 100% 50%;
   }
 }
 
@@ -122,11 +121,11 @@
 
     0%,
     100% {
-      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 16px rgba(255, 69, 0, 0.25);
     }
 
     50% {
-      box-shadow: 0 0 32px rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 32px rgba(255, 69, 0, 0.45);
     }
   }
 
@@ -156,13 +155,13 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
-  /* Gold gradient text — for the "X" branding */
+  /* Accent text */
   .gold-text {
-    color: #D4AF37;
+    color: #FF8C00;
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #1B4332, #D4AF37);
+    background: linear-gradient(135deg, #FF4500, #FF8C00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -172,7 +171,7 @@
   .glass {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 69, 0, 0.08);
   }
 
   /* Premium button glow */
@@ -181,7 +180,7 @@
   }
 
   .btn-glow:hover {
-    box-shadow: 0 0 16px rgba(27, 67, 50, 0.25);
+    box-shadow: 0 0 16px rgba(255, 69, 0, 0.25);
     transform: translateY(-1px);
   }
 
@@ -189,7 +188,7 @@
   .premium-card {
     background: #FFFFFF;
     border-radius: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    border: none;
+    box-shadow: 0 2px 16px rgba(255, 69, 0, 0.08);
+    border: 1px solid #FFE8E0;
   }
 }

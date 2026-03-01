@@ -77,15 +77,15 @@ const Progress = () => {
   const fatTarget = goals?.fat_g_target ?? 65;
 
   const macros = [
-    { icon: Flame, label: t("prog_calories"), value: todayTotals.cal, target: calTarget, unit: "kcal", color: "#D4AF37" },
-    { icon: Zap, label: t("prog_protein"), value: todayTotals.protein, target: protTarget, unit: "g", color: "#1B4332" },
+    { icon: Flame, label: t("prog_calories"), value: todayTotals.cal, target: calTarget, unit: "kcal", color: "#FF8C00" },
+    { icon: Zap, label: t("prog_protein"), value: todayTotals.protein, target: protTarget, unit: "g", color: "#FF4500" },
     { icon: TrendingUp, label: t("prog_carbs"), value: todayTotals.carbs, target: carbTarget, unit: "g", color: "#6B7280" },
     { icon: Droplets, label: t("prog_fat"), value: todayTotals.fat, target: fatTarget, unit: "g", color: "#9CA3AF" },
   ];
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
-      <div className="p-4 flex items-center gap-3 text-white" style={{ background: "#1B4332" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+      <div className="p-4 flex items-center gap-3 text-white" style={{ background: "#FF4500" }}>
         <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
@@ -93,17 +93,17 @@ const Progress = () => {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-24"><Loader2 className="w-8 h-8 animate-spin" style={{ color: "#1B4332" }} /></div>
+        <div className="flex items-center justify-center py-24"><Loader2 className="w-8 h-8 animate-spin" style={{ color: "#FF4500" }} /></div>
       ) : (
         <div className="p-4 space-y-4">
           {/* Stats */}
           <div className="grid grid-cols-2 gap-3">
             <Card className="p-5 text-center premium-card">
-              <p className="text-4xl font-black" style={{ color: "#D4AF37" }}>{streak}</p>
+              <p className="text-4xl font-black" style={{ color: "#FF8C00" }}>{streak}</p>
               <p className="text-xs text-muted-foreground mt-1">{t("prog_day_streak")}</p>
             </Card>
             <Card className="p-5 text-center premium-card">
-              <p className="text-4xl font-black" style={{ color: "#1B4332" }}>{totalMeals}</p>
+              <p className="text-4xl font-black" style={{ color: "#FF4500" }}>{totalMeals}</p>
               <p className="text-xs text-muted-foreground mt-1">{t("prog_total_meals")}</p>
             </Card>
           </div>
@@ -111,8 +111,8 @@ const Progress = () => {
           {/* Chart */}
           <Card className="p-5 premium-card">
             <div className="flex items-center gap-2 mb-4">
-              <Calendar className="w-4 h-4" style={{ color: "#1B4332" }} />
-              <h2 className="font-bold" style={{ color: "#1B4332" }}>{t("prog_7day_cal")}</h2>
+              <Calendar className="w-4 h-4" style={{ color: "#FF4500" }} />
+              <h2 className="font-bold" style={{ color: "#FF4500" }}>{t("prog_7day_cal")}</h2>
             </div>
             {chartData.every(d => d.calories === 0) ? (
               <div className="py-8 text-center">
@@ -130,14 +130,14 @@ const Progress = () => {
                     />
                     <Bar dataKey="calories" radius={[8, 8, 0, 0]}>
                       {chartData.map((entry, i) => (
-                        <Cell key={i} fill={entry.calories >= calTarget ? "#D4AF37" : entry.calories > 0 ? "#1B4332" : "#E5E7EB"} />
+                        <Cell key={i} fill={entry.calories >= calTarget ? "#FF8C00" : entry.calories > 0 ? "#FF4500" : "#E5E7EB"} />
                       ))}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
                 <div className="flex items-center gap-4 mt-2 justify-center text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#1B4332" }} />{lang === "ar" ? "دون الهدف" : "Below goal"}</span>
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#D4AF37" }} />{lang === "ar" ? "الهدف محقق ✓" : "Goal reached ✓"}</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#FF4500" }} />{lang === "ar" ? "دون الهدف" : "Below goal"}</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#FF8C00" }} />{lang === "ar" ? "الهدف محقق ✓" : "Goal reached ✓"}</span>
                 </div>
               </>
             )}
@@ -146,8 +146,8 @@ const Progress = () => {
           {/* Today vs Goals */}
           <Card className="p-5 premium-card">
             <div className="flex items-center gap-2 mb-4">
-              <Target className="w-4 h-4" style={{ color: "#D4AF37" }} />
-              <h2 className="font-bold" style={{ color: "#1B4332" }}>{t("prog_today_vs_goals")}</h2>
+              <Target className="w-4 h-4" style={{ color: "#FF8C00" }} />
+              <h2 className="font-bold" style={{ color: "#FF4500" }}>{t("prog_today_vs_goals")}</h2>
             </div>
             {goals ? (
               <div className="space-y-4">
@@ -160,7 +160,7 @@ const Progress = () => {
                       </div>
                       <span className="text-xs text-muted-foreground">
                         {value}{unit} / {target}{unit} &nbsp;
-                        <span className="font-semibold" style={{ color: pct(value, target) >= 100 ? "#D4AF37" : "#1B4332" }}>
+                        <span className="font-semibold" style={{ color: pct(value, target) >= 100 ? "#FF8C00" : "#FF4500" }}>
                           {pct(value, target)}%
                         </span>
                       </span>
@@ -174,7 +174,7 @@ const Progress = () => {
               </div>
             ) : (
               <p className="text-sm text-muted-foreground text-center py-4">
-                {t("prog_setup_goals")} → <button className="underline" style={{ color: "#1B4332" }} onClick={() => navigate("/profile-setup")}>{t("setup")}</button>
+                {t("prog_setup_goals")} → <button className="underline" style={{ color: "#FF4500" }} onClick={() => navigate("/profile-setup")}>{t("setup")}</button>
               </p>
             )}
           </Card>
@@ -186,10 +186,10 @@ const Progress = () => {
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                <FlaskConical className="w-5 h-5" style={{ color: "#1B4332" }} />
+                <FlaskConical className="w-5 h-5" style={{ color: "#FF4500" }} />
               </div>
               <div>
-                <p className="font-bold text-sm" style={{ color: "#1B4332" }}>{t("micro_title")}</p>
+                <p className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("micro_title")}</p>
                 <p className="text-xs text-muted-foreground">{t("micro_subtitle")}</p>
               </div>
               <ArrowLeft className="w-4 h-4 ml-auto rotate-180 text-muted-foreground" />
@@ -199,7 +199,7 @@ const Progress = () => {
           {/* PDF Export */}
           <Button
             className="w-full py-5 rounded-2xl font-bold gap-2"
-            style={isPro ? { background: "#1B4332" } : { background: "#6B7280" }}
+            style={isPro ? { background: "#FF4500" } : { background: "#6B7280" }}
             onClick={handleExportPDF}
             disabled={pdfLoading}
           >

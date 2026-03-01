@@ -112,7 +112,7 @@ const NutritionResults = () => {
   const confidence = Math.round((nutritionData.confidence || 0) * 100);
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
       <PortionConfirmDialog
         open={showPortionDialog}
         onConfirm={handlePortionConfirm}
@@ -121,7 +121,7 @@ const NutritionResults = () => {
         totalCalories={nutrition.calories || 0}
       />
 
-      <div className="p-4 flex items-center justify-between text-white" style={{ background: "#1B4332" }}>
+      <div className="p-4 flex items-center justify-between text-white" style={{ background: "#FF4500" }}>
         <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate('/dashboard')}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
@@ -137,15 +137,15 @@ const NutritionResults = () => {
         <Card className="p-6 premium-card">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h2 className="text-2xl font-black text-brand-green">
+              <h2 className="text-2xl font-black text-[#FF4500]">
                 {lang === "ar" ? (nutritionData.dish_label_ar || nutritionData.dish_label) : (nutritionData.dish_label || nutritionData.dish_label_ar)}
               </h2>
-              <Badge variant="outline" className="mt-2" style={{ color: "#D4AF37", borderColor: "#D4AF37" }}>
+              <Badge variant="outline" className="mt-2" style={{ color: "#FF8C00", borderColor: "#FF8C00" }}>
                 {t("res_confidence", { n: confidence })}
               </Badge>
             </div>
             {nutritionData.cached && (
-              <Badge variant="secondary" className="bg-brand-green/10 text-brand-green border-0 uppercase text-[10px]">
+              <Badge variant="secondary" className="bg-[#FF4500]/10 text-[#FF4500] border-0 uppercase text-[10px]">
                 {t("res_cached")}
               </Badge>
             )}
@@ -153,12 +153,12 @@ const NutritionResults = () => {
 
           <div className="grid grid-cols-4 gap-2 text-center">
             {[
-              { label: t("res_calories"), val: Math.round(nutrition.calories), unit: "", color: "#1B4332", icon: Zap },
-              { label: t("res_protein_g"), val: Math.round(nutrition.protein_g), unit: "g", color: "#1B4332", icon: Dumbbell },
-              { label: t("res_carbs_g"), val: Math.round(nutrition.carbs_g), unit: "g", color: "#D4AF37", icon: Activity },
+              { label: t("res_calories"), val: Math.round(nutrition.calories), unit: "", color: "#FF4500", icon: Zap },
+              { label: t("res_protein_g"), val: Math.round(nutrition.protein_g), unit: "g", color: "#FF4500", icon: Dumbbell },
+              { label: t("res_carbs_g"), val: Math.round(nutrition.carbs_g), unit: "g", color: "#FF8C00", icon: Activity },
               { label: t("res_fat_g"), val: Math.round(nutrition.fat_g), unit: "g", color: "#6B7280", icon: Droplets }
             ].map(m => (
-              <div key={m.label} className="p-2 rounded-2xl" style={{ background: "#F9F9F2" }}>
+              <div key={m.label} className="p-2 rounded-2xl" style={{ background: "#FFF5F0" }}>
                 <p className="text-lg font-black" style={{ color: m.color }}>{m.val}<span className="text-[10px]">{m.unit}</span></p>
                 <p className="text-[10px] text-muted-foreground uppercase">{m.label}</p>
               </div>
@@ -168,28 +168,28 @@ const NutritionResults = () => {
 
         {/* Gym Intelligence */}
         {((nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar) && (
-          <Card className="p-5 premium-card border-brand-green/20" style={{ background: "rgba(27, 67, 50, 0.03)" }}>
+          <Card className="p-5 premium-card border-[#FF4500]/20" style={{ background: "rgba(27, 67, 50, 0.03)" }}>
             <div className="flex items-center gap-2 mb-3">
-              <Dumbbell className="w-5 h-5 text-brand-green" />
-              <h3 className="font-bold text-brand-green uppercase tracking-wider text-sm">{t("res_gym_intel")}</h3>
+              <Dumbbell className="w-5 h-5 text-[#FF4500]" />
+              <h3 className="font-bold text-[#FF4500] uppercase tracking-wider text-sm">{t("res_gym_intel")}</h3>
             </div>
             <div className="space-y-3">
-              <p className="text-sm font-medium leading-relaxed" style={{ color: "#1B4332" }}>
+              <p className="text-sm font-medium leading-relaxed" style={{ color: "#FF4500" }}>
                 {lang === "ar" ? ((nutritionData as any).gym_tip_ar || (nutritionData as any).gym_tip) : ((nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar)}
               </p>
               <div className="flex gap-4">
                 {(nutritionData as any).glycemic_index && (
-                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-brand-green/5">
+                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-[#FF4500]/5">
                     <p className="text-xs text-muted-foreground uppercase">{t("res_gi")}</p>
-                    <p className="text-lg font-black" style={{ color: (nutritionData as any).glycemic_index < 55 ? "#1B4332" : "#D4AF37" }}>
+                    <p className="text-lg font-black" style={{ color: (nutritionData as any).glycemic_index < 55 ? "#FF4500" : "#FF8C00" }}>
                       {(nutritionData as any).glycemic_index}
                     </p>
                   </div>
                 )}
                 {(nutritionData as any).protein_quality_score && (
-                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-brand-green/5">
+                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-[#FF4500]/5">
                     <p className="text-xs text-muted-foreground uppercase">{t("res_protein_quality")}</p>
-                    <p className="text-lg font-black text-brand-green">{(nutritionData as any).protein_quality_score}/10</p>
+                    <p className="text-lg font-black text-[#FF4500]">{(nutritionData as any).protein_quality_score}/10</p>
                   </div>
                 )}
               </div>
@@ -200,18 +200,18 @@ const NutritionResults = () => {
         {/* Ingredients */}
         {nutritionData.ingredients.length > 0 && (
           <Card className="p-5 premium-card">
-            <h3 className="font-bold text-sm mb-4 text-brand-green uppercase tracking-wide">{t("res_ingredients")}</h3>
+            <h3 className="font-bold text-sm mb-4 text-[#FF4500] uppercase tracking-wide">{t("res_ingredients")}</h3>
             <div className="space-y-2">
               {nutritionData.ingredients.map((ing, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 rounded-2xl" style={{ background: "#F9F9F2" }}>
+                <div key={idx} className="flex items-center justify-between p-3 rounded-2xl" style={{ background: "#FFF5F0" }}>
                   <div className="flex flex-col">
-                    <span className="font-bold text-sm" style={{ color: "#1B4332" }}>
+                    <span className="font-bold text-sm" style={{ color: "#FF4500" }}>
                       {lang === "ar" ? (ing.name_ar || ing.name) : (ing.name || ing.name_ar)}
                     </span>
                     <span className="text-[10px] text-muted-foreground">{ing.quantity_g}g</span>
                   </div>
                   <div className="text-right">
-                    <span className="font-bold text-sm" style={{ color: "#D4AF37" }}>{Math.round(ing.calories || ing.nutrition?.calories)} kcal</span>
+                    <span className="font-bold text-sm" style={{ color: "#FF8C00" }}>{Math.round(ing.calories || ing.nutrition?.calories)} kcal</span>
                   </div>
                 </div>
               ))}
@@ -220,10 +220,10 @@ const NutritionResults = () => {
         )}
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4" style={{ background: "#F9F9F2" }}>
+      <div className="fixed bottom-0 left-0 right-0 p-4" style={{ background: "#FFF5F0" }}>
         <Button
           className="w-full py-6 rounded-2xl btn-glow text-lg font-bold shadow-xl"
-          style={{ background: "#1B4332" }}
+          style={{ background: "#FF4500" }}
           onClick={handleSaveMeal}
           disabled={saving}
         >

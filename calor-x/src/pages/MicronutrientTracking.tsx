@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Loader2, FlaskConical, Pill } from "lucide-react";
+import { ArrowLeft, Loader2, FlaskConical, Pill, Lock, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/hooks/useLanguage";
+import { usePlan } from "@/hooks/usePlan";
 
 // RDI reference values (per day) – WHO/FDA standards
 const RDI: Record<string, { label: string; label_ar: string; unit: string; rdi: number; category: "vitamin" | "mineral" }> = {
@@ -131,36 +132,81 @@ const MicronutrientTracking = () => {
     const hasAnyData = micros.some(m => m.amount > 0);
 
     const getPctColor = (pct: number) => {
-        if (pct >= 80) return "#1B4332";
-        if (pct >= 40) return "#D4AF37";
+        if (pct >= 80) return "#FF4500";
+        if (pct >= 40) return "#FF8C00";
         return "#EF4444";
     };
 
-    return (
-        <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
-            {/* Header */}
-            <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)" }}>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/progress")}>
-                    <ArrowLeft className="w-6 h-6" />
-                </Button>
-                <div className="flex-1">
-                    <h1 className="text-lg font-bold">{t("micro_title")}</h1>
-                    <p className="text-xs opacity-80">{t("micro_7day")}</p>
-                </div>
-                <FlaskConical className="w-5 h-5 opacity-80" />
+    const { isPro, loading: planLoading } = usePlan();
+
+    const header = (
+        <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #FF4500, #FF6B35)" }}>
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/progress")}>
+                <ArrowLeft className="w-6 h-6" />
+            </Button>
+            <div className="flex-1">
+                <h1 className="text-lg font-bold">{t("micro_title")}</h1>
+                <p className="text-xs opacity-80">{t("micro_7day")}</p>
             </div>
+            <FlaskConical className="w-5 h-5 opacity-80" />
+        </div>
+    );
+
+    if (!planLoading && !isPro) {
+        return (
+            <div className="min-h-screen flex flex-col" style={{ background: "#FFF5F0" }}>
+                {header}
+                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #FF8C00, #B8860B)" }}>
+                        <Lock className="w-12 h-12 text-white" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-black mb-2" style={{ color: "#FF4500" }}>{t("coach_locked_title")}</h2>
+                        <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">{t("coach_locked_desc")}</p>
+                    </div>
+
+                    <Card className="w-full max-w-xs p-5 text-left space-y-3 premium-card">
+                        {[
+                            { icon: "🔬", text: "تتبع الفيتامينات والمعادن" },
+                            { icon: "📊", text: "تحليل دقيق لنقص التغذية" },
+                            { icon: "🍎", text: "اقتراحات أطعمة لسد النقص" },
+                        ].map(({ icon, text }) => (
+                            <div key={text} className="flex items-center gap-3">
+                                <span className="text-xl">{icon}</span>
+                                <span className="text-sm font-medium" style={{ color: "#FF4500" }}>{text}</span>
+                            </div>
+                        ))}
+                    </Card>
+
+                    <Button
+                        className="w-full max-w-xs py-6 rounded-2xl font-bold text-lg btn-glow"
+                        style={{ background: "#FF4500", color: "white" }}
+                        onClick={() => navigate("/pricing")}
+                    >
+                        <Zap className="w-5 h-5 mr-2" />
+                        {t("upgrade_btn")}
+                    </Button>
+                    <p className="text-xs text-muted-foreground">{t("price_footer")}</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+            {header}
 
             {loading ? (
                 <div className="flex items-center justify-center py-24">
-                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#1B4332" }} />
+                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#FF4500" }} />
                 </div>
             ) : !hasAnyData ? (
                 <div className="p-8 text-center space-y-4 pt-20">
                     <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                        <Pill className="w-10 h-10" style={{ color: "#1B4332", opacity: 0.4 }} />
+                        <Pill className="w-10 h-10" style={{ color: "#FF4500", opacity: 0.4 }} />
                     </div>
                     <p className="text-base font-medium text-muted-foreground">{t("micro_no_data")}</p>
-                    <Button className="rounded-2xl px-6" style={{ background: "#1B4332" }} onClick={() => navigate("/scan")}>
+                    <Button className="rounded-2xl px-6" style={{ background: "#FF4500" }} onClick={() => navigate("/scan")}>
                         {t("scan_title")}
                     </Button>
                 </div>
@@ -177,7 +223,7 @@ const MicronutrientTracking = () => {
                                 onClick={() => setActiveCategory(cat)}
                                 className="flex-1 py-2.5 rounded-2xl text-sm font-semibold transition-all"
                                 style={{
-                                    background: activeCategory === cat ? "#1B4332" : "white",
+                                    background: activeCategory === cat ? "#FF4500" : "white",
                                     color: activeCategory === cat ? "white" : "#6B7280",
                                     border: "1px solid rgba(27, 67, 50, 0.1)",
                                 }}
@@ -193,7 +239,7 @@ const MicronutrientTracking = () => {
                             <Card key={micro.key} className="p-4 premium-card">
                                 <div className="flex items-center justify-between mb-2">
                                     <div>
-                                        <p className="font-bold text-sm" style={{ color: "#1B4332" }}>
+                                        <p className="font-bold text-sm" style={{ color: "#FF4500" }}>
                                             {lang === "ar" ? micro.label_ar : micro.label}
                                         </p>
                                         {micro.sources.length > 0 && (
@@ -233,8 +279,8 @@ const MicronutrientTracking = () => {
                         </h3>
                         <div className="space-y-1.5">
                             {[
-                                { color: "#1B4332", label: lang === "ar" ? "≥ 80% — ممتاز" : "≥ 80% — Excellent" },
-                                { color: "#D4AF37", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
+                                { color: "#FF4500", label: lang === "ar" ? "≥ 80% — ممتاز" : "≥ 80% — Excellent" },
+                                { color: "#FF8C00", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
                                 { color: "#EF4444", label: lang === "ar" ? "< 40% — يحتاج تحسين" : "< 40% — Needs improvement" },
                             ].map(({ color, label }) => (
                                 <div key={color} className="flex items-center gap-2 text-xs">
@@ -245,8 +291,9 @@ const MicronutrientTracking = () => {
                         </div>
                     </Card>
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

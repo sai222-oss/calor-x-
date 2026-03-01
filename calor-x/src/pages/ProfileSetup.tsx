@@ -83,8 +83,8 @@ const ProfileSetup = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
-      <div className="p-4 flex items-center gap-3 text-white shadow-lg" style={{ background: "#1B4332" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+      <div className="p-4 flex items-center gap-3 text-white shadow-lg" style={{ background: "#FF4500" }}>
         <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
@@ -94,77 +94,77 @@ const ProfileSetup = () => {
       <div className="p-6 max-w-md mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="premium-card p-6 space-y-4">
-            <h2 className="text-lg font-bold text-brand-green mb-2 border-b pb-2">Basic Info</h2>
+            <h2 className="text-lg font-bold text-[#FF4500] mb-2 border-b pb-2">Basic Info</h2>
             <div className="space-y-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_name")}</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("setup_name")}</Label>
               <Input
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="rounded-xl border-brand-green/10 bg-[#F9F9F2] focus:ring-brand-green"
+                className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0] focus:ring-brand-green"
                 required
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_age")}</Label>
+                <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("setup_age")}</Label>
                 <Input
                   type="number"
                   value={formData.age}
                   onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                  className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                  className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0]"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_weight")}</Label>
+                <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("setup_weight")}</Label>
                 <Input
                   type="number"
                   value={formData.weight}
                   onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                  className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                  className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0]"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_height")}</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("setup_height")}</Label>
               <Input
                 type="number"
                 value={formData.height}
                 onChange={(e) => setFormData({ ...formData, height: e.target.value })}
-                className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0]"
                 required
               />
             </div>
 
             <div className="space-y-2 mt-4">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Phone Number (Optional)</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">Phone Number (Optional)</Label>
               <Input
                 type="tel"
                 value={formData.phone_number}
                 onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-                className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0]"
                 placeholder="+1234567890"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Country (Optional)</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">Country (Optional)</Label>
               <Input
                 value={formData.country}
                 onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                className="rounded-xl border-[#FF4500]/10 bg-[#FFF5F0]"
                 placeholder="e.g. Saudi Arabia, UAE"
               />
             </div>
           </div>
 
           <div className="premium-card p-6 space-y-4">
-            <h2 className="text-lg font-bold text-brand-green mb-2 border-b pb-2">Fitness & Diet</h2>
+            <h2 className="text-lg font-bold text-[#FF4500] mb-2 border-b pb-2">Fitness & Diet</h2>
             <div className="space-y-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_goal")}</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("setup_goal")}</Label>
               <div className="grid grid-cols-1 gap-2">
                 {[
                   { id: "lose", label: t("prof_goal_fat_loss") },
@@ -175,7 +175,7 @@ const ProfileSetup = () => {
                     key={g.id}
                     type="button"
                     onClick={() => setFormData({ ...formData, goal: g.id })}
-                    className={`p-4 rounded-2xl text-sm font-bold transition-all text-center border-2 ${formData.goal === g.id ? "bg-brand-green text-white border-brand-green shadow-md" : "bg-white text-muted-foreground border-brand-green/5"}`}
+                    className={`p-4 rounded-2xl text-sm font-bold transition-all text-center border-2 ${formData.goal === g.id ? "bg-[#FF4500] text-white border-[#FF4500] shadow-md" : "bg-white text-muted-foreground border-[#FF4500]/5"}`}
                   >
                     {g.label}
                   </button>
@@ -184,11 +184,11 @@ const ProfileSetup = () => {
             </div>
 
             <div className="space-y-2 pt-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("prof_activity")}</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">{t("prof_activity")}</Label>
               <select
                 value={formData.activity}
                 onChange={(e) => setFormData({ ...formData, activity: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+                className="w-full p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF4500]/10 text-sm font-bold text-[#FF4500] focus:outline-none focus:border-[#FF4500]"
               >
                 <option value="sedentary">{t("prof_act_sedentary")}</option>
                 <option value="light">{t("prof_act_light")}</option>
@@ -199,11 +199,11 @@ const ProfileSetup = () => {
             </div>
 
             <div className="space-y-2 pt-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Fitness Level</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">Fitness Level</Label>
               <select
                 value={formData.fitness_level}
                 onChange={(e) => setFormData({ ...formData, fitness_level: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+                className="w-full p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF4500]/10 text-sm font-bold text-[#FF4500] focus:outline-none focus:border-[#FF4500]"
               >
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
@@ -212,11 +212,11 @@ const ProfileSetup = () => {
             </div>
 
             <div className="space-y-2 pt-2">
-              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Dietary Preference</Label>
+              <Label className="text-[#FF4500] font-bold text-xs uppercase tracking-wider">Dietary Preference</Label>
               <select
                 value={formData.dietary_preference}
                 onChange={(e) => setFormData({ ...formData, dietary_preference: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+                className="w-full p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF4500]/10 text-sm font-bold text-[#FF4500] focus:outline-none focus:border-[#FF4500]"
               >
                 <option value="no_restriction">No Restriction</option>
                 <option value="vegetarian">Vegetarian</option>
@@ -230,12 +230,12 @@ const ProfileSetup = () => {
           <Button
             type="submit"
             className="w-full py-8 rounded-3xl btn-glow text-xl font-bold shadow-2xl gap-3"
-            style={{ background: "#1B4332" }}
+            style={{ background: "#FF4500" }}
             disabled={loading}
           >
             {loading ? <Loader2 className="animate-spin w-6 h-6" /> : (
               <>
-                <Sparkles className="w-6 h-6 text-brand-gold" />
+                <Sparkles className="w-6 h-6 text-[#FF8C00]" />
                 {t("setup_start")}
               </>
             )}

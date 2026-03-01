@@ -16,9 +16,17 @@ const PricingDynamic = () => {
   const { t } = useLanguage();
   const [isYearly, setIsYearly] = useState(false);
   const [loadingCheckout, setLoadingCheckout] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    // Need to define setup callback before loading script
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        setUserEmail(data.user.email || "");
+        setUserId(data.user.id || "");
+      }
+    });
+
     // @ts-ignore
     window.lemonSqueezyActive = true;
 
@@ -48,32 +56,21 @@ const PricingDynamic = () => {
     };
   }, []);
 
-  const handleProCheckout = async () => {
-    try {
-      setLoadingCheckout(true);
-      const { data: { user } } = await supabase.auth.getUser();
+  const handleProCheckout = () => {
+    if (!userId) {
+      navigate("/auth");
+      return;
+    }
 
-      if (!user) {
-        navigate("/auth"); // Ensure redirect to /auth
-        return;
-      }
+    const variantId = isYearly ? VARIANT_YEARLY : VARIANT_MONTHLY;
+    const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(userEmail)}&checkout[custom][user_id]=${userId}`;
 
-      const variantId = isYearly ? VARIANT_YEARLY : VARIANT_MONTHLY;
-
-      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}&checkout[custom][user_id]=${user.id}`;
-
+    // @ts-ignore
+    if (window.LemonSqueezy) {
       // @ts-ignore
-      if (window.LemonSqueezy) {
-        // @ts-ignore
-        window.LemonSqueezy.Url.Open(checkoutUrl);
-      } else {
-        window.open(checkoutUrl, "_blank");
-      }
-    } catch (error) {
-      console.error("Error initiating checkout:", error);
-      toast.error("Failed to open checkout");
-    } finally {
-      setLoadingCheckout(false);
+      window.LemonSqueezy.Url.Open(checkoutUrl);
+    } else {
+      window.open(checkoutUrl, "_blank");
     }
   };
 
@@ -98,9 +95,9 @@ const PricingDynamic = () => {
     },
     {
       name: t("plan_pro"),
-      price: isYearly ? "60" : "6",
-      period: isYearly ? t("per_year") : t("per_month"),
-      description: t("desc_pro"),
+      price: isYearly ? "3" : "5",
+      period: isYearly ? t("per_month") : t("per_month"),
+      description: isYearly ? "Billed as $36/year" : t("desc_pro"),
       features: [
         { text: t("feat_scan_unlimited"), included: true },
         { text: t("feat_ai_coach"), included: true },
@@ -117,10 +114,10 @@ const PricingDynamic = () => {
   ];
 
   return (
-    <section className="py-24" style={{ background: "linear-gradient(180deg, #F9F9F2 0%, #eef2ef 100%)" }}>
+    <section className="py-24" style={{ background: "linear-gradient(180deg, #FFF5F0 0%, #eef2ef 100%)" }}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: "#1B4332" }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: "#FF4500" }}>
             {t("price_title")}
           </h2>
           <p className="text-base text-gray-500 max-w-md mx-auto">
@@ -130,13 +127,13 @@ const PricingDynamic = () => {
 
         {/* Billing Toggle */}
         <div className="flex justify-center items-center gap-4 mb-14">
-          <span className={`text-sm font-semibold transition-colors ${!isYearly ? "text-[#1B4332]" : "text-gray-400"}`}>
+          <span className={`text-sm font-semibold transition-colors ${!isYearly ? "text-[#FF4500]" : "text-gray-400"}`}>
             {t("toggle_monthly")}
           </span>
           <button
             onClick={() => setIsYearly(!isYearly)}
             className="relative w-16 h-8 rounded-full transition-colors duration-300 outline-none"
-            style={{ backgroundColor: isYearly ? "#D4AF37" : "#1B4332" }}
+            style={{ backgroundColor: isYearly ? "#FF8C00" : "#FF4500" }}
           >
             <div
               className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 blur-[0.5px] shadow-sm ${isYearly ? "left-[34px]" : "left-1"
@@ -144,11 +141,11 @@ const PricingDynamic = () => {
             />
           </button>
           <div className="flex items-center gap-2">
-            <span className={`text-sm font-semibold transition-colors ${isYearly ? "text-[#1B4332]" : "text-gray-400"}`}>
+            <span className={`text-sm font-semibold transition-colors ${isYearly ? "text-[#FF4500]" : "text-gray-400"}`}>
               {t("toggle_yearly")}
             </span>
-            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">
-              {t("save_15")}
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#FF6B35" }}>
+              Save 40%
             </span>
           </div>
         </div>
@@ -162,14 +159,14 @@ const PricingDynamic = () => {
                 : "shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1"
                 }`}
               style={{
-                background: plan.highlight ? "#1B4332" : "#ffffff",
-                borderColor: plan.highlight ? "#D4AF37" : undefined,
+                background: plan.highlight ? "#FF4500" : "#ffffff",
+                borderColor: plan.highlight ? "#FF8C00" : undefined,
               }}
             >
               {/* Popular badge */}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="px-4 py-1 text-sm font-bold" style={{ background: "#D4AF37", color: "#1B1B1B" }}>
+                  <Badge className="px-4 py-1 text-sm font-bold" style={{ background: "#FF8C00", color: "#1B1B1B" }}>
                     {t("popular_badge")}
                   </Badge>
                 </div>
@@ -177,14 +174,14 @@ const PricingDynamic = () => {
 
               <div className="p-7 pt-8">
                 {/* Plan name */}
-                <h3 className="text-2xl font-bold mb-4" style={{ color: plan.highlight ? "#D4AF37" : "#1B4332" }}>
+                <h3 className="text-2xl font-bold mb-4" style={{ color: plan.highlight ? "#FF8C00" : "#FF4500" }}>
                   {plan.name}
                 </h3>
 
                 {/* Price */}
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-2xl font-bold" style={{ color: plan.highlight ? "rgba(255,255,255,0.6)" : "#9CA3AF" }}>$</span>
-                  <span className="text-6xl font-black" style={{ color: plan.highlight ? "#ffffff" : "#1B4332" }}>
+                  <span className="text-6xl font-black" style={{ color: plan.highlight ? "#ffffff" : "#FF4500" }}>
                     {plan.price}
                   </span>
                   <span className="text-sm" style={{ color: plan.highlight ? "rgba(255,255,255,0.6)" : "#9CA3AF" }}>{plan.period}</span>
@@ -198,8 +195,8 @@ const PricingDynamic = () => {
                 <Button
                   className="w-full py-5 text-base font-bold rounded-2xl mb-6 transition-opacity hover:opacity-90"
                   style={plan.highlight
-                    ? { background: "#D4AF37", color: "#1B1B1B" }
-                    : { background: "#1B4332", color: "#ffffff", border: "2px solid #1B4332" }
+                    ? { background: "#FF8C00", color: "#1B1B1B" }
+                    : { background: "#FF4500", color: "#ffffff", border: "2px solid #FF4500" }
                   }
                   onClick={plan.onAction}
                   disabled={loadingCheckout}
@@ -212,7 +209,7 @@ const PricingDynamic = () => {
                   {plan.features.map((f, j) => (
                     <li key={j} className="flex items-start gap-3">
                       {f.included ? (
-                        <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: plan.highlight ? "#D4AF37" : "#1B4332" }} />
+                        <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: plan.highlight ? "#FF8C00" : "#FF4500" }} />
                       ) : (
                         <X className="w-4 h-4 mt-0.5 shrink-0" style={{ color: plan.highlight ? "rgba(255,255,255,0.25)" : "#D1D5DB" }} />
                       )}
