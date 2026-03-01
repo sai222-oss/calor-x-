@@ -18,7 +18,7 @@ const QUICK_PROMPT_KEYS: StringKey[] = ["qp1", "qp2", "qp3", "qp4", "qp5"];
 const AICoach = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const { isStandard, loading: planLoading } = usePlan();
+  const { isPro, loading: planLoading } = usePlan();
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: t("coach_greeting") },
   ]);
@@ -76,7 +76,7 @@ const AICoach = () => {
   );
 
   // ── Paywall screen for free users ──────────────────────────────────────────
-  if (!planLoading && !isStandard) {
+  if (!planLoading && !isPro) {
     return (
       <div className="min-h-screen flex flex-col" style={{ background: "#F9F9F2" }}>
         {header}

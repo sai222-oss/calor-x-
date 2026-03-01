@@ -3,12 +3,60 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
-const plans = []; // Clear static plans as they are now inside the component using translations
+// Lemon Squeezy Variant IDs
+const VARIANT_MONTHLY = "1353475";
+const VARIANT_YEARLY = "1353430";
 
 const PricingDynamic = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [isYearly, setIsYearly] = useState(false);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
+
+  useEffect(() => {
+    // Load LemonSqueezy script
+    const script = document.createElement("script");
+    script.src = "https://app.lemonsqueezy.com/js/lemon.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const handleProCheckout = async () => {
+    try {
+      setLoadingCheckout(true);
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        navigate("/signup");
+        return;
+      }
+
+      const variantId = isYearly ? VARIANT_YEARLY : VARIANT_MONTHLY;
+
+      // We pass the user email so Lemon Squeezy can pre-fill
+      // We also pass the user ID as custom data so the webhook can identify the user
+      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}&checkout[custom][user_id]=${user.id}`;
+
+      // @ts-ignore - LemonSqueezy is initialized via external script
+      window.createLemonSqueezy();
+      // @ts-ignore
+      LemonSqueezy.Url.Open(checkoutUrl);
+
+    } catch (error) {
+      console.error("Error initiating checkout:", error);
+      toast.error("Failed to open checkout");
+    } finally {
+      setLoadingCheckout(false);
+    }
+  };
 
   const plans = [
     {
@@ -27,28 +75,12 @@ const PricingDynamic = () => {
       cta: t("cta_start_free"),
       highlight: false,
       popular: false,
-    },
-    {
-      name: t("plan_standard"),
-      price: "3",
-      period: t("per_month"),
-      description: t("desc_standard"),
-      features: [
-        { text: t("feat_scan_10"), included: true },
-        { text: t("feat_full_macro"), included: true },
-        { text: t("feat_trends"), included: true },
-        { text: t("feat_no_ads"), included: true },
-        { text: t("nav_coach"), included: false },
-        { text: t("feat_pdf_reports"), included: false },
-      ],
-      cta: t("cta_get_standard"),
-      highlight: true,
-      popular: true,
+      onAction: () => navigate("/signup"),
     },
     {
       name: t("plan_pro"),
-      price: "6",
-      period: t("per_month"),
+      price: isYearly ? "60" : "6",
+      period: isYearly ? t("per_year") : t("per_month"),
       description: t("desc_pro"),
       features: [
         { text: t("feat_scan_unlimited"), included: true },
@@ -58,16 +90,17 @@ const PricingDynamic = () => {
         { text: t("feat_micro"), included: true },
         { text: t("feat_priority"), included: true },
       ],
-      cta: t("cta_get_pro"),
-      highlight: false,
-      popular: false,
+      cta: loadingCheckout ? t("loading") : t("cta_get_pro"),
+      highlight: true,
+      popular: true,
+      onAction: handleProCheckout,
     },
   ];
 
   return (
     <section className="py-24" style={{ background: "linear-gradient(180deg, #F9F9F2 0%, #eef2ef 100%)" }}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: "#1B4332" }}>
             {t("price_title")}
           </h2>
@@ -76,7 +109,32 @@ const PricingDynamic = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
+        {/* Billing Toggle */}
+        <div className="flex justify-center items-center gap-4 mb-14">
+          <span className={`text-sm font-semibold transition-colors ${!isYearly ? "text-[#1B4332]" : "text-gray-400"}`}>
+            {t("toggle_monthly")}
+          </span>
+          <button
+            onClick={() => setIsYearly(!isYearly)}
+            className="relative w-16 h-8 rounded-full transition-colors duration-300 outline-none"
+            style={{ backgroundColor: isYearly ? "#D4AF37" : "#1B4332" }}
+          >
+            <div
+              className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 blur-[0.5px] shadow-sm ${isYearly ? "left-[34px]" : "left-1"
+                }`}
+            />
+          </button>
+          <div className="flex items-center gap-2">
+            <span className={`text-sm font-semibold transition-colors ${isYearly ? "text-[#1B4332]" : "text-gray-400"}`}>
+              {t("toggle_yearly")}
+            </span>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">
+              {t("save_15")}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start">
           {plans.map((plan, i) => (
             <div
               key={i}
@@ -124,7 +182,8 @@ const PricingDynamic = () => {
                     ? { background: "#D4AF37", color: "#1B1B1B" }
                     : { background: "#1B4332", color: "#ffffff", border: "2px solid #1B4332" }
                   }
-                  onClick={() => navigate("/signup")}
+                  onClick={plan.onAction}
+                  disabled={loadingCheckout}
                 >
                   {plan.cta}
                 </Button>

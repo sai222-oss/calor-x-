@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export type Plan = "free" | "standard" | "pro";
+export type Plan = "free" | "pro";
 
 interface UsePlanResult {
     plan: Plan;
     isPro: boolean;
-    isStandard: boolean; // standard OR pro
-    scanLimit: number;   // 1 | 10 | Infinity
+    scanLimit: number;   // 1 | Infinity
     loading: boolean;
 }
 
@@ -20,13 +19,12 @@ export function usePlan(): UsePlanResult {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (!user) { setLoading(false); return; }
-                // Use explicit cast since 'plan' column may not be in generated types yet
                 const { data } = await supabase
                     .from("profiles")
                     .select("plan")
                     .eq("id", user.id)
                     .single() as any;
-                if (data?.plan && ["free", "standard", "pro"].includes(data.plan)) {
+                if (data?.plan && ["free", "pro"].includes(data.plan)) {
                     setPlan(data.plan as Plan);
                 }
             } catch {
@@ -39,8 +37,7 @@ export function usePlan(): UsePlanResult {
     }, []);
 
     const isPro = plan === "pro";
-    const isStandard = plan === "standard" || plan === "pro";
-    const scanLimit = plan === "free" ? 1 : plan === "standard" ? 10 : Infinity;
+    const scanLimit = plan === "free" ? 1 : Infinity;
 
-    return { plan, isPro, isStandard, scanLimit, loading };
+    return { plan, isPro, scanLimit, loading };
 }

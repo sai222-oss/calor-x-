@@ -204,6 +204,10 @@ const strings = {
     popular_badge: { ar: "⭐ الأكثر شيوعاً", en: "⭐ Most Popular" },
     forever: { ar: "للأبد", en: "forever" },
     per_month: { ar: "/شهرياً", en: "/month" },
+    per_year: { ar: "/سنوياً", en: "/year" },
+    toggle_monthly: { ar: "شهرياً", en: "Monthly" },
+    toggle_yearly: { ar: "سنوياً", en: "Yearly" },
+    save_15: { ar: "توفير 15٪", en: "Save 15%" },
 
     // ─── Landing Page ─────────────────────────────────────
     hero_tag: { ar: "تغذية ذكية للمطبخ العربي", en: "AI-Powered Nutrition for Arabic Cuisine" },
