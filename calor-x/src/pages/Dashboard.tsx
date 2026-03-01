@@ -98,47 +98,55 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
-      {/* Forest Green Header */}
-      <div className="p-6 pb-8 text-white" style={{ background: "linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%)", borderRadius: "0 0 32px 32px" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#F8F8F8" }}>
+      {/* Light Header */}
+      <div className="p-6 pb-6 bg-white border-b border-gray-100 shadow-sm" style={{ borderRadius: "0 0 24px 24px" }}>
         <div className="flex items-center justify-between">
           <div>
-            <AppName />
-            <p className="text-sm font-medium opacity-100 mt-1" style={{ color: "rgba(255,255,255,0.95)" }}>
+            <span className="text-2xl font-black tracking-wide" style={{ color: "#1B4332" }}>
+              Calor <span className="text-brand-gold">X</span>
+            </span>
+            <p className="text-sm font-medium mt-1 text-muted-foreground">
               {profile?.full_name ? t("dash_greeting", { name: profile.full_name }) : t("dash_welcome")}
             </p>
           </div>
           {profile?.health_goal && (
-            <Badge className="bg-white/25 text-white border-0 text-xs backdrop-blur-sm font-bold">
+            <Badge className="bg-brand-green/10 text-brand-green border-0 text-xs font-bold px-3 py-1">
               {goalBadges[profile.health_goal] ?? profile.health_goal}
             </Badge>
           )}
         </div>
       </div>
 
-      <div className="p-4 -mt-4 space-y-4">
+      <div className="p-4 space-y-4 mt-2">
         {/* Calorie Summary Card */}
-        <Card className="p-6 premium-card border-shadow">
-          <div className="flex items-center justify-between mb-4">
+        <Card className="p-6 premium-card border-0 shadow-sm">
+          <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold text-brand-green">{t("dash_today_summary")}</h2>
             {loading && <Loader2 className="w-4 h-4 animate-spin text-brand-green/50" />}
           </div>
 
-          <div className="text-center mb-5">
-            <p className="text-6xl font-black tracking-tight" style={{ color: "#1B4332" }}>{Math.round(cals)}</p>
-            <p className="text-sm text-gray-600 mt-2 font-medium">
+          <div className="text-center">
+            {/* Circular Progress */}
+            <div className="relative w-48 h-48 mx-auto my-4 flex items-center justify-center">
+              <svg className="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#E8F5E9" strokeWidth="8" />
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#1B4332" strokeWidth="8"
+                  strokeDasharray="264" strokeDashoffset={264 - (264 * pct(cals, calTarget)) / 100}
+                  strokeLinecap="round" className="transition-all duration-1000 ease-out" />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <p className="text-4xl font-black tracking-tight" style={{ color: "#1B4332" }}>{Math.round(cals)}</p>
+                <p className="text-[10px] text-muted-foreground mt-1 font-bold tracking-widest uppercase">{t("dash_kcal") ?? "KCAL"}</p>
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-500 font-medium">
               {t("dash_of_target", { n: calTarget })} &nbsp;·&nbsp;{" "}
-              <span className="font-bold" style={{ color: "#B8860B" }}>
+              <span className="font-bold text-brand-gold">
                 {t("dash_remaining", { n: remainingCals })}
               </span>
             </p>
-            {/* Progress bar: green bg, gold fill */}
-            <div className="mt-4 h-4 rounded-full overflow-hidden shadow-inner" style={{ background: "rgba(27, 67, 50, 0.1)" }}>
-              <div
-                className="h-full rounded-full transition-all duration-700 ease-out"
-                style={{ width: `${pct(cals, calTarget)}%`, background: "linear-gradient(90deg, #D4AF37, #C9A02C)" }}
-              />
-            </div>
           </div>
 
           {/* Macro Grid */}

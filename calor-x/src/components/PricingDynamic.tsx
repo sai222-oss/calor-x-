@@ -18,14 +18,33 @@ const PricingDynamic = () => {
   const [loadingCheckout, setLoadingCheckout] = useState(false);
 
   useEffect(() => {
-    // Load LemonSqueezy script
+    // Need to define setup callback before loading script
+    // @ts-ignore
+    window.lemonSqueezyActive = true;
+
     const script = document.createElement("script");
     script.src = "https://app.lemonsqueezy.com/js/lemon.js";
     script.async = true;
+    script.onload = () => {
+      // @ts-ignore
+      if (window.createLemonSqueezy) {
+        // @ts-ignore
+        window.createLemonSqueezy();
+        // @ts-ignore
+        if (window.LemonSqueezy) {
+          // @ts-ignore
+          window.LemonSqueezy.Setup({
+            eventHandler: (event: any) => console.log(event)
+          });
+        }
+      }
+    };
     document.body.appendChild(script);
 
     return () => {
       document.body.removeChild(script);
+      // @ts-ignore
+      window.lemonSqueezyActive = false;
     };
   }, []);
 
@@ -35,21 +54,21 @@ const PricingDynamic = () => {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (!user) {
-        navigate("/signup");
+        navigate("/auth"); // Ensure redirect to /auth
         return;
       }
 
       const variantId = isYearly ? VARIANT_YEARLY : VARIANT_MONTHLY;
 
-      // We pass the user email so Lemon Squeezy can pre-fill
-      // We also pass the user ID as custom data so the webhook can identify the user
       const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}&checkout[custom][user_id]=${user.id}`;
 
-      // @ts-ignore - LemonSqueezy is initialized via external script
-      window.createLemonSqueezy();
       // @ts-ignore
-      LemonSqueezy.Url.Open(checkoutUrl);
-
+      if (window.LemonSqueezy) {
+        // @ts-ignore
+        window.LemonSqueezy.Url.Open(checkoutUrl);
+      } else {
+        window.open(checkoutUrl, "_blank");
+      }
     } catch (error) {
       console.error("Error initiating checkout:", error);
       toast.error("Failed to open checkout");

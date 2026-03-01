@@ -4,8 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, MailCheck, AlertCircle } from "lucide-react";
 
 const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
   const navigate = useNavigate();
@@ -15,6 +14,11 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
+  // New State for Professional UI
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [verificationType, setVerificationType] = useState<"signup" | "login">("signup");
 
   useEffect(() => {
     if (mode === "signup") {
@@ -35,66 +39,117 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
     };
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) checkRedirect(session.user.id);
+      // Only redirect if confirmed
+      if (session && session.user.email_confirmed_at) {
+        checkRedirect(session.user.id);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) checkRedirect(session.user.id);
+      if (session && session.user.email_confirmed_at) {
+        checkRedirect(session.user.id);
+      }
     });
     return () => subscription.unsubscribe();
   }, [navigate, location.search, mode]);
 
   const handleGoogleSignIn = async () => {
+    setErrorMsg("");
     setGoogleLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/dashboard` },
     });
     if (error) {
-      toast.error("Google sign-in failed: " + error.message);
+      setErrorMsg("Google sign-in failed: " + error.message);
       setGoogleLoading(false);
     }
   };
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMsg("");
+
     if (!email || !password) {
-      toast.error("Please enter email and password");
+      setErrorMsg("Please enter email and password");
       return;
     }
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      setErrorMsg("Password must be at least 6 characters");
       return;
     }
+
     setLoading(true);
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) toast.error(error.message.includes("Invalid") ? "Invalid email or password" : error.message);
-        else toast.success("Welcome back!");
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          setErrorMsg(error.message.includes("Invalid") ? "Invalid email or password" : error.message);
+        } else if (data.user && !data.user.email_confirmed_at) {
+          // Block access if email is not verified
+          await supabase.auth.signOut();
+          setVerificationType("login");
+          setShowVerificationModal(true);
+        }
       } else {
         const { error } = await supabase.auth.signUp({
           email, password,
           options: { emailRedirectTo: `${window.location.origin}/dashboard` },
         });
-        if (error) toast.error(error.message);
-        else toast.success("Account created! Check your email to verify.");
+        if (error) {
+          setErrorMsg(error.message);
+        } else {
+          setVerificationType("signup");
+          setShowVerificationModal(true);
+        }
       }
     } catch {
-      toast.error("An error occurred, please try again");
+      setErrorMsg("An error occurred, please try again");
     } finally {
       setLoading(false);
     }
   };
 
+  const toggleAuthMode = () => {
+    setErrorMsg("");
+    if (location.pathname === "/signup" && !isLogin) {
+      navigate("/auth");
+    } else if (location.pathname === "/auth" && isLogin) {
+      navigate("/signup");
+    } else {
+      setIsLogin(!isLogin);
+    }
+  };
+
+  if (showVerificationModal) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F8F8F8" }}>
+        <Card className="w-full max-w-md p-8 text-center space-y-6 premium-card animate-fade-in">
+          <div className="mx-auto w-16 h-16 bg-[#1B4332]/10 rounded-full flex items-center justify-center mb-4">
+            <MailCheck className="h-8 w-8 text-[#1B4332]" />
+          </div>
+          <h2 className="text-2xl font-bold text-[#1B4332]">
+            {verificationType === "signup" ? "Check your email" : "Email Verification Required"}
+          </h2>
+          <p className="text-muted-foreground">
+            {verificationType === "signup"
+              ? "We've sent a verification link to your email address. Please verify your email to continue."
+              : "You must verify your email address before you can log in to Calor X. Please check your inbox for the verification link."}
+          </p>
+          <Button onClick={() => setShowVerificationModal(false)} className="w-full py-5 btn-glow mt-4 rounded-full text-white font-bold" style={{ background: "#1B4332" }}>
+            Return to Login
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: "linear-gradient(135deg, hsl(220 18% 7%) 0%, hsl(220 14% 10%) 100%)" }}>
-      <Card className="w-full max-w-md p-8 space-y-6 border-border/40 animate-fade-in"
-        style={{ background: "hsl(220 16% 11%)" }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F8F8F8" }}>
+      <Card className="w-full max-w-md p-8 space-y-6 premium-card animate-fade-in">
         <div className="text-center space-y-1">
-          <h1 className="text-3xl font-heading font-bold gradient-text">Calor X</h1>
-          <h2 className="text-xl font-bold mt-3">
+          <h1 className="text-3xl font-heading font-bold text-[#1B4332]">Calor <span className="text-[#D4AF37]">X</span></h1>
+          <h2 className="text-xl font-bold mt-3 text-gray-900">
             {isLogin ? "تسجيل الدخول" : "إنشاء حساب"}
           </h2>
           <p className="text-muted-foreground text-sm">
@@ -106,7 +161,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
         <Button
           type="button"
           variant="outline"
-          className="w-full gap-3 border-border/60 hover:border-border py-5"
+          className="w-full gap-3 border-gray-200 hover:bg-gray-50 py-5 rounded-full text-gray-700 font-medium"
           onClick={handleGoogleSignIn}
           disabled={googleLoading || loading}
         >
@@ -125,31 +180,38 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-border/40" />
+            <span className="w-full border-t border-gray-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-card px-3 text-muted-foreground">or</span>
+            <span className="bg-white px-3 text-muted-foreground">or</span>
           </div>
         </div>
 
+        {errorMsg && (
+          <div className="p-3 rounded-md bg-red-950/50 border border-red-900/50 flex items-center gap-2 text-red-200 text-sm animate-fade-in">
+            <AlertCircle className="h-4 w-4 shrink-0" />
+            <p>{errorMsg}</p>
+          </div>
+        )}
+
         <form onSubmit={handleAuth} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Email / البريد الإلكتروني</label>
+            <label className="text-sm font-medium text-gray-700">Email / البريد الإلكتروني</label>
             <Input
               type="email" placeholder="your@email.com" value={email}
               onChange={e => setEmail(e.target.value)} disabled={loading} required
-              className="bg-secondary/50 border-border/40 focus:border-primary"
+              className="bg-[#F8F8F8] border-gray-200 focus:border-[#1B4332] rounded-xl"
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">Password / كلمة المرور</label>
+            <label className="text-sm font-medium text-gray-700">Password / كلمة المرور</label>
             <Input
               type="password" placeholder="••••••••" value={password}
               onChange={e => setPassword(e.target.value)} disabled={loading} required minLength={6}
-              className="bg-secondary/50 border-border/40 focus:border-primary"
+              className="bg-[#F8F8F8] border-gray-200 focus:border-[#1B4332] rounded-xl"
             />
           </div>
-          <Button type="submit" className="w-full py-5 btn-glow" disabled={loading}>
+          <Button type="submit" className="w-full py-5 btn-glow rounded-full text-white font-bold" style={{ background: "#1B4332" }} disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isLogin ? "Sign In / تسجيل الدخول" : "Sign Up / إنشاء حساب"}
           </Button>
@@ -165,8 +227,8 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
         <div className="text-center space-y-3">
           <button
-            type="button" onClick={() => setIsLogin(!isLogin)}
-            className="text-sm text-primary hover:underline" disabled={loading}
+            type="button" onClick={toggleAuthMode}
+            className="text-sm text-[#1B4332] font-semibold hover:underline" disabled={loading}
           >
             {isLogin ? "Don't have an account? Sign up →" : "Already have an account? Sign in →"}
           </button>
@@ -185,3 +247,4 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 };
 
 export default Auth;
+

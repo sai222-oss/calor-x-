@@ -18,7 +18,11 @@ const ProfileSetup = () => {
     weight: "",
     height: "",
     goal: "maintain",
-    activity: "moderate"
+    activity: "moderate",
+    phone_number: "",
+    country: "",
+    fitness_level: "beginner",
+    dietary_preference: "no_restriction"
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,7 +58,11 @@ const ProfileSetup = () => {
           height_cm: height,
           health_goal: formData.goal === "lose" ? "lose_weight" : formData.goal === "gain" ? "gain_muscle" : "maintenance",
           activity_level: formData.activity,
-          onboarding_completed: true
+          onboarding_completed: true,
+          phone_number: formData.phone_number || null,
+          country: formData.country || null,
+          fitness_level: formData.fitness_level || null,
+          dietary_preferences: formData.dietary_preference !== "no_restriction" ? [formData.dietary_preference] : null
         }).eq("id", user.id),
         supabase.from("daily_goals").upsert({
           user_id: user.id,
@@ -86,6 +94,7 @@ const ProfileSetup = () => {
       <div className="p-6 max-w-md mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="premium-card p-6 space-y-4">
+            <h2 className="text-lg font-bold text-brand-green mb-2 border-b pb-2">Basic Info</h2>
             <div className="space-y-2">
               <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_name")}</Label>
               <Input
@@ -129,9 +138,31 @@ const ProfileSetup = () => {
                 required
               />
             </div>
+
+            <div className="space-y-2 mt-4">
+              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Phone Number (Optional)</Label>
+              <Input
+                type="tel"
+                value={formData.phone_number}
+                onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+                className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                placeholder="+1234567890"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Country (Optional)</Label>
+              <Input
+                value={formData.country}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                className="rounded-xl border-brand-green/10 bg-[#F9F9F2]"
+                placeholder="e.g. Saudi Arabia, UAE"
+              />
+            </div>
           </div>
 
           <div className="premium-card p-6 space-y-4">
+            <h2 className="text-lg font-bold text-brand-green mb-2 border-b pb-2">Fitness & Diet</h2>
             <div className="space-y-2">
               <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">{t("setup_goal")}</Label>
               <div className="grid grid-cols-1 gap-2">
@@ -157,13 +188,41 @@ const ProfileSetup = () => {
               <select
                 value={formData.activity}
                 onChange={(e) => setFormData({ ...formData, activity: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-white border-2 border-brand-green/5 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
               >
                 <option value="sedentary">{t("prof_act_sedentary")}</option>
                 <option value="light">{t("prof_act_light")}</option>
                 <option value="moderate">{t("prof_act_moderate")}</option>
                 <option value="active">{t("prof_act_active")}</option>
                 <option value="very_active">{t("prof_act_very_active")}</option>
+              </select>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Fitness Level</Label>
+              <select
+                value={formData.fitness_level}
+                onChange={(e) => setFormData({ ...formData, fitness_level: e.target.value })}
+                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <Label className="text-brand-green font-bold text-xs uppercase tracking-wider">Dietary Preference</Label>
+              <select
+                value={formData.dietary_preference}
+                onChange={(e) => setFormData({ ...formData, dietary_preference: e.target.value })}
+                className="w-full p-4 rounded-2xl bg-[#F9F9F2] border border-brand-green/10 text-sm font-bold text-brand-green focus:outline-none focus:border-brand-green"
+              >
+                <option value="no_restriction">No Restriction</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="halal">Halal</option>
+                <option value="keto">Keto</option>
               </select>
             </div>
           </div>

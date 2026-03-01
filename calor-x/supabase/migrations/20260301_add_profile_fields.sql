@@ -1,0 +1,5 @@
+ALTER TABLE profiles 
+ADD COLUMN IF NOT EXISTS phone_number TEXT,
+ADD COLUMN IF NOT EXISTS country TEXT,
+ADD COLUMN IF NOT EXISTS fitness_level TEXT,
+ADD COLUMN IF NOT EXISTS dietary_preferences TEXT[];

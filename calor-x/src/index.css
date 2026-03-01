@@ -6,35 +6,33 @@
 
 @layer base {
   :root {
-    /* ── Organic-Premium: Forest Green + Gold + Cream ── */
-    --background: 60 14% 96%;
-    /* #F9F9F2 off-white cream */
+    /* ── Clean, minimal, light UI ── */
+    --background: 0 0% 100%;
+    /* White */
     --foreground: 0 0% 18%;
-    /* #2D2D2D charcoal */
 
-    --card: 60 20% 97%;
-    /* white-cream card */
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 18%;
 
-    --popover: 60 20% 97%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 18%;
 
     /* Deep Forest Green primary */
     --primary: 153 40% 18%;
     /* #1B4332 */
     --primary-foreground: 0 0% 100%;
-    /* white */
 
-    --secondary: 150 15% 92%;
-    /* light sage */
+    /* Soft mint green */
+    --secondary: 125 41% 94%;
+    /* #E8F5E9 */
     --secondary-foreground: 153 40% 18%;
 
-    --muted: 60 10% 92%;
-    /* soft muted cream */
-    --muted-foreground: 0 0% 35%;
-    /* darker charcoal for readability */
+    /* Very light gray Background alternate */
+    --muted: 0 0% 97%;
+    /* #F8F8F8 */
+    --muted-foreground: 0 0% 45%;
 
-    /* Muted Gold accent */
+    /* Gold accent just for Pro */
     --accent: 43 65% 52%;
     /* #D4AF37 */
     --accent-foreground: 0 0% 100%;
@@ -42,27 +40,26 @@
     --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 60 10% 88%;
-    --input: 60 10% 88%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
     --ring: 153 40% 18%;
 
-    --radius: 1.5rem;
-    /* 24px */
+    --radius: 20px;
 
     /* Soft shadows */
-    --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.05);
-    --shadow-elevated: 0 8px 32px -6px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.08);
     --shadow-glow-gold: 0 0 32px rgba(212, 175, 55, 0.15);
     --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 153 40% 14%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 43 65% 52%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 18%;
+    --sidebar-primary: 153 40% 18%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 153 35% 22%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 153 30% 25%;
-    --sidebar-ring: 43 65% 52%;
+    --sidebar-accent: 125 41% 94%;
+    --sidebar-accent-foreground: 153 40% 18%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 153 40% 18%;
   }
 }
 
@@ -72,7 +69,8 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    background: #F8F8F8;
+    color: #1a1a1a;
     font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -100,11 +98,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: #F8F8F8;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
+    background: #E5E7EB;
     border-radius: 4px;
   }
 
@@ -172,26 +170,26 @@
 
   /* Glass card effect */
   .glass {
-    background: rgba(249, 249, 242, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid hsl(60 10% 88% / 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   /* Premium button glow */
   .btn-glow {
-    transition: var(--transition-smooth);
+    transition: all 0.2s ease-in-out;
   }
 
   .btn-glow:hover {
-    box-shadow: 0 0 24px rgba(27, 67, 50, 0.35);
+    box-shadow: 0 0 16px rgba(27, 67, 50, 0.25);
     transform: translateY(-1px);
   }
 
   /* Premium card styling */
   .premium-card {
-    background: hsl(var(--card));
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-card);
-    border: 1px solid hsl(var(--border));
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: none;
   }
 }

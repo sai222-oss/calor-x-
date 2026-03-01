@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowLeft, User, LogOut, Info,
-  Dumbbell, Target, Activity, Loader2, Edit2, Headphones, Mail, MessageCircle,
+  Dumbbell, Target, Activity, Loader2, Edit2, Headphones, Mail, MessageCircle, Star, Zap
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -27,10 +27,38 @@ const Profile = () => {
   const [goals, setGoals] = useState<Goals | null>(null);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
   const [weeklyMeals, setWeeklyMeals] = useState(0);
   const [totalCaloriesTracked, setTotalCaloriesTracked] = useState(0);
 
   useEffect(() => { loadProfile(); }, []);
+
+  useEffect(() => {
+    // Setup Lemon Squeezy
+    // @ts-ignore
+    window.lemonSqueezyActive = true;
+    const script = document.createElement("script");
+    script.src = "https://app.lemonsqueezy.com/js/lemon.js";
+    script.async = true;
+    script.onload = () => {
+      // @ts-ignore
+      if (window.createLemonSqueezy) {
+        // @ts-ignore
+        window.createLemonSqueezy();
+        // @ts-ignore
+        if (window.LemonSqueezy) {
+          // @ts-ignore
+          window.LemonSqueezy.Setup({ eventHandler: (e: any) => console.log(e) });
+        }
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+      // @ts-ignore
+      window.lemonSqueezyActive = false;
+    };
+  }, []);
 
   const loadProfile = async () => {
     setLoading(true);
@@ -51,6 +79,27 @@ const Profile = () => {
       setTotalCaloriesTracked(meals.reduce((s, m) => s + (m.calories || 0), 0));
     } catch (e) { console.error("Profile load error", e); }
     finally { setLoading(false); }
+  };
+
+  const handleUpgrade = async () => {
+    try {
+      setLoadingCheckout(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const variantId = "1353475"; // Defaulting to Monthly plan ID from PricingDynamic
+      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}&checkout[custom][user_id]=${user.id}`;
+      // @ts-ignore
+      if (window.LemonSqueezy) {
+        // @ts-ignore
+        window.LemonSqueezy.Url.Open(checkoutUrl);
+      } else {
+        window.open(checkoutUrl, "_blank");
+      }
+    } catch (error) {
+      toast.error("Failed to open checkout");
+    } finally {
+      setLoadingCheckout(false);
+    }
   };
 
   const handleLogout = async () => { await supabase.auth.signOut(); toast.success(t("prof_logout_ok")); navigate("/"); };
@@ -75,12 +124,12 @@ const Profile = () => {
   const goal = profile?.health_goal ? goalLabels[profile.health_goal] : null;
 
   return (
-    <div className="min-h-screen pb-8" style={{ background: "#F9F9F2" }}>
-      <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)" }}>
-        <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
-          <ArrowLeft className="w-6 h-6" />
+    <div className="min-h-screen pb-8" style={{ background: "#F8F8F8" }}>
+      <div className="p-4 bg-white border-b shadow-sm flex items-center gap-3">
+        <Button variant="ghost" size="icon" className="hover:bg-gray-100 p-0" onClick={() => navigate("/dashboard")}>
+          <ArrowLeft className="w-6 h-6 text-[#1B4332]" />
         </Button>
-        <h1 className="text-xl font-bold">{t("prof_title")}</h1>
+        <h1 className="text-xl font-bold text-[#1B4332]">{t("prof_title")}</h1>
       </div>
 
       <div className="p-4 space-y-4">
@@ -93,10 +142,31 @@ const Profile = () => {
               <div className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #1B4332, #2D6A4F)" }}>
                 <User className="w-12 h-12 text-white" />
               </div>
-              <h2 className="text-xl font-bold" style={{ color: "#1B4332" }}>{profile?.full_name ?? t("prof_user")}</h2>
+              <h2 className="text-xl font-bold flex items-center justify-center gap-2" style={{ color: "#1B4332" }}>
+                {profile?.full_name ?? t("prof_user")}
+                {isPro && (
+                  <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-none px-2 py-0.5" style={{ background: "rgba(212, 175, 55, 0.2)", color: "#B8860B" }}>
+                    <Star className="w-3 h-3 mr-1 fill-current" />
+                    Pro
+                  </Badge>
+                )}
+              </h2>
               <p className="text-sm text-muted-foreground mt-1">{email}</p>
+
+              {!isPro && (
+                <Button
+                  className="mt-4 py-5 rounded-full w-full max-w-[200px] font-bold mx-auto flex items-center gap-2"
+                  style={{ background: "#D4AF37", color: "#1c1c1c" }}
+                  onClick={handleUpgrade}
+                  disabled={loadingCheckout}
+                >
+                  {loadingCheckout ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+                  Upgrade to Pro
+                </Button>
+              )}
+
               {goal && (
-                <Badge className={`mt-3 ${goal.color} border-0`}>
+                <Badge className={`mt-4 ${goal.color} border-0`}>
                   <Dumbbell className="w-3 h-3 mr-1" />{goal.label}
                 </Badge>
               )}
@@ -188,13 +258,13 @@ const Profile = () => {
               <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  className="flex-1 rounded-2xl gap-2"
+                  className="flex-1 rounded-full gap-2 bg-white border border-gray-200 shadow-sm text-gray-700"
                   onClick={() => window.open("mailto:support@calorx.app?subject=Support Request", "_blank")}
                 >
                   <Mail className="w-4 h-4" />{t("support_email_btn")}
                 </Button>
                 <Button
-                  className="flex-1 rounded-2xl gap-2 text-white"
+                  className="flex-1 rounded-full gap-2 text-white"
                   style={{ background: "#25D366" }}
                   onClick={() => window.open("https://wa.me/+1234567890?text=Hello%2C%20I%20need%20support%20with%20Calor%20X", "_blank")}
                 >

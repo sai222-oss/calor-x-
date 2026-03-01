@@ -21,11 +21,10 @@ const BottomNav = () => {
 
     return (
         <nav
-            className="fixed bottom-0 left-0 right-0 z-50 border-t"
+            className="fixed bottom-0 left-0 right-0 z-50 border-t bg-white"
             style={{
-                background: "#F9F9F2",
-                borderColor: "rgba(27, 67, 50, 0.1)",
-                boxShadow: "0 -2px 16px rgba(0,0,0,0.04)",
+                borderColor: "rgba(0,0,0,0.05)",
+                boxShadow: "0 -4px 20px rgba(0,0,0,0.02)",
             }}
         >
             <div className="grid grid-cols-5 max-w-lg mx-auto">

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp } from "lucide-react";
+import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp, AlertTriangle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,12 +17,13 @@ const Scan = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [scansToday, setScansToday] = useState(0);
   const [showLimitModal, setShowLimitModal] = useState(false);
+  const [scanError, setScanError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { toast.error(t("scan_err_login")); navigate("/auth"); return; }
+      if (!session) { navigate("/auth"); return; }
       // Count today's scans
       const today = new Date().toISOString().split("T")[0];
       const { count } = await supabase
@@ -37,6 +38,7 @@ const Scan = () => {
 
   const resetInput = () => { if (fileInputRef.current) fileInputRef.current.value = ""; };
   const handlePickFile = () => {
+    setScanError(null);
     // Check scan limit before opening picker
     if (!planLoading && scansToday >= scanLimit) {
       setShowLimitModal(true);
@@ -45,11 +47,12 @@ const Scan = () => {
     resetInput();
     fileInputRef.current?.click();
   };
-  const handleReset = () => { setPreviewImage(null); setIsUploading(false); resetInput(); };
+  const handleReset = () => { setPreviewImage(null); setIsUploading(false); setScanError(null); resetInput(); };
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    setScanError(null);
 
     // Double-check limit before processing
     if (scansToday >= scanLimit) {
@@ -58,8 +61,8 @@ const Scan = () => {
     }
 
     const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    if (!validTypes.includes(file.type)) { toast.error(t("scan_err_type")); resetInput(); return; }
-    if (file.size > 5 * 1024 * 1024) { toast.error(t("scan_err_size")); resetInput(); return; }
+    if (!validTypes.includes(file.type)) { setScanError(t("scan_err_type")); resetInput(); return; }
+    if (file.size > 5 * 1024 * 1024) { setScanError(t("scan_err_size")); resetInput(); return; }
 
     setIsUploading(true);
     try {
@@ -72,22 +75,22 @@ const Scan = () => {
       const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, "_").toLowerCase();
       const fileName = `${user.id}/${Date.now()}_${safeName}`;
       const { error: uploadError } = await supabase.storage.from("food-images").upload(fileName, file, { cacheControl: "3600", upsert: false });
-      if (uploadError) { toast.error(`فشل الرفع: ${uploadError.message}`); setIsUploading(false); resetInput(); return; }
+      if (uploadError) { setScanError(`فشل الرفع: ${uploadError.message}`); setIsUploading(false); resetInput(); return; }
       const { data: urlData } = supabase.storage.from("food-images").getPublicUrl(fileName);
-      toast.success(t("scan_uploaded"));
+
       const { data: analysisData, error: analysisError } = await supabase.functions.invoke("analyze-food", {
         body: { imageUrl: urlData.publicUrl, imageHash, userId: user.id },
       });
       if (analysisError) {
         const msg = analysisError.message ?? "Unknown error";
         if (msg.includes("GEMINI_API_KEY")) {
-          toast.error("مفتاح Gemini API غير مضبوط في Supabase.", { duration: 8000 });
-        } else { toast.error(`فشل التحليل: ${msg}`); }
+          setScanError("مفتاح Gemini API غير مضبوط في Supabase. يرجى إضافة المفتاح في إعدادات Edge Function.");
+        } else { setScanError(`فشل التحليل: ${msg}`); }
         setIsUploading(false); resetInput(); return;
       }
       navigate("/nutrition-results", { state: { nutritionData: { ...analysisData, imageUrl: urlData.publicUrl, imageHash } } });
     } catch (err: any) {
-      toast.error(`خطأ: ${err?.message ?? "حدث خطأ غير متوقع"}`);
+      setScanError(`خطأ: ${err?.message ?? "حدث خطأ غير متوقع"}`);
       setIsUploading(false); resetInput();
     }
   };
@@ -95,16 +98,42 @@ const Scan = () => {
   const isAtLimit = !planLoading && scansToday >= scanLimit;
   const limitMsg = plan === "free" ? t("scan_limit_free") : t("scan_limit_standard");
 
+  if (scanError) {
+    return (
+      <div className="min-h-screen pb-24 flex items-center justify-center p-4 bg-red-50" style={{ background: "#F8F8F8" }}>
+        <Card className="w-full max-w-md p-8 text-center space-y-6 premium-card animate-fade-in border-red-200">
+          <div className="mx-auto w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-4">
+            <AlertTriangle className="h-10 w-10 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-red-900">
+            فشل تحليل الصورة
+          </h2>
+          <p className="text-red-700 font-medium">
+            {scanError}
+          </p>
+          <div className="pt-4 grid gap-3">
+            <Button onClick={() => setScanError(null)} className="w-full py-5 font-bold" style={{ background: "#EF4444", color: "white" }}>
+              المحاولة مرة أخرى (Try Again)
+            </Button>
+            <Button variant="outline" onClick={() => navigate("/dashboard")} className="w-full py-5">
+              العودة للرئيسية (Back to Home)
+            </Button>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F9F9F2" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#F8F8F8" }}>
       {/* Header */}
-      <div className="p-4 flex items-center justify-between text-white" style={{ background: "#1B4332" }}>
-        <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
+      <div className="p-4 flex items-center justify-between bg-white border-b border-gray-100 shadow-sm">
+        <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={() => navigate("/dashboard")}>
           <X className="w-5 h-5" />
         </Button>
-        <h1 className="text-lg font-bold">{t("scan_title")}</h1>
+        <h1 className="text-lg font-bold text-[#1B4332]">{t("scan_title")}</h1>
         {previewImage && !isUploading ? (
-          <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={handleReset}>
+          <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={handleReset}>
             <RefreshCcw className="w-5 h-5" />
           </Button>
         ) : <div className="w-10" />}
@@ -197,13 +226,13 @@ const Scan = () => {
           )}
         </Card>
 
-        <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onChange={handleFileSelect} />
+        <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
 
         <div className="grid grid-cols-2 gap-4">
-          <Button size="lg" className="flex flex-col gap-2 h-auto py-5 rounded-2xl btn-glow" style={{ background: isAtLimit ? "#9CA3AF" : "#1B4332" }} onClick={handlePickFile} disabled={isUploading}>
+          <Button size="lg" className="flex flex-col gap-2 h-auto py-5 rounded-full btn-glow" style={{ background: isAtLimit ? "#9CA3AF" : "#1B4332" }} onClick={handlePickFile} disabled={isUploading}>
             <Camera className="w-7 h-7 text-white" /><span className="text-white">{t("scan_camera")}</span>
           </Button>
-          <Button size="lg" variant="secondary" className="flex flex-col gap-2 h-auto py-5 rounded-2xl" onClick={handlePickFile} disabled={isUploading}>
+          <Button size="lg" variant="secondary" className="flex flex-col gap-2 h-auto py-5 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700" onClick={handlePickFile} disabled={isUploading}>
             <Upload className="w-7 h-7" /><span>{t("scan_upload")}</span>
           </Button>
         </div>
