@@ -8,8 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 // Lemon Squeezy Variant IDs
-const VARIANT_MONTHLY = "1353475";
-const VARIANT_YEARLY = "1353430";
+const VARIANT_MONTHLY = "d9756ec1-1e8b-4e71-b15a-b2edff5e4bbe";
+const VARIANT_YEARLY = "feab0bcd-4222-4841-a1a4-10f05b915b01";
 
 const PricingDynamic = () => {
   const navigate = useNavigate();
