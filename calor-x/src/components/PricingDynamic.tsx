@@ -63,7 +63,7 @@ const PricingDynamic = () => {
     }
 
     const variantId = isYearly ? VARIANT_YEARLY : VARIANT_MONTHLY;
-    const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(userEmail)}&checkout[custom][user_id]=${userId}`;
+    const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${userEmail}`;
 
     // @ts-ignore
     if (window.LemonSqueezy) {
