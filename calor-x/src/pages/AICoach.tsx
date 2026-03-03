@@ -58,7 +58,7 @@ const AICoach = () => {
 
   // ── Green Header (always visible) ──────────────────────────────────────────
   const header = (
-    <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #FF4500, #FF6B35)" }}>
+    <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #6C63FF, #FF6584)" }}>
       <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
         <ArrowLeft className="w-6 h-6" />
       </Button>
@@ -78,14 +78,14 @@ const AICoach = () => {
   // ── Paywall screen for free users ──────────────────────────────────────────
   if (!planLoading && !isPro) {
     return (
-      <div className="min-h-screen flex flex-col" style={{ background: "#FFF5F0" }}>
+      <div className="min-h-screen flex flex-col" style={{ background: "#F8F8FC" }}>
         {header}
         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
-          <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #FF8C00, #B8860B)" }}>
+          <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
             <Lock className="w-12 h-12 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-black mb-2" style={{ color: "#FF4500" }}>{t("coach_locked_title")}</h2>
+            <h2 className="text-2xl font-black mb-2" style={{ color: "#6C63FF" }}>{t("coach_locked_title")}</h2>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">{t("coach_locked_desc")}</p>
           </div>
 
@@ -99,14 +99,14 @@ const AICoach = () => {
             ].map(({ icon, text }) => (
               <div key={text} className="flex items-center gap-3">
                 <span className="text-xl">{icon}</span>
-                <span className="text-sm font-medium" style={{ color: "#FF4500" }}>{text}</span>
+                <span className="text-sm font-medium" style={{ color: "#6C63FF" }}>{text}</span>
               </div>
             ))}
           </Card>
 
           <Button
             className="w-full max-w-xs py-6 rounded-2xl font-bold text-lg btn-glow"
-            style={{ background: "#FF4500" }}
+            style={{ background: "#6C63FF" }}
             onClick={() => navigate("/pricing")}
           >
             <Zap className="w-5 h-5 mr-2" />
@@ -120,7 +120,7 @@ const AICoach = () => {
 
   // ── Full chat UI for Standard/Pro users ────────────────────────────────────
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#FFF5F0" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#F8F8FC" }}>
       {header}
 
       {/* Messages */}
@@ -128,12 +128,12 @@ const AICoach = () => {
         {messages.map((msg, i) => (
           <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
             <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white ${msg.role === "user" ? "" : ""}`}
-              style={{ background: msg.role === "user" ? "#FF4500" : "linear-gradient(135deg, #FF8C00, #FF4500)" }}>
+              style={{ background: msg.role === "user" ? "#6C63FF" : "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
               {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
             </div>
             <Card
               className={`p-3 max-w-[80%] border-0 rounded-2xl ${msg.role === "user" ? "rounded-br-sm" : "rounded-bl-sm"}`}
-              style={msg.role === "user" ? { background: "#FF4500", color: "white" } : { background: "white", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
+              style={msg.role === "user" ? { background: "#6C63FF", color: "white" } : { background: "white", boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
             >
               <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
             </Card>
@@ -141,12 +141,12 @@ const AICoach = () => {
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white" style={{ background: "linear-gradient(135deg, #FF8C00, #FF4500)" }}>
+            <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
               <Bot className="w-4 h-4" />
             </div>
             <Card className="p-3 border-0 rounded-2xl rounded-bl-sm" style={{ background: "white" }}>
               <div className="flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#FF4500" }} />
+                <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#6C63FF" }} />
                 <span className="text-sm text-muted-foreground">{t("coach_analyzing")}</span>
               </div>
             </Card>
@@ -163,7 +163,7 @@ const AICoach = () => {
             {QUICK_PROMPT_KEYS.map((key) => (
               <button key={key} onClick={() => sendMessage(t(key))}
                 className="text-xs px-3 py-1.5 rounded-full border transition-colors"
-                style={{ borderColor: "rgba(27, 67, 50, 0.2)", color: "#FF4500", background: "rgba(27, 67, 50, 0.05)" }}>
+                style={{ borderColor: "rgba(27, 67, 50, 0.2)", color: "#6C63FF", background: "rgba(27, 67, 50, 0.05)" }}>
                 {t(key)}
               </button>
             ))}
@@ -172,12 +172,12 @@ const AICoach = () => {
       )}
 
       {/* Input */}
-      <div className="p-4 border-t" style={{ background: "#FFF5F0", borderColor: "rgba(27, 67, 50, 0.1)" }}>
+      <div className="p-4 border-t" style={{ background: "#F8F8FC", borderColor: "rgba(27, 67, 50, 0.1)" }}>
         <div className="flex gap-2 items-end">
           <Textarea value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown}
             placeholder={t("coach_placeholder")} className="resize-none min-h-[44px] max-h-[120px] text-sm rounded-2xl" rows={1} disabled={loading} />
           <Button onClick={() => sendMessage()} size="icon" disabled={loading || !input.trim()}
-            className="flex-shrink-0 h-11 w-11 rounded-xl" style={{ background: "#FF4500" }}>
+            className="flex-shrink-0 h-11 w-11 rounded-xl" style={{ background: "#6C63FF" }}>
             {loading ? <Loader2 className="w-5 h-5 animate-spin text-white" /> : <Send className="w-5 h-5 text-white" />}
           </Button>
         </div>

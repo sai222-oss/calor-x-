@@ -35,8 +35,8 @@ interface ProfileData {
 }
 
 const AppName = () => (
-  <span className="text-2xl font-black tracking-wide text-white">
-    Calor <span className="gold-text">X</span>
+  <span className="text-2xl font-black tracking-wide text-[#1A1A2E]">
+    Calor <span className="text-[#6C63FF]">X</span>
   </span>
 );
 
@@ -92,26 +92,26 @@ const Dashboard = () => {
     new Date(iso).toLocaleTimeString(lang === "ar" ? "ar-SA" : "en-US", { hour: "2-digit", minute: "2-digit" });
 
   const macros = [
-    { icon: Zap, label: t("dash_protein"), value: protein, target: proteinTarget, unit: "g", color: "#FF4500" },
-    { icon: Flame, label: t("dash_carbs"), value: carbs, target: carbsTarget, unit: "g", color: "#B8860B" }, // Darker gold for better contrast
-    { icon: Droplets, label: t("dash_fat"), value: fat, target: fatTarget, unit: "g", color: "#374151" }, // Darker gray
+    { icon: Droplets, label: t("dash_protein"), value: protein, target: proteinTarget, unit: "g", color: "#43E97B" }, // Mint Green for Protein
+    { icon: Zap, label: t("dash_carbs"), value: carbs, target: carbsTarget, unit: "g", color: "#FF6584" }, // Coral Pink for Carbs
+    { icon: Flame, label: t("dash_fat"), value: fat, target: fatTarget, unit: "g", color: "#6C63FF" }, // Purple for Fat
   ];
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+    <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
       {/* Light Header */}
-      <div className="p-6 pb-6 bg-white border-b border-gray-100 shadow-sm" style={{ borderRadius: "0 0 24px 24px" }}>
+      <div className="p-6 pb-6 bg-white shadow-[0_4px_20px_rgba(108,99,255,0.03)]" style={{ borderRadius: "0 0 24px 24px" }}>
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-2xl font-black tracking-wide" style={{ color: "#FF4500" }}>
-              Calor <span className="text-[#FF8C00]">X</span>
+            <span className="text-2xl font-black tracking-wide" style={{ color: "#1A1A2E" }}>
+              Calor <span className="text-[#6C63FF]">X</span>
             </span>
-            <p className="text-sm font-medium mt-1 text-muted-foreground">
+            <p className="text-sm font-medium mt-1 text-[#8888A0]">
               {profile?.full_name ? t("dash_greeting", { name: profile.full_name }) : t("dash_welcome")}
             </p>
           </div>
           {profile?.health_goal && (
-            <Badge className="bg-[#FF4500]/10 text-[#FF4500] border-0 text-xs font-bold px-3 py-1">
+            <Badge className="bg-[#EBFFF3] text-[#43E97B] border-0 text-xs font-bold px-3 py-1">
               {goalBadges[profile.health_goal] ?? profile.health_goal}
             </Badge>
           )}
@@ -120,30 +120,30 @@ const Dashboard = () => {
 
       <div className="p-4 space-y-4 mt-2">
         {/* Calorie Summary Card */}
-        <Card className="p-6 premium-card border-0 shadow-sm">
+        <Card className="p-6 premium-card">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-bold text-[#FF4500]">{t("dash_today_summary")}</h2>
-            {loading && <Loader2 className="w-4 h-4 animate-spin text-[#FF4500]/50" />}
+            <h2 className="text-lg font-bold text-[#1A1A2E]">{t("dash_today_summary")}</h2>
+            {loading && <Loader2 className="w-4 h-4 animate-spin text-[#6C63FF]" />}
           </div>
 
           <div className="text-center">
             {/* Circular Progress */}
             <div className="relative w-48 h-48 mx-auto my-4 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#FFE8E0" strokeWidth="8" />
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#FF4500" strokeWidth="8"
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#F0EFFF" strokeWidth="10" />
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#6C63FF" strokeWidth="10"
                   strokeDasharray="264" strokeDashoffset={264 - (264 * pct(cals, calTarget)) / 100}
                   strokeLinecap="round" className="transition-all duration-1000 ease-out" />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <p className="text-4xl font-black tracking-tight" style={{ color: "#FF4500" }}>{Math.round(cals)}</p>
-                <p className="text-[10px] text-muted-foreground mt-1 font-bold tracking-widest uppercase">{t("dash_kcal") ?? "KCAL"}</p>
+                <p className="text-4xl font-black tracking-tight" style={{ color: "#1A1A2E" }}>{Math.round(cals)}</p>
+                <p className="text-[10px] text-[#8888A0] mt-1 font-bold tracking-widest uppercase">{t("dash_kcal") ?? "KCAL"}</p>
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 font-medium">
+            <p className="text-sm font-medium" style={{ color: "#8888A0" }}>
               {t("dash_of_target", { n: calTarget })} &nbsp;·&nbsp;{" "}
-              <span className="font-bold text-[#FF8C00]">
+              <span className="font-bold text-[#43E97B]">
                 {t("dash_remaining", { n: remainingCals })}
               </span>
             </p>
@@ -174,71 +174,71 @@ const Dashboard = () => {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-4">
           <Card
-            className="p-5 text-center premium-card cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
             onClick={() => navigate("/progress")}
           >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-              <TrendingUp className="w-6 h-6" style={{ color: "#FF4500" }} />
+            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#F0EFFF]">
+              <TrendingUp className="w-6 h-6" style={{ color: "#6C63FF" }} />
             </div>
-            <h3 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("dash_progress")}</h3>
-            <p className="text-xs text-muted-foreground mt-1">{t("dash_view_trends")}</p>
+            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("dash_progress")}</h3>
+            <p className="text-xs text-[#8888A0] mt-1">{t("dash_view_trends")}</p>
           </Card>
           <Card
-            className="p-5 text-center premium-card cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
             onClick={() => navigate("/ai-coach")}
           >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ background: "rgba(212, 175, 55, 0.1)" }}>
-              <MessageCircle className="w-6 h-6" style={{ color: "#FF8C00" }} />
+            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#FFF0F3]">
+              <MessageCircle className="w-6 h-6" style={{ color: "#FF6584" }} />
             </div>
-            <h3 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("dash_ai_coach")}</h3>
-            <p className="text-xs text-muted-foreground mt-1">{t("dash_personal_tips")} · Pro</p>
+            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("dash_ai_coach")}</h3>
+            <p className="text-xs text-[#8888A0] mt-1">{t("dash_personal_tips")} · Pro</p>
           </Card>
           <Card
-            className="p-5 text-center premium-card cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
             onClick={() => navigate("/meal-planning")}
           >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-              <ChefHat className="w-6 h-6" style={{ color: "#FF4500" }} />
+            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#EBFFF3]">
+              <ChefHat className="w-6 h-6" style={{ color: "#43E97B" }} />
             </div>
-            <h3 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("meal_plan_title")}</h3>
-            <p className="text-xs text-muted-foreground mt-1">{t("meal_plan_tab_recipes")} · Pro</p>
+            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("meal_plan_title")}</h3>
+            <p className="text-xs text-[#8888A0] mt-1">{t("meal_plan_tab_recipes")} · Pro</p>
           </Card>
           <Card
-            className="p-5 text-center premium-card cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
             onClick={() => navigate("/micronutrients")}
           >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ background: "rgba(212, 175, 55, 0.08)" }}>
-              <Zap className="w-6 h-6" style={{ color: "#FF8C00" }} />
+            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#F0EFFF]">
+              <Zap className="w-6 h-6" style={{ color: "#6C63FF" }} />
             </div>
-            <h3 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("micro_title")}</h3>
-            <p className="text-xs text-muted-foreground mt-1">{t("micro_vitamins")} &amp; {t("micro_minerals")}</p>
+            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("micro_title")}</h3>
+            <p className="text-xs text-[#8888A0] mt-1">{t("micro_vitamins")} &amp; {t("micro_minerals")}</p>
           </Card>
         </div>
 
         {/* Recent Meals */}
         <Card className="p-5 premium-card">
-          <h2 className="text-base font-bold mb-3" style={{ color: "#FF4500" }}>{t("dash_recent_meals")}</h2>
+          <h2 className="text-base font-bold mb-3 text-[#1A1A2E]">{t("dash_recent_meals")}</h2>
           {loading ? (
-            <div className="py-4 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-muted-foreground" /></div>
+            <div className="py-4 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-[#6C63FF]" /></div>
           ) : recentMeals.length === 0 ? (
-            <div className="py-6 text-center text-muted-foreground">
-              <Camera className="w-8 h-8 mx-auto mb-2 opacity-40" />
+            <div className="py-6 text-center text-[#8888A0]">
+              <Camera className="w-8 h-8 mx-auto mb-2 opacity-40 text-[#6C63FF]" />
               <p className="text-sm">{t("dash_no_meals")}</p>
               <p className="text-xs mt-1">{t("dash_scan_first")}</p>
             </div>
           ) : (
             <div className="space-y-2">
               {recentMeals.map((meal) => (
-                <div key={meal.id} className="flex items-center justify-between p-3 rounded-2xl" style={{ background: "#FFF5F0" }}>
+                <div key={meal.id} className="flex items-center justify-between p-3 rounded-2xl border border-[#F0EFFF]" style={{ background: "#FFFFFF" }}>
                   <div>
-                    <p className="font-medium text-sm">{lang === "ar" ? (meal.dish_name_ar || meal.dish_name) : meal.dish_name}</p>
+                    <p className="font-bold text-sm text-[#1A1A2E]">{lang === "ar" ? (meal.dish_name_ar || meal.dish_name) : meal.dish_name}</p>
                     {lang === "ar" && meal.dish_name_ar && (
-                      <p className="text-xs text-muted-foreground">{meal.dish_name}</p>
+                      <p className="text-xs text-[#8888A0]">{meal.dish_name}</p>
                     )}
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-sm" style={{ color: "#FF4500" }}>{Math.round(meal.calories)} {t("dash_kcal")}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-bold text-sm" style={{ color: "#6C63FF" }}>{Math.round(meal.calories)} {t("dash_kcal")}</p>
+                    <p className="text-xs text-[#8888A0]">
                       {t("dash_protein_short")}: {Math.round(meal.protein_g)}g · {formatTime(meal.logged_at)}
                     </p>
                   </div>
@@ -253,8 +253,8 @@ const Dashboard = () => {
       <div className="fixed bottom-24 right-4">
         <Button
           size="lg"
-          className="rounded-full w-16 h-16 shadow-xl btn-glow"
-          style={{ background: "#FF4500" }}
+          className="rounded-full w-16 h-16 shadow-xl btn-glow hover:-translate-y-1 transition-all"
+          style={{ background: "#6C63FF", borderRadius: "999px" }}
           onClick={() => navigate("/scan")}
           aria-label={t("nav_scan")}
         >

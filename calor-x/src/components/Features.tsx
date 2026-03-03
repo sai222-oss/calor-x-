@@ -35,7 +35,7 @@ const Features = () => {
     <section className="py-24" style={{ background: "#ffffff" }}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: "#FF4500" }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ color: "#6C63FF" }}>
             {t("feat_title")}
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -63,9 +63,9 @@ const Features = () => {
                   className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4"
                   style={{ background: "rgba(27, 67, 50, 0.08)" }}
                 >
-                  <feature.icon className="w-5 h-5" style={{ color: "#FF4500" }} />
+                  <feature.icon className="w-5 h-5" style={{ color: "#6C63FF" }} />
                 </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: "#FF4500" }}>
+                <h3 className="text-xl font-bold mb-3" style={{ color: "#6C63FF" }}>
                   {feature.title}
                 </h3>
                 <p className="text-sm leading-relaxed" style={{ color: "#4B5563" }}>

@@ -62,11 +62,11 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Brand direct-access colors
-        'brand-primary': '#FF4500',
-        'brand-secondary': '#FF6B35',
-        'brand-accent': '#FF8C00',
-        'brand-surface': '#FFF5F0',
-        'brand-border': '#FFE8E0',
+        'brand-primary': '#6C63FF',
+        'brand-secondary': '#FF6584',
+        'brand-accent': '#43E97B',
+        'brand-surface': '#F8F8FC',
+        'brand-border': '#F0EFFF',
       },
       borderRadius: {
         lg: "var(--radius)",

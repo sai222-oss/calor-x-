@@ -120,30 +120,30 @@ const MealPlanning = () => {
     // Paywall for non-Pro users
     if (!planLoading && !isPro) {
         return (
-            <div className="min-h-screen" style={{ background: "#FFF5F0" }}>
-                <div className="p-4 text-white flex items-center gap-3" style={{ background: "#FF4500" }}>
+            <div className="min-h-screen" style={{ background: "#F8F8FC" }}>
+                <div className="p-4 text-white flex items-center gap-3" style={{ background: "#6C63FF" }}>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
                         <ArrowLeft className="w-6 h-6" />
                     </Button>
                     <h1 className="text-lg font-bold">{t("meal_plan_title")}</h1>
                 </div>
                 <div className="flex flex-col items-center justify-center p-8 text-center space-y-6 pt-16">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #FF8C00, #B8860B)" }}>
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
                         <Lock className="w-12 h-12 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black mb-2" style={{ color: "#FF4500" }}>{t("upgrade_title")}</h2>
+                        <h2 className="text-2xl font-black mb-2" style={{ color: "#6C63FF" }}>{t("upgrade_title")}</h2>
                         <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">{t("meal_plan_locked")}</p>
                     </div>
                     <Card className="w-full max-w-xs p-5 text-left space-y-3 premium-card">
                         {["🍽️ خطة وجبات أسبوعية", "🤖 اقتراحات AI مخصصة", "📖 وصفات عربية صحية", "💪 تغذية مبنية على أهدافك"].map((item) => (
                             <div key={item} className="flex items-center gap-3">
                                 <span className="text-xl">{item.slice(0, 2)}</span>
-                                <span className="text-sm font-medium" style={{ color: "#FF4500" }}>{item.slice(3)}</span>
+                                <span className="text-sm font-medium" style={{ color: "#6C63FF" }}>{item.slice(3)}</span>
                             </div>
                         ))}
                     </Card>
-                    <Button className="w-full max-w-xs py-6 rounded-2xl font-bold text-lg btn-glow" style={{ background: "#FF4500" }} onClick={() => navigate("/pricing")}>
+                    <Button className="w-full max-w-xs py-6 rounded-2xl font-bold text-lg btn-glow" style={{ background: "#6C63FF" }} onClick={() => navigate("/pricing")}>
                         <Zap className="w-5 h-5 mr-2" />{t("upgrade_btn")}
                     </Button>
                 </div>
@@ -152,9 +152,9 @@ const MealPlanning = () => {
     }
 
     return (
-        <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+        <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
             {/* Header */}
-            <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #FF4500, #FF6B35)" }}>
+            <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #6C63FF, #FF6584)" }}>
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
                     <ArrowLeft className="w-6 h-6" />
                 </Button>
@@ -166,14 +166,14 @@ const MealPlanning = () => {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 p-3 sticky top-0 z-10" style={{ background: "#FFF5F0", borderBottom: "1px solid rgba(27, 67, 50, 0.1)" }}>
+            <div className="flex gap-1 p-3 sticky top-0 z-10" style={{ background: "#F8F8FC", borderBottom: "1px solid rgba(27, 67, 50, 0.1)" }}>
                 {tabs.map(({ id, label, icon: Icon }) => (
                     <button
                         key={id}
                         onClick={() => setActiveTab(id)}
                         className="flex-1 flex flex-col items-center gap-1 py-2.5 rounded-2xl text-xs font-semibold transition-all"
                         style={{
-                            background: activeTab === id ? "#FF4500" : "transparent",
+                            background: activeTab === id ? "#6C63FF" : "transparent",
                             color: activeTab === id ? "white" : "#6B7280",
                         }}
                     >
@@ -189,8 +189,8 @@ const MealPlanning = () => {
                     <div className="space-y-4">
                         <Card className="p-5 premium-card">
                             <div className="flex items-center gap-2 mb-3">
-                                <Sparkles className="w-5 h-5" style={{ color: "#FF8C00" }} />
-                                <h2 className="font-bold" style={{ color: "#FF4500" }}>{t("meal_plan_ai_title")}</h2>
+                                <Sparkles className="w-5 h-5" style={{ color: "#43E97B" }} />
+                                <h2 className="font-bold" style={{ color: "#6C63FF" }}>{t("meal_plan_ai_title")}</h2>
                             </div>
                             <p className="text-sm text-muted-foreground mb-4">
                                 {lang === "ar"
@@ -198,13 +198,13 @@ const MealPlanning = () => {
                                     : "The AI will generate a personalized meal plan based on your profile and goals."}
                             </p>
                             {aiSuggestion ? (
-                                <div className="bg-white/50 rounded-2xl p-4 text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "#FF4500" }}>
+                                <div className="bg-white/50 rounded-2xl p-4 text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "#6C63FF" }}>
                                     {aiSuggestion}
                                 </div>
                             ) : null}
                             <Button
                                 className="w-full mt-4 rounded-2xl py-5 btn-glow font-bold"
-                                style={{ background: "#FF4500" }}
+                                style={{ background: "#6C63FF" }}
                                 onClick={generatePlan}
                                 disabled={aiLoading}
                             >
@@ -222,12 +222,12 @@ const MealPlanning = () => {
                 {activeTab === "week" && (
                     <div className="space-y-3">
                         <div className="flex items-center gap-2 mb-1">
-                            <Calendar className="w-4 h-4" style={{ color: "#FF4500" }} />
-                            <h2 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("meal_plan_week_title")}</h2>
+                            <Calendar className="w-4 h-4" style={{ color: "#6C63FF" }} />
+                            <h2 className="font-bold text-sm" style={{ color: "#6C63FF" }}>{t("meal_plan_week_title")}</h2>
                         </div>
                         {WEEKLY_PLAN.map((day, i) => (
                             <Card key={i} className="p-4 premium-card">
-                                <h3 className="font-bold mb-3 pb-2 border-b" style={{ color: "#FF4500", borderColor: "rgba(27, 67, 50, 0.1)" }}>
+                                <h3 className="font-bold mb-3 pb-2 border-b" style={{ color: "#6C63FF", borderColor: "rgba(27, 67, 50, 0.1)" }}>
                                     {lang === "ar" ? day.day.ar : day.day.en}
                                 </h3>
                                 <div className="space-y-2">
@@ -237,15 +237,15 @@ const MealPlanning = () => {
                                             : mealKey === "lunch" ? (lang === "ar" ? "الغداء" : "Lunch")
                                                 : (lang === "ar" ? "العشاء" : "Dinner");
                                         return (
-                                            <div key={mealKey} className="flex items-start justify-between gap-2 p-2.5 rounded-xl" style={{ background: "#FFF5F0" }}>
+                                            <div key={mealKey} className="flex items-start justify-between gap-2 p-2.5 rounded-xl" style={{ background: "#F8F8FC" }}>
                                                 <div className="flex-1">
                                                     <span className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">{mealLabel}</span>
-                                                    <p className="text-sm font-medium mt-0.5" style={{ color: "#FF4500" }}>
+                                                    <p className="text-sm font-medium mt-0.5" style={{ color: "#6C63FF" }}>
                                                         {lang === "ar" ? meal.ar : meal.en}
                                                     </p>
                                                 </div>
                                                 <div className="text-right shrink-0">
-                                                    <p className="text-xs font-bold" style={{ color: "#FF8C00" }}>{meal.cal} {t("meal_plan_recipe_cal")}</p>
+                                                    <p className="text-xs font-bold" style={{ color: "#43E97B" }}>{meal.cal} {t("meal_plan_recipe_cal")}</p>
                                                     <p className="text-[10px] text-muted-foreground">{meal.protein}g {t("meal_plan_recipe_protein")}</p>
                                                 </div>
                                             </div>
@@ -261,8 +261,8 @@ const MealPlanning = () => {
                 {activeTab === "recipes" && (
                     <div className="space-y-3">
                         <div className="flex items-center gap-2 mb-1">
-                            <BookOpen className="w-4 h-4" style={{ color: "#FF4500" }} />
-                            <h2 className="font-bold text-sm" style={{ color: "#FF4500" }}>
+                            <BookOpen className="w-4 h-4" style={{ color: "#6C63FF" }} />
+                            <h2 className="font-bold text-sm" style={{ color: "#6C63FF" }}>
                                 {lang === "ar" ? "وصفات صحية عالية البروتين" : "High-Protein Healthy Recipes"}
                             </h2>
                         </div>
@@ -271,7 +271,7 @@ const MealPlanning = () => {
                                 <Card key={i} className="p-4 premium-card">
                                     <div className="flex items-start justify-between">
                                         <div className="flex-1">
-                                            <h3 className="font-bold text-base mb-1" style={{ color: "#FF4500" }}>
+                                            <h3 className="font-bold text-base mb-1" style={{ color: "#6C63FF" }}>
                                                 {lang === "ar" ? recipe.name.ar : recipe.name.en}
                                             </h3>
                                             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -280,9 +280,9 @@ const MealPlanning = () => {
                                             <p className="text-xs text-muted-foreground mt-1.5">⏱ {recipe.time}</p>
                                         </div>
                                         <div className="text-right ml-4 shrink-0">
-                                            <p className="text-xl font-black" style={{ color: "#FF8C00" }}>{recipe.cal}</p>
+                                            <p className="text-xl font-black" style={{ color: "#43E97B" }}>{recipe.cal}</p>
                                             <p className="text-[10px] text-muted-foreground">{t("meal_plan_recipe_cal")}</p>
-                                            <p className="text-sm font-bold mt-1" style={{ color: "#FF4500" }}>{recipe.protein}g</p>
+                                            <p className="text-sm font-bold mt-1" style={{ color: "#6C63FF" }}>{recipe.protein}g</p>
                                             <p className="text-[10px] text-muted-foreground">{t("meal_plan_recipe_protein")}</p>
                                         </div>
                                     </div>

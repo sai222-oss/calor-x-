@@ -54,7 +54,7 @@ serve(async (req) => {
 
     if (eventName === "subscription_created" || eventName === "subscription_resumed" || eventName === "subscription_updated") {
         // Free -> Pro
-        if (variantId === "1353475" || variantId === "1353430") {
+        if (variantId === "d9756ec1-1e8b-4e71-b15a-b2edff5e4bbe" || variantId === "feab0bcd-4222-4841-a1a4-10f05b915b01") {
             newPlan = "pro"
         } else {
             // In case another product is bought, return ok but don't elevate to pro

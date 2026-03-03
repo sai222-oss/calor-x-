@@ -6,59 +6,60 @@
 
 @layer base {
   :root {
-    /* ── Energetic Fitness UI ── */
-    --background: 0 0% 100%;
-    /* White */
-    --foreground: 0 0% 10%;
-    /* #1A1A1A */
+    /* ── Clean Minimal Fitness UI ── */
+    --background: 240 33% 98%;
+    /* #F8F8FC */
+    --foreground: 240 28% 14%;
+    /* #1A1A2E */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    /* #FFFFFF */
+    --card-foreground: 240 28% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 240 28% 14%;
 
-    /* Primary: #FF4500 (deep energetic orange-red) */
-    --primary: 15 100% 50%;
+    /* Primary: #6C63FF (soft purple) */
+    --primary: 245 100% 69%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: #FF6B35 (warm orange) */
-    --secondary: 16 100% 60%;
+    /* Secondary: #FF6584 (coral pink) */
+    --secondary: 348 100% 70%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Surface: #FFF5F0 (very light warm white) */
-    --muted: 20 100% 97%;
-    --muted-foreground: 0 0% 53%;
-    /* #888888 */
+    /* Surface: #F0EFFF (light purple) */
+    --muted: 244 100% 97%;
+    --muted-foreground: 240 13% 58%;
+    /* #8888A0 */
 
-    /* Accent: #FF8C00 (bright orange) */
-    --accent: 33 100% 50%;
+    /* Accent: #43E97B (mint green) */
+    --accent: 140 79% 59%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Border: #FFE8E0 */
-    --border: 15 100% 94%;
-    --input: 15 100% 94%;
-    --ring: 15 100% 50%;
+    /* Border: light gray/purple */
+    --border: 240 20% 93%;
+    --input: 240 20% 93%;
+    --ring: 245 100% 69%;
 
     --radius: 20px;
 
-    /* Custom warm shadows */
-    --shadow-card: 0 2px 16px rgba(255, 69, 0, 0.08);
-    --shadow-elevated: 0 8px 30px rgba(255, 69, 0, 0.12);
-    --shadow-glow-gold: 0 0 32px rgba(255, 69, 0, 0.2);
+    /* Custom soft shadows */
+    --shadow-card: 0 4px 20px rgba(108, 99, 255, 0.08);
+    --shadow-elevated: 0 8px 30px rgba(108, 99, 255, 0.12);
+    --shadow-glow-purple: 0 0 32px rgba(108, 99, 255, 0.2);
     --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 10%;
-    --sidebar-primary: 15 100% 50%;
+    --sidebar-foreground: 240 28% 14%;
+    --sidebar-primary: 245 100% 69%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 20 100% 97%;
-    --sidebar-accent-foreground: 15 100% 50%;
-    --sidebar-border: 15 100% 94%;
-    --sidebar-ring: 15 100% 50%;
+    --sidebar-accent: 244 100% 97%;
+    --sidebar-accent-foreground: 245 100% 69%;
+    --sidebar-border: 240 20% 93%;
+    --sidebar-ring: 245 100% 69%;
   }
 }
 
@@ -68,8 +69,8 @@
   }
 
   body {
-    background: #F8F8F8;
-    color: #1a1a1a;
+    background: #F8F8FC;
+    color: #1A1A2E;
     font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -97,11 +98,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #F8F8F8;
+    background: #F8F8FC;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #E5E7EB;
+    background: #EAE9F2;
     border-radius: 4px;
   }
 
@@ -121,11 +122,11 @@
 
     0%,
     100% {
-      box-shadow: 0 0 16px rgba(255, 69, 0, 0.25);
+      box-shadow: 0 0 16px rgba(108, 99, 255, 0.25);
     }
 
     50% {
-      box-shadow: 0 0 32px rgba(255, 69, 0, 0.45);
+      box-shadow: 0 0 32px rgba(108, 99, 255, 0.45);
     }
   }
 
@@ -156,12 +157,12 @@
   }
 
   /* Accent text */
-  .gold-text {
-    color: #FF8C00;
+  .brand-text {
+    color: #6C63FF;
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #FF4500, #FF8C00);
+    background: linear-gradient(135deg, #6C63FF, #FF6584);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -171,16 +172,17 @@
   .glass {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 69, 0, 0.08);
+    border: 1px solid rgba(108, 99, 255, 0.08);
   }
 
   /* Premium button glow */
   .btn-glow {
     transition: all 0.2s ease-in-out;
+    border-radius: 999px !important;
   }
 
   .btn-glow:hover {
-    box-shadow: 0 0 16px rgba(255, 69, 0, 0.25);
+    box-shadow: 0 0 16px rgba(108, 99, 255, 0.25);
     transform: translateY(-1px);
   }
 
@@ -188,7 +190,7 @@
   .premium-card {
     background: #FFFFFF;
     border-radius: 20px;
-    box-shadow: 0 2px 16px rgba(255, 69, 0, 0.08);
-    border: 1px solid #FFE8E0;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.08);
+    border: none;
   }
 }

@@ -123,12 +123,12 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
   if (showVerificationModal) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#FFF5F0" }}>
+      <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F8F8FC" }}>
         <Card className="w-full max-w-md p-8 text-center space-y-6 premium-card animate-fade-in">
-          <div className="mx-auto w-16 h-16 bg-[#FF4500]/10 rounded-full flex items-center justify-center mb-4">
-            <MailCheck className="h-8 w-8 text-[#FF4500]" />
+          <div className="mx-auto w-16 h-16 bg-[#6C63FF]/10 rounded-full flex items-center justify-center mb-4">
+            <MailCheck className="h-8 w-8 text-[#6C63FF]" />
           </div>
-          <h2 className="text-2xl font-bold text-[#FF4500]">
+          <h2 className="text-2xl font-bold text-[#6C63FF]">
             {verificationType === "signup" ? "Check your email" : "Email Verification Required"}
           </h2>
           <p className="text-muted-foreground">
@@ -136,7 +136,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
               ? "We've sent a verification link to your email address. Please verify your email to continue."
               : "You must verify your email address before you can log in to Calor X. Please check your inbox for the verification link."}
           </p>
-          <Button onClick={() => setShowVerificationModal(false)} className="w-full py-5 btn-glow mt-4 rounded-full text-white font-bold" style={{ background: "#FF4500" }}>
+          <Button onClick={() => setShowVerificationModal(false)} className="w-full py-5 btn-glow mt-4 rounded-full text-white font-bold" style={{ background: "#6C63FF" }}>
             Return to Login
           </Button>
         </Card>
@@ -145,10 +145,10 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#FFF5F0" }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F8F8FC" }}>
       <Card className="w-full max-w-md p-8 space-y-6 premium-card animate-fade-in">
         <div className="text-center space-y-1">
-          <h1 className="text-3xl font-heading font-bold text-[#FF4500]">Calor <span className="text-[#FF8C00]">X</span></h1>
+          <h1 className="text-3xl font-heading font-bold text-[#6C63FF]">Calor <span className="text-[#43E97B]">X</span></h1>
           <h2 className="text-xl font-bold mt-3 text-gray-900">
             {isLogin ? "تسجيل الدخول" : "إنشاء حساب"}
           </h2>
@@ -200,7 +200,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             <Input
               type="email" placeholder="your@email.com" value={email}
               onChange={e => setEmail(e.target.value)} disabled={loading} required
-              className="bg-[#FFF5F0] border-gray-200 focus:border-[#FF4500] rounded-xl"
+              className="bg-[#F8F8FC] border-gray-200 focus:border-[#6C63FF] rounded-xl"
             />
           </div>
           <div className="space-y-2">
@@ -208,10 +208,10 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             <Input
               type="password" placeholder="••••••••" value={password}
               onChange={e => setPassword(e.target.value)} disabled={loading} required minLength={6}
-              className="bg-[#FFF5F0] border-gray-200 focus:border-[#FF4500] rounded-xl"
+              className="bg-[#F8F8FC] border-gray-200 focus:border-[#6C63FF] rounded-xl"
             />
           </div>
-          <Button type="submit" className="w-full py-5 btn-glow rounded-full text-white font-bold" style={{ background: "#FF4500" }} disabled={loading}>
+          <Button type="submit" className="w-full py-5 btn-glow rounded-full text-white font-bold" style={{ background: "#6C63FF" }} disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isLogin ? "Sign In / تسجيل الدخول" : "Sign Up / إنشاء حساب"}
           </Button>
@@ -228,7 +228,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
         <div className="text-center space-y-3">
           <button
             type="button" onClick={toggleAuthMode}
-            className="text-sm text-[#FF4500] font-semibold hover:underline" disabled={loading}
+            className="text-sm text-[#6C63FF] font-semibold hover:underline" disabled={loading}
           >
             {isLogin ? "Don't have an account? Sign up →" : "Already have an account? Sign in →"}
           </button>

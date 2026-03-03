@@ -132,15 +132,15 @@ const MicronutrientTracking = () => {
     const hasAnyData = micros.some(m => m.amount > 0);
 
     const getPctColor = (pct: number) => {
-        if (pct >= 80) return "#FF4500";
-        if (pct >= 40) return "#FF8C00";
+        if (pct >= 80) return "#6C63FF";
+        if (pct >= 40) return "#43E97B";
         return "#EF4444";
     };
 
     const { isPro, loading: planLoading } = usePlan();
 
     const header = (
-        <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #FF4500, #FF6B35)" }}>
+        <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #6C63FF, #FF6584)" }}>
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/progress")}>
                 <ArrowLeft className="w-6 h-6" />
             </Button>
@@ -154,14 +154,14 @@ const MicronutrientTracking = () => {
 
     if (!planLoading && !isPro) {
         return (
-            <div className="min-h-screen flex flex-col" style={{ background: "#FFF5F0" }}>
+            <div className="min-h-screen flex flex-col" style={{ background: "#F8F8FC" }}>
                 {header}
                 <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #FF8C00, #B8860B)" }}>
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
                         <Lock className="w-12 h-12 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black mb-2" style={{ color: "#FF4500" }}>{t("coach_locked_title")}</h2>
+                        <h2 className="text-2xl font-black mb-2" style={{ color: "#6C63FF" }}>{t("coach_locked_title")}</h2>
                         <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">{t("coach_locked_desc")}</p>
                     </div>
 
@@ -173,14 +173,14 @@ const MicronutrientTracking = () => {
                         ].map(({ icon, text }) => (
                             <div key={text} className="flex items-center gap-3">
                                 <span className="text-xl">{icon}</span>
-                                <span className="text-sm font-medium" style={{ color: "#FF4500" }}>{text}</span>
+                                <span className="text-sm font-medium" style={{ color: "#6C63FF" }}>{text}</span>
                             </div>
                         ))}
                     </Card>
 
                     <Button
                         className="w-full max-w-xs py-6 rounded-2xl font-bold text-lg btn-glow"
-                        style={{ background: "#FF4500", color: "white" }}
+                        style={{ background: "#6C63FF", color: "white" }}
                         onClick={() => navigate("/pricing")}
                     >
                         <Zap className="w-5 h-5 mr-2" />
@@ -193,20 +193,20 @@ const MicronutrientTracking = () => {
     }
 
     return (
-        <div className="min-h-screen pb-24" style={{ background: "#FFF5F0" }}>
+        <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
             {header}
 
             {loading ? (
                 <div className="flex items-center justify-center py-24">
-                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#FF4500" }} />
+                    <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#6C63FF" }} />
                 </div>
             ) : !hasAnyData ? (
                 <div className="p-8 text-center space-y-4 pt-20">
                     <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                        <Pill className="w-10 h-10" style={{ color: "#FF4500", opacity: 0.4 }} />
+                        <Pill className="w-10 h-10" style={{ color: "#6C63FF", opacity: 0.4 }} />
                     </div>
                     <p className="text-base font-medium text-muted-foreground">{t("micro_no_data")}</p>
-                    <Button className="rounded-2xl px-6" style={{ background: "#FF4500" }} onClick={() => navigate("/scan")}>
+                    <Button className="rounded-2xl px-6" style={{ background: "#6C63FF" }} onClick={() => navigate("/scan")}>
                         {t("scan_title")}
                     </Button>
                 </div>
@@ -223,7 +223,7 @@ const MicronutrientTracking = () => {
                                 onClick={() => setActiveCategory(cat)}
                                 className="flex-1 py-2.5 rounded-2xl text-sm font-semibold transition-all"
                                 style={{
-                                    background: activeCategory === cat ? "#FF4500" : "white",
+                                    background: activeCategory === cat ? "#6C63FF" : "white",
                                     color: activeCategory === cat ? "white" : "#6B7280",
                                     border: "1px solid rgba(27, 67, 50, 0.1)",
                                 }}
@@ -239,7 +239,7 @@ const MicronutrientTracking = () => {
                             <Card key={micro.key} className="p-4 premium-card">
                                 <div className="flex items-center justify-between mb-2">
                                     <div>
-                                        <p className="font-bold text-sm" style={{ color: "#FF4500" }}>
+                                        <p className="font-bold text-sm" style={{ color: "#6C63FF" }}>
                                             {lang === "ar" ? micro.label_ar : micro.label}
                                         </p>
                                         {micro.sources.length > 0 && (
@@ -279,8 +279,8 @@ const MicronutrientTracking = () => {
                         </h3>
                         <div className="space-y-1.5">
                             {[
-                                { color: "#FF4500", label: lang === "ar" ? "≥ 80% — ممتاز" : "≥ 80% — Excellent" },
-                                { color: "#FF8C00", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
+                                { color: "#6C63FF", label: lang === "ar" ? "≥ 80% — ممتاز" : "≥ 80% — Excellent" },
+                                { color: "#43E97B", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
                                 { color: "#EF4444", label: lang === "ar" ? "< 40% — يحتاج تحسين" : "< 40% — Needs improvement" },
                             ].map(({ color, label }) => (
                                 <div key={color} className="flex items-center gap-2 text-xs">

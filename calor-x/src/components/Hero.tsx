@@ -21,7 +21,7 @@ const Hero = () => {
         <div className="max-w-3xl mx-auto text-center text-white">
 
           {/* Brand */}
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm mb-8 animate-fade-in" style={{ background: "#FF4500", border: "1px solid #FF8C00" }}>
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm mb-8 animate-fade-in" style={{ background: "#6C63FF", border: "1px solid #43E97B" }}>
             <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
             {t("hero_tag")}
           </div>
@@ -40,7 +40,7 @@ const Hero = () => {
             <Button
               size="lg"
               className="text-lg px-8 py-6 rounded-2xl font-bold shadow-xl"
-              style={{ background: "#FF8C00", color: "#1B1B1B" }}
+              style={{ background: "#43E97B", color: "#1B1B1B" }}
               onClick={() => navigate("/signup")}
             >
               {t("hero_cta")}
@@ -48,7 +48,7 @@ const Hero = () => {
             <Button
               size="lg"
               className="text-lg px-8 py-6 rounded-2xl font-bold shadow-lg"
-              style={{ background: "#ffffff", color: "#FF4500" }}
+              style={{ background: "#ffffff", color: "#6C63FF" }}
               onClick={() => navigate("/pricing")}
             >
               {t("hero_plans")}
@@ -65,9 +65,9 @@ const Hero = () => {
               <div
                 key={label}
                 className="text-center rounded-2xl px-3 py-4"
-                style={{ background: "#FF4500", border: "1px solid #FF8C00" }}
+                style={{ background: "#6C63FF", border: "1px solid #43E97B" }}
               >
-                <div className="text-3xl font-black mb-1" style={{ color: "#FF8C00" }}>{val}</div>
+                <div className="text-3xl font-black mb-1" style={{ color: "#43E97B" }}>{val}</div>
                 <div className="text-xs font-semibold" style={{ color: "#ffffff" }}>{label}</div>
               </div>
             ))}
