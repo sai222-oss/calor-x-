@@ -81,25 +81,8 @@ const Profile = () => {
     finally { setLoading(false); }
   };
 
-  const handleUpgrade = async () => {
-    try {
-      setLoadingCheckout(true);
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-      const variantId = "feab0bcd-4222-4841-a1a4-10f05b915b01"; // Defaulting to Yearly plan ID
-      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}`;
-      // @ts-ignore
-      if (window.LemonSqueezy) {
-        // @ts-ignore
-        window.LemonSqueezy.Url.Open(checkoutUrl);
-      } else {
-        window.open(checkoutUrl, "_blank");
-      }
-    } catch (error) {
-      toast.error("Failed to open checkout");
-    } finally {
-      setLoadingCheckout(false);
-    }
+  const handleUpgrade = () => {
+    navigate("/pricing");
   };
 
   const handleLogout = async () => { await supabase.auth.signOut(); toast.success(t("prof_logout_ok")); navigate("/"); };
