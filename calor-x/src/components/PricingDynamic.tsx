@@ -14,7 +14,7 @@ const VARIANT_YEARLY = "feab0bcd-4222-4841-a1a4-10f05b915b01";
 const PricingDynamic = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [isYearly, setIsYearly] = useState(false);
+  const [isYearly, setIsYearly] = useState(true);
   const [loadingCheckout, setLoadingCheckout] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");

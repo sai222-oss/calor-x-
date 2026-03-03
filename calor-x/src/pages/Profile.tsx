@@ -86,8 +86,8 @@ const Profile = () => {
       setLoadingCheckout(true);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      const variantId = "1353475"; // Defaulting to Monthly plan ID from PricingDynamic
-      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}&checkout[custom][user_id]=${user.id}`;
+      const variantId = "feab0bcd-4222-4841-a1a4-10f05b915b01"; // Defaulting to Yearly plan ID
+      const checkoutUrl = `https://calorx.lemonsqueezy.com/checkout/buy/${variantId}?checkout[email]=${encodeURIComponent(user.email || "")}`;
       // @ts-ignore
       if (window.LemonSqueezy) {
         // @ts-ignore
