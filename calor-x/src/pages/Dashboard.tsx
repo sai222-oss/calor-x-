@@ -191,7 +191,7 @@ const Dashboard = () => {
               <MessageCircle className="w-6 h-6" style={{ color: "#FF8C00" }} />
             </div>
             <h3 className="font-bold text-sm" style={{ color: "#FF4500" }}>{t("dash_ai_coach")}</h3>
-            <p className="text-xs text-muted-foreground mt-1">{t("dash_personal_tips")}</p>
+            <p className="text-xs text-muted-foreground mt-1">{t("dash_personal_tips")} · Pro</p>
           </Card>
           <Card
             className="p-5 text-center premium-card cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all"

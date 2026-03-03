@@ -16,7 +16,7 @@ const strings = {
     // ─── Bottom Nav ────────────────────────────────────────
     nav_home: { ar: "الرئيسية", en: "Home" },
     nav_scan: { ar: "مسح", en: "Scan" },
-    nav_coach: { ar: "مدرب AI Pro", en: "AI Coach Pro" },
+    nav_coach: { ar: "مدرب AI", en: "AI Coach" },
     nav_profile: { ar: "الملف", en: "Profile" },
 
     // ─── Dashboard ─────────────────────────────────────────
@@ -31,7 +31,7 @@ const strings = {
     dash_scan_first: { ar: "اضغط الكاميرا لمسح أول وجبة!", en: "Tap the camera to scan your first meal!" },
     dash_progress: { ar: "التقدم", en: "Progress" },
     dash_view_trends: { ar: "عرض الإحصائيات", en: "View trends" },
-    dash_ai_coach: { ar: "مدرب AI Pro", en: "AI Coach Pro" },
+    dash_ai_coach: { ar: "مدرب AI", en: "AI Coach" },
     dash_personal_tips: { ar: "نصائح مخصصة لك", en: "Personalized tips" },
     dash_kcal: { ar: "كيلوسعرة", en: "kcal" },
     dash_protein: { ar: "بروتين", en: "Protein" },
@@ -112,7 +112,7 @@ const strings = {
     day_sat: { ar: "سب", en: "Sat" },
 
     // ─── AI Coach ──────────────────────────────────────────
-    coach_title: { ar: "مدرب الذكاء الاصطناعي Pro", en: "AI Coach Pro" },
+    coach_title: { ar: "مدرب الذكاء الاصطناعي", en: "AI Coach" },
     coach_subtitle: { ar: "متخصص في التغذية والرياضة", en: "Nutrition & Fitness Specialist" },
     coach_greeting: { ar: "مرحباً! أنا مدرب كالور إكس الذكي 💪\n\nأعرف ملفك الشخصي وأهدافك اليومية وكل ما أكلته اليوم — لذلك يمكنني تقديم نصائح حقيقية ومخصصة لك.\n\nاسألني عن التغذية، وجبات الجيم، أو أهدافك!", en: "Hello! I'm your Calor X AI Coach 💪\n\nI know your profile, daily goals, and everything you've eaten today — so I can give you real, personalized advice.\n\nAsk me anything about nutrition, gym meals, or your targets!" },
     coach_quick_title: { ar: "أسئلة سريعة", en: "QUICK QUESTIONS" },
