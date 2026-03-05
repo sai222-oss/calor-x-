@@ -50,7 +50,7 @@ const ProfileSetup = () => {
       const fatTarget = (calTarget * 0.25) / 9;
       const carbTarget = (calTarget - (protTarget * 4) - (fatTarget * 9)) / 4;
 
-      await Promise.all([
+      const [profileRes, goalsRes] = await Promise.all([
         supabase.from("profiles").update({
           full_name: formData.name,
           age,
@@ -70,8 +70,11 @@ const ProfileSetup = () => {
           protein_g_target: Math.round(protTarget),
           carbs_g_target: Math.round(carbTarget),
           fat_g_target: Math.round(fatTarget)
-        })
+        }, { onConflict: "user_id" })
       ]);
+
+      if (profileRes.error) throw profileRes.error;
+      if (goalsRes.error) throw goalsRes.error;
 
       toast.success(lang === "ar" ? "تم حفظ ملفك الشخصي!" : "Profile saved!");
       navigate("/dashboard");
@@ -94,7 +97,9 @@ const ProfileSetup = () => {
       <div className="p-6 max-w-md mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="premium-card p-6 space-y-4">
-            <h2 className="text-lg font-bold text-[#6C63FF] mb-2 border-b pb-2">Basic Info</h2>
+            <h2 className="text-lg font-bold text-[#6C63FF] mb-2 border-b pb-2">
+              {lang === "ar" ? "المعلومات الأساسية" : "Basic Info"}
+            </h2>
             <div className="space-y-2">
               <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">{t("setup_name")}</Label>
               <Input
@@ -140,29 +145,35 @@ const ProfileSetup = () => {
             </div>
 
             <div className="space-y-2 mt-4">
-              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">Phone Number (Optional)</Label>
+              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">
+                {lang === "ar" ? "رقم الهاتف (اختياري)" : "Phone Number (Optional)"}
+              </Label>
               <Input
                 type="tel"
                 value={formData.phone_number}
                 onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
                 className="rounded-xl border-[#6C63FF]/10 bg-[#F8F8FC]"
-                placeholder="+1234567890"
+                placeholder={lang === "ar" ? "+1234567890" : "+1234567890"}
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">Country (Optional)</Label>
+              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">
+                {lang === "ar" ? "البلد (اختياري)" : "Country (Optional)"}
+              </Label>
               <Input
                 value={formData.country}
                 onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                 className="rounded-xl border-[#6C63FF]/10 bg-[#F8F8FC]"
-                placeholder="e.g. Saudi Arabia, UAE"
+                placeholder={lang === "ar" ? "مثال: السعودية، الإمارات" : "e.g. Saudi Arabia, UAE"}
               />
             </div>
           </div>
 
           <div className="premium-card p-6 space-y-4">
-            <h2 className="text-lg font-bold text-[#6C63FF] mb-2 border-b pb-2">Fitness & Diet</h2>
+            <h2 className="text-lg font-bold text-[#6C63FF] mb-2 border-b pb-2">
+              {lang === "ar" ? "اللياقة والنظام الغذائي" : "Fitness & Diet"}
+            </h2>
             <div className="space-y-2">
               <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">{t("setup_goal")}</Label>
               <div className="grid grid-cols-1 gap-2">
@@ -199,30 +210,34 @@ const ProfileSetup = () => {
             </div>
 
             <div className="space-y-2 pt-2">
-              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">Fitness Level</Label>
+              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">
+                {lang === "ar" ? "مستوى اللياقة" : "Fitness Level"}
+              </Label>
               <select
                 value={formData.fitness_level}
                 onChange={(e) => setFormData({ ...formData, fitness_level: e.target.value })}
                 className="w-full p-4 rounded-2xl bg-[#F8F8FC] border border-[#6C63FF]/10 text-sm font-bold text-[#6C63FF] focus:outline-none focus:border-[#6C63FF]"
               >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
+                <option value="beginner">{lang === "ar" ? "مبتدئ" : "Beginner"}</option>
+                <option value="intermediate">{lang === "ar" ? "متوسط" : "Intermediate"}</option>
+                <option value="advanced">{lang === "ar" ? "متقدم" : "Advanced"}</option>
               </select>
             </div>
 
             <div className="space-y-2 pt-2">
-              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">Dietary Preference</Label>
+              <Label className="text-[#6C63FF] font-bold text-xs uppercase tracking-wider">
+                {lang === "ar" ? "التفضيل الغذائي" : "Dietary Preference"}
+              </Label>
               <select
                 value={formData.dietary_preference}
                 onChange={(e) => setFormData({ ...formData, dietary_preference: e.target.value })}
                 className="w-full p-4 rounded-2xl bg-[#F8F8FC] border border-[#6C63FF]/10 text-sm font-bold text-[#6C63FF] focus:outline-none focus:border-[#6C63FF]"
               >
-                <option value="no_restriction">No Restriction</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="halal">Halal</option>
-                <option value="keto">Keto</option>
+                <option value="no_restriction">{lang === "ar" ? "لا قيود" : "No Restriction"}</option>
+                <option value="vegetarian">{lang === "ar" ? "نباتي (فيجيتيريان)" : "Vegetarian"}</option>
+                <option value="vegan">{lang === "ar" ? "نباتي صرف (فيجان)" : "Vegan"}</option>
+                <option value="halal">{lang === "ar" ? "حلال" : "Halal"}</option>
+                <option value="keto">{lang === "ar" ? "كيتو" : "Keto"}</option>
               </select>
             </div>
           </div>

@@ -28,13 +28,25 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
       if (q === "signup") setIsLogin(false);
     }
 
+    let isMounted = true;
+
     const checkRedirect = async (userId: string) => {
-      const { data } = await supabase.from("profiles").select("onboarding_completed").eq("id", userId).single();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((data as any)?.onboarding_completed) {
-        navigate("/dashboard");
-      } else {
-        navigate("/profile-setup");
+      try {
+        const { data, error } = await supabase.from("profiles").select("onboarding_completed").eq("id", userId).single();
+        if (!isMounted) return;
+
+        if (error) {
+          console.error("Error checking profile:", error);
+          return;
+        }
+
+        if (data?.onboarding_completed) {
+          navigate("/dashboard");
+        } else {
+          navigate("/profile-setup");
+        }
+      } catch (err) {
+        console.error(err);
       }
     };
 
@@ -50,7 +62,10 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
         checkRedirect(session.user.id);
       }
     });
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [navigate, location.search, mode]);
 
   const handleGoogleSignIn = async () => {

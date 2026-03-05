@@ -98,167 +98,212 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
-      {/* Light Header */}
-      <div className="p-6 pb-6 bg-white shadow-[0_4px_20px_rgba(108,99,255,0.03)]" style={{ borderRadius: "0 0 24px 24px" }}>
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-black tracking-wide" style={{ color: "#1A1A2E" }}>
-              Calor <span className="text-[#6C63FF]">X</span>
-            </span>
-            <p className="text-sm font-medium mt-1 text-[#8888A0]">
-              {profile?.full_name ? t("dash_greeting", { name: profile.full_name }) : t("dash_welcome")}
-            </p>
+    <div className="min-h-screen pb-28" style={{ background: "#F8F8FC" }}>
+
+      {/* Top Navigation Bar */}
+      <div className="px-6 py-4 flex items-center justify-between sticky top-0 z-40 bg-[#F8F8FC]/80 backdrop-blur-md">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-[#6C63FF] shadow-lg shadow-[#6C63FF]/30 flex items-center justify-center">
+            <span className="text-white font-black text-xs">C<span className="text-white/80">X</span></span>
           </div>
-          {profile?.health_goal && (
-            <Badge className="bg-[#EBFFF3] text-[#43E97B] border-0 text-xs font-bold px-3 py-1">
-              {goalBadges[profile.health_goal] ?? profile.health_goal}
-            </Badge>
-          )}
+          <div>
+            <h1 className="text-lg font-black text-[#1A1A2E] leading-tight">Calor X</h1>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Badge className="bg-white text-[#6C63FF] border-0 font-bold px-3 py-1 text-xs rounded-full shadow-sm">
+            💎 PRO
+          </Badge>
+          <div className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center border border-gray-100 p-1 cursor-pointer hover:scale-105 transition-transform" onClick={() => navigate("/profile")}>
+            <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=${profile?.full_name || 'User'}&backgroundColor=f0efff`} alt="avatar" className="w-full h-full rounded-full" />
+          </div>
         </div>
       </div>
 
-      <div className="p-4 space-y-4 mt-2">
-        {/* Calorie Summary Card */}
-        <Card className="p-6 premium-card">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-bold text-[#1A1A2E]">{t("dash_today_summary")}</h2>
-            {loading && <Loader2 className="w-4 h-4 animate-spin text-[#6C63FF]" />}
-          </div>
+      <div className="px-5 pt-2 pb-6 space-y-5 relative z-20">
 
-          <div className="text-center">
-            {/* Circular Progress */}
-            <div className="relative w-48 h-48 mx-auto my-4 flex items-center justify-center">
-              <svg className="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#F0EFFF" strokeWidth="10" />
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#6C63FF" strokeWidth="10"
-                  strokeDasharray="264" strokeDashoffset={264 - (264 * pct(cals, calTarget)) / 100}
-                  strokeLinecap="round" className="transition-all duration-1000 ease-out" />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <p className="text-4xl font-black tracking-tight" style={{ color: "#1A1A2E" }}>{Math.round(cals)}</p>
-                <p className="text-[10px] text-[#8888A0] mt-1 font-bold tracking-widest uppercase">{t("dash_kcal") ?? "KCAL"}</p>
-              </div>
-            </div>
+        {/* 3D Greeting Card */}
+        <div className="relative bg-gradient-to-br from-[#6C63FF] to-[#8fd3f4] rounded-[32px] p-6 shadow-elevated overflow-hidden group">
+          {/* Decorative 3D elements */}
+          <div className="absolute -right-6 -top-6 w-32 h-32 bg-white opacity-20 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700"></div>
+          <div className="absolute -left-6 -bottom-6 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
 
-            <p className="text-sm font-medium" style={{ color: "#8888A0" }}>
-              {t("dash_of_target", { n: calTarget })} &nbsp;·&nbsp;{" "}
-              <span className="font-bold text-[#43E97B]">
-                {t("dash_remaining", { n: remainingCals })}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="flex-1 pr-4">
+              <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-black uppercase tracking-widest mb-3 shadow-sm border border-white/10">
+                Daily Streak 🔥 3
               </span>
-            </p>
+              <h1 className="text-2xl font-black text-white leading-tight mb-2">
+                {t("dash_welcome")},<br />{profile?.full_name || "Guest"}!
+              </h1>
+              <p className="text-xs font-medium text-white/90 max-w-[200px] leading-relaxed">
+                Ready to crush your goals today? Let's track some delicious food! 🚀
+              </p>
+            </div>
+
+            {/* 3D Emoji Art */}
+            <div className="relative w-24 h-24 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/20 backdrop-blur-sm rounded-full shadow-inner border border-white/30"></div>
+              <span className="text-6xl drop-shadow-2xl -translate-y-2 group-hover:-translate-y-4 transition-transform duration-500 cursor-pointer">
+                🥗
+              </span>
+              <div className="absolute -bottom-1 w-12 h-3 bg-black/20 rounded-full blur-md group-hover:w-10 group-hover:opacity-10 transition-all duration-500"></div>
+            </div>
           </div>
-
-          {/* Macro Grid */}
-          <div className="grid grid-cols-3 gap-3">
-            {macros.map(({ icon: Icon, label, value, target, unit, color }) => (
-              <div key={label} className="text-center p-4 rounded-2xl border border-gray-100 shadow-sm" style={{ background: "#ffffff" }}>
-                <Icon className="w-5 h-5 mx-auto mb-2" style={{ color }} />
-                <p className="text-xl font-black" style={{ color }}>{Math.round(value)}<span className="text-xs ml-0.5">{unit}</span></p>
-                <p className="text-xs font-bold mt-1" style={{ color }}>{label}</p>
-                <p className="text-[11px] font-medium text-gray-500 mt-0.5">/ {target}{unit}</p>
-                <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(27, 67, 50, 0.05)" }}>
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct(value, target)}%`, background: color }} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {(nutrition?.meals_count ?? 0) > 0 && (
-            <p className="text-center text-xs text-muted-foreground mt-3">
-              {t("dash_meals_logged", { n: nutrition!.meals_count })}
-            </p>
-          )}
-        </Card>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <Card
-            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
-            onClick={() => navigate("/progress")}
-          >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#F0EFFF]">
-              <TrendingUp className="w-6 h-6" style={{ color: "#6C63FF" }} />
-            </div>
-            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("dash_progress")}</h3>
-            <p className="text-xs text-[#8888A0] mt-1">{t("dash_view_trends")}</p>
-          </Card>
-          <Card
-            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
-            onClick={() => navigate("/ai-coach")}
-          >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#FFF0F3]">
-              <MessageCircle className="w-6 h-6" style={{ color: "#FF6584" }} />
-            </div>
-            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("dash_ai_coach")}</h3>
-            <p className="text-xs text-[#8888A0] mt-1">{t("dash_personal_tips")} · Pro</p>
-          </Card>
-          <Card
-            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
-            onClick={() => navigate("/meal-planning")}
-          >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#EBFFF3]">
-              <ChefHat className="w-6 h-6" style={{ color: "#43E97B" }} />
-            </div>
-            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("meal_plan_title")}</h3>
-            <p className="text-xs text-[#8888A0] mt-1">{t("meal_plan_tab_recipes")} · Pro</p>
-          </Card>
-          <Card
-            className="p-5 text-center premium-card cursor-pointer hover:-translate-y-1 transition-all"
-            onClick={() => navigate("/micronutrients")}
-          >
-            <div className="w-12 h-12 rounded-2xl mx-auto mb-3 flex items-center justify-center bg-[#F0EFFF]">
-              <Zap className="w-6 h-6" style={{ color: "#6C63FF" }} />
-            </div>
-            <h3 className="font-bold text-sm text-[#1A1A2E]">{t("micro_title")}</h3>
-            <p className="text-xs text-[#8888A0] mt-1">{t("micro_vitamins")} &amp; {t("micro_minerals")}</p>
-          </Card>
         </div>
 
-        {/* Recent Meals */}
-        <Card className="p-5 premium-card">
-          <h2 className="text-base font-bold mb-3 text-[#1A1A2E]">{t("dash_recent_meals")}</h2>
-          {loading ? (
-            <div className="py-4 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-[#6C63FF]" /></div>
-          ) : recentMeals.length === 0 ? (
-            <div className="py-6 text-center text-[#8888A0]">
-              <Camera className="w-8 h-8 mx-auto mb-2 opacity-40 text-[#6C63FF]" />
-              <p className="text-sm">{t("dash_no_meals")}</p>
-              <p className="text-xs mt-1">{t("dash_scan_first")}</p>
+        {/* Floating Calorie Summary Card */}
+        <Card className="p-6 bg-white rounded-[32px] shadow-elevated border-0">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-black text-[#1A1A2E]">{t("dash_today_summary")}</h2>
+            {loading && <Loader2 className="w-4 h-4 animate-spin text-[#6C63FF]" />}
+            {!loading && profile?.health_goal && (
+              <Badge className="bg-[#F0EFFF] text-[#6C63FF] border-0 text-[10px] font-black px-3 py-1 uppercase tracking-wide">
+                {goalBadges[profile.health_goal] ?? profile.health_goal}
+              </Badge>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between mt-2">
+            {/* Minimal Circular Progress */}
+            <div className="relative w-32 h-32 flex items-center justify-center">
+              <svg className="w-full h-full transform -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#F8F8FC" strokeWidth="12" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke="url(#gradient)" strokeWidth="12"
+                  strokeDasharray="276" strokeDashoffset={276 - (276 * pct(cals, calTarget)) / 100}
+                  strokeLinecap="round" className="transition-all duration-1000 ease-out" />
+                <defs>
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#6C63FF" />
+                    <stop offset="100%" stopColor="#43E97B" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <p className="text-3xl font-black tracking-tight text-[#1A1A2E]">{Math.round(cals)}</p>
+                <p className="text-[9px] text-[#8888A0] mt-0.5 font-bold tracking-widest uppercase">{t("dash_kcal")}</p>
+              </div>
             </div>
-          ) : (
-            <div className="space-y-2">
-              {recentMeals.map((meal) => (
-                <div key={meal.id} className="flex items-center justify-between p-3 rounded-2xl border border-[#F0EFFF]" style={{ background: "#FFFFFF" }}>
-                  <div>
-                    <p className="font-bold text-sm text-[#1A1A2E]">{lang === "ar" ? (meal.dish_name_ar || meal.dish_name) : meal.dish_name}</p>
-                    {lang === "ar" && meal.dish_name_ar && (
-                      <p className="text-xs text-[#8888A0]">{meal.dish_name}</p>
-                    )}
+
+            <div className="flex-1 pl-6 space-y-4">
+              {macros.map(({ label, value, target, unit, color }) => (
+                <div key={label}>
+                  <div className="flex justify-between text-xs font-bold mb-1.5">
+                    <span className="text-[#1A1A2E] bg-gray-50 px-2 py-0.5 rounded-md">{label}</span>
+                    <span style={{ color }}>{Math.round(value)}<span className="text-[10px] opacity-70">{unit}</span> / {target}</span>
                   </div>
-                  <div className="text-right">
-                    <p className="font-bold text-sm" style={{ color: "#6C63FF" }}>{Math.round(meal.calories)} {t("dash_kcal")}</p>
-                    <p className="text-xs text-[#8888A0]">
-                      {t("dash_protein_short")}: {Math.round(meal.protein_g)}g · {formatTime(meal.logged_at)}
-                    </p>
+                  <div className="h-2 rounded-full overflow-hidden" style={{ background: "#F8F8FC" }}>
+                    <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct(value, target)}%`, background: color }} />
                   </div>
                 </div>
               ))}
             </div>
-          )}
+          </div>
         </Card>
+
+        {/* Captivating Quick Actions (Vibrant cards) */}
+        <div>
+          <h2 className="text-lg font-black text-[#1A1A2E] mb-3 ml-2">Quick Actions</h2>
+          <div className="grid grid-cols-2 gap-3">
+            <Card
+              className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
+              style={{ background: "linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%)" }}
+              onClick={() => navigate("/ai-coach")}
+            >
+              <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+              <MessageCircle className="w-8 h-8 text-white mb-8" />
+              <h3 className="font-black text-lg text-white leading-tight">{t("dash_ai_coach")}</h3>
+              <p className="text-xs text-white/80 font-medium mt-1">Smart advice</p>
+            </Card>
+
+            <Card
+              className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
+              style={{ background: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)" }}
+              onClick={() => navigate("/progress")}
+            >
+              <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+              <TrendingUp className="w-8 h-8 text-white mb-8" />
+              <h3 className="font-black text-lg text-white leading-tight">{t("dash_progress")}</h3>
+              <p className="text-xs text-white/80 font-medium mt-1">View trends</p>
+            </Card>
+
+            <Card
+              className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
+              style={{ background: "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)" }}
+              onClick={() => navigate("/meal-planning")}
+            >
+              <ChefHat className="w-8 h-8 text-[#1A1A2E] opacity-70 mb-8" />
+              <h3 className="font-black text-lg text-[#1A1A2E] leading-tight">{t("meal_plan_title")}</h3>
+              <p className="text-xs text-[#1A1A2E]/60 font-medium mt-1">Daily recipes</p>
+            </Card>
+
+            <Card
+              className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
+              style={{ background: "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)" }}
+              onClick={() => navigate("/micronutrients")}
+            >
+              <Zap className="w-8 h-8 text-white mb-8" />
+              <h3 className="font-black text-lg text-white leading-tight">{t("micro_title")}</h3>
+              <p className="text-xs text-white/80 font-medium mt-1">Vitamins</p>
+            </Card>
+          </div>
+        </div>
+
+        {/* Recent Meals styled vibrantly */}
+        <div className="mb-20">
+          <div className="flex items-center justify-between mb-3 mx-2">
+            <h2 className="text-lg font-black text-[#1A1A2E]">{t("dash_recent_meals")}</h2>
+            <Button variant="link" className="text-xs font-bold text-[#6C63FF] p-0 h-auto">View All</Button>
+          </div>
+
+          <Card className="p-1 bg-white rounded-[32px] shadow-sm border-0">
+            {loading ? (
+              <div className="py-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-[#6C63FF]" /></div>
+            ) : recentMeals.length === 0 ? (
+              <div className="py-8 text-center text-[#8888A0]">
+                <div className="w-16 h-16 rounded-full bg-[#F0EFFF] flex items-center justify-center mx-auto mb-3">
+                  <Camera className="w-6 h-6 text-[#6C63FF]" />
+                </div>
+                <p className="text-sm font-bold text-[#1A1A2E] mb-1">{t("dash_no_meals")}</p>
+                <p className="text-xs">{t("dash_scan_first")}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-1 p-2 border-0">
+                {recentMeals.map((meal) => (
+                  <div key={meal.id} className="flex items-center p-3 rounded-[24px] hover:bg-gray-50 transition-colors cursor-pointer group">
+                    <div className="w-14 h-14 rounded-2xl bg-[#F0EFFF] flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
+                      <span className="text-2xl">🍲</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-black text-sm text-[#1A1A2E] truncate">
+                        {lang === "ar" ? (meal.dish_name_ar || meal.dish_name) : meal.dish_name}
+                      </p>
+                      <p className="text-xs font-medium text-[#8888A0] mt-0.5">
+                        {formatTime(meal.logged_at)} • {Math.round(meal.protein_g)}g protein
+                      </p>
+                    </div>
+                    <div className="text-right ml-2 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
+                      <p className="font-black text-sm text-[#6C63FF]">{Math.round(meal.calories)}</p>
+                      <p className="text-[9px] font-bold text-[#8888A0] uppercase">kcal</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Card>
+        </div>
       </div>
 
-      {/* Floating Camera Button */}
-      <div className="fixed bottom-24 right-4">
+      {/* Floating Generate Button matching the reference image */}
+      <div className="fixed bottom-24 left-0 right-0 px-6 z-40 pointer-events-none">
         <Button
           size="lg"
-          className="rounded-full w-16 h-16 shadow-xl btn-glow hover:-translate-y-1 transition-all"
-          style={{ background: "#6C63FF", borderRadius: "999px" }}
+          className="w-full py-7 rounded-full text-lg font-black shadow-elevated text-white transition-all hover:scale-[1.02] active:scale-95 pointer-events-auto"
+          style={{ background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)" }}
           onClick={() => navigate("/scan")}
-          aria-label={t("nav_scan")}
         >
-          <Camera className="w-8 h-8 text-white" />
+          <Camera className="w-5 h-5 mr-2" />
+          Generate Scan
         </Button>
       </div>
     </div>

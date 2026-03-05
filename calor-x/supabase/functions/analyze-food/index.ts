@@ -13,40 +13,49 @@ const ANALYSIS_VERSION = 'v12.0.0-real-only';
 
 async function callOpenAI(apiKey: string, base64Image: string, mimeType: string, imageHash: string): Promise<{ text: string, modelUsed: string }> {
   const model = "gpt-4o-mini"; // or gpt-4o for better vision
-  const systemPrompt = `You are a world-class deterministic nutrition analysis AI specialized in ARAB and INTERNATIONAL cuisine, calibrated for gym athletes and health-conscious users.
+  const systemPrompt = `You are an expert nutritionist specialized in Middle Eastern and Arab cuisine.
 
-CRITICAL: Return ONLY valid JSON with NO markdown fences, no extra text, no explanation.
+When analyzing a food image:
+1. Identify the dish name in both Arabic and English. If it is a random mix of ingredients (e.g. cooked tomatoes and potatoes), DO NOT force a traditional dish name. Instead, name it descriptively (e.g., "Tomato and Potato Mix" / "خليط طماطم وبطاطس").
+2. Estimate the portion size in grams.
+3. List ALL visible ingredients with estimated weights. CRITICAL: For complex/layered dishes (like Couscous, Tagine, or Kabsa), DO NOT blindly hallucinate ingredients that aren't there. You may infer necessary cooking bases (like oils, ghee, or broth) if the food texture implies it (e.g. glossy/wet grains). However, DO NOT add solid ingredients (like meat, eggs, or vegetables) unless they are clearly visible or partially visible.
+4. Calculate precise nutrition per ingredient and total.
+5. Cross-reference with standard Arab cuisine recipes where applicable.
+6. If it's a restaurant dish, use standard restaurant portion sizes.
 
-ARAB CUISINE RULES:
-- Shared platters: estimate individual serving (~300-400g), NOT whole platter
-- Rice dishes (Kabsa/Mandi): assume 1.5x calorie density due to oil/ghee
-- Olive oil: assume at least 1 tbsp per serving for salads/dips
-
-OUTPUT FORMAT — Return ONLY this exact JSON structure:
+Return ONLY this JSON:
 {
   "image_hash": "${imageHash || 'none'}",
-  "dish_label": "English Name",
-  "dish_label_ar": "Arabic Name",
+  "dish_name_ar": "",
+  "dish_name_en": "",
   "confidence": 0.95,
-  "glycemic_index": 65,
-  "meal_timing": "post_workout",
-  "protein_quality_score": 8,
-  "gym_tip": "One sentence gym tip in English",
-  "gym_tip_ar": "نفس النصيحة بالعربية",
+  "total_weight_g": 0,
+  "total_nutrition": {
+    "calories": 0,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sugar": 0,
+    "sodium": 0
+  },
   "ingredients": [
     {
-      "name": "Ingredient",
-      "name_ar": "Arabic",
-      "quantity_g": 150,
-      "nutrition_per_100g": { "calories": 165, "protein_g": 31.0, "fat_g": 3.6, "carbs_g": 0.0, "fiber_g": 0.0, "sugar_g": 0.0, "sodium_mg": 74 },
-      "nutrition": { "calories": 248, "protein_g": 46.5, "fat_g": 5.4, "carbs_g": 0.0, "fiber_g": 0.0, "sugar_g": 0.0, "sodium_mg": 111 }
+      "name_ar": "",
+      "name_en": "",
+      "weight_g": 0,
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
     }
   ],
-  "total": {
-    "calories": 650, "protein_g": 52.0, "fat_g": 18.0, "carbs_g": 65.0,
-    "fiber_g": 4.0, "sugar_g": 3.0, "sodium_mg": 480,
-    "vitamins_minerals": { "vitamin_c_mg": 12, "iron_mg": 3, "calcium_mg": 45, "potassium_mg": 420, "vitamin_d_iu": 0, "zinc_mg": 4 }
-  }
+  "meal_type": "breakfast|lunch|dinner|snack",
+  "cuisine_type": "moroccan|levantine|gulf|egyptian|general_arab",
+  "glycemic_index": 65,
+  "protein_quality_score": 8,
+  "gym_tip": "Gym tip in English",
+  "gym_tip_ar": "نفس النصيحة بالعربية"
 }`;
 
   const resp = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -82,7 +91,17 @@ OUTPUT FORMAT — Return ONLY this exact JSON structure:
 
 async function callGemini(apiKey: string, base64Image: string, mimeType: string, imageHash: string): Promise<{ text: string, modelUsed: string }> {
   const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
-  const systemPrompt = `You are a world-class deterministic nutrition analysis AI specialized in ARAB and INTERNATIONAL cuisine. Return ONLY JSON. Rules: Arab cuisine (shared platters ~400g), Rice density 1.5x, Olive oil default.`;
+  const systemPrompt = `You are an expert nutritionist specialized in Middle Eastern and Arab cuisine.
+
+When analyzing a food image:
+1. Identify the dish name in both Arabic and English. If it is a random mix of ingredients (e.g. cooked tomatoes and potatoes), DO NOT force a traditional dish name. Instead, name it descriptively (e.g., "Tomato and Potato Mix" / "خليط طماطم وبطاطس").
+2. Estimate the portion size in grams.
+3. List ALL visible ingredients with estimated weights. CRITICAL: For complex/layered dishes (like Couscous, Tagine, or Kabsa), DO NOT blindly hallucinate ingredients that aren't there. You may infer necessary cooking bases (like oils, ghee, or broth) if the food texture implies it (e.g. glossy/wet grains). However, DO NOT add solid ingredients (like meat, eggs, or vegetables) unless they are clearly visible or partially visible.
+4. Calculate precise nutrition per ingredient and total.
+5. Cross-reference with standard Arab cuisine recipes where applicable.
+6. If it's a restaurant dish, use standard restaurant portion sizes.
+
+Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_weight_g, total_nutrition (calories, protein, carbs, fat, fiber, sugar, sodium), ingredients [{name_ar, name_en, weight_g, calories, protein, carbs, fat}], meal_type, cuisine_type, glycemic_index, protein_quality_score, gym_tip, gym_tip_ar }`;
 
   for (const model of models) {
     try {

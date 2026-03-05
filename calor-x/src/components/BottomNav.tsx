@@ -34,25 +34,19 @@ const BottomNav = () => {
                         <button
                             key={path}
                             onClick={() => navigate(path)}
-                            className="flex flex-col items-center gap-1 py-3 px-2 transition-all duration-200"
+                            className="flex flex-col items-center gap-1.5 py-4 px-2 transition-all duration-200"
                             aria-label={label}
                         >
-                            <div className={`relative p-1.5 rounded-2xl transition-all duration-200 ${active ? "bg-[#F0EFFF]" : ""}`}>
+                            <div className={`relative transition-all duration-200 ${active ? "-translate-y-1" : ""}`}>
                                 <Icon
-                                    className="w-5 h-5"
-                                    style={{ color: active ? "#6C63FF" : "#8888A0" }}
+                                    className="w-6 h-6"
+                                    style={{ color: active ? "#6C63FF" : "#B4B4C5" }}
                                     strokeWidth={active ? 2.5 : 2}
                                 />
-                                {active && (
-                                    <span
-                                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full"
-                                        style={{ background: "#43E97B" }}
-                                    />
-                                )}
                             </div>
                             <span
                                 className="text-[10px] font-bold leading-none"
-                                style={{ color: active ? "#6C63FF" : "#8888A0" }}
+                                style={{ color: active ? "#6C63FF" : "#B4B4C5" }}
                             >{label}</span>
                         </button>
                     );
@@ -61,13 +55,13 @@ const BottomNav = () => {
                 {/* Language Toggle */}
                 <button
                     onClick={() => setLang(lang === "ar" ? "en" : "ar")}
-                    className="flex flex-col items-center gap-1 py-3 px-2 transition-all duration-200"
+                    className="flex flex-col items-center gap-1.5 py-4 px-2 transition-all duration-200"
                     aria-label="Toggle language"
                 >
-                    <div className="relative p-1.5 rounded-2xl transition-all duration-200" style={{ background: "#EBFFF3" }}>
-                        <Globe className="w-5 h-5" style={{ color: "#43E97B" }} />
+                    <div className="relative transition-all duration-200">
+                        <Globe className="w-6 h-6" style={{ color: "#B4B4C5" }} />
                     </div>
-                    <span className="text-[10px] font-semibold leading-none" style={{ color: "#43E97B" }}>
+                    <span className="text-[10px] font-bold leading-none" style={{ color: "#B4B4C5" }}>
                         {lang === "ar" ? "EN" : "عر"}
                     </span>
                 </button>

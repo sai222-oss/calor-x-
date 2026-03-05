@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp, AlertTriangle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp, AlertTriangle, Search, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,10 +9,12 @@ import { toast } from "sonner";
 import { generateImageHash } from "@/lib/imageHash";
 import { useLanguage } from "@/hooks/useLanguage";
 import { usePlan } from "@/hooks/usePlan";
+import { searchFoodDatabase, FoodItem } from "@/data/foodDatabase";
+import { Input } from "@/components/ui/input";
 
 const Scan = () => {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const { plan, scanLimit, loading: planLoading } = usePlan();
   const [isUploading, setIsUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -19,6 +22,13 @@ const Scan = () => {
   const [showLimitModal, setShowLimitModal] = useState(false);
   const [scanError, setScanError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Manual Entry States
+  const [showManualModal, setShowManualModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<FoodItem[]>([]);
+  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+  const [manualWeight, setManualWeight] = useState("");
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -35,6 +45,14 @@ const Scan = () => {
     };
     checkAuth();
   }, [navigate]);
+
+  useEffect(() => {
+    if (searchQuery.length >= 2) {
+      setSearchResults(searchFoodDatabase(searchQuery));
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchQuery]);
 
   const resetInput = () => { if (fileInputRef.current) fileInputRef.current.value = ""; };
   const handlePickFile = () => {
@@ -95,6 +113,43 @@ const Scan = () => {
     }
   };
 
+  const handleManualEntrySubmit = () => {
+    if (!selectedFood) return;
+    const weight = parseFloat(manualWeight) || selectedFood.typical_serving_g;
+    const ratio = weight / 100;
+
+    const manualNutritionData = {
+      dish_label: selectedFood.name_en,
+      dish_label_ar: selectedFood.name_ar,
+      confidence: 1.0,
+      matched_from_db: true,
+      total_nutrition: {
+        calories: selectedFood.per100g.calories * ratio,
+        protein_g: selectedFood.per100g.protein * ratio,
+        carbs_g: selectedFood.per100g.carbs * ratio,
+        fat_g: selectedFood.per100g.fat * ratio,
+      },
+      ingredients: selectedFood.ingredients.map(ing => {
+        // adjust ingredient proportional to custom weight vs typical serving
+        const servingRatio = weight / selectedFood.typical_serving_g;
+        const ingWeight = ing.typical_g * servingRatio;
+        const ingRatio = ingWeight / 100;
+        return {
+          name_en: ing.name_en,
+          name_ar: ing.name_ar,
+          weight_g: ingWeight,
+          calories: ing.per100g.calories * ingRatio,
+          protein: ing.per100g.protein * ingRatio,
+          carbs: ing.per100g.carbs * ingRatio,
+          fat: ing.per100g.fat * ingRatio,
+          per100g: ing.per100g
+        };
+      })
+    };
+
+    navigate("/nutrition-results", { state: { nutritionData: manualNutritionData } });
+  };
+
   const isAtLimit = !planLoading && scansToday >= scanLimit;
   const limitMsg = plan === "free" ? t("scan_limit_free") : t("scan_limit_standard");
 
@@ -126,17 +181,18 @@ const Scan = () => {
 
   return (
     <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
-      {/* Header */}
-      <div className="p-4 flex items-center justify-between bg-white border-b border-gray-100 shadow-sm">
-        <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={() => navigate("/dashboard")}>
+      {/* Clean Header matching middle screen */}
+      <div className="px-6 py-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-40 rounded-b-3xl mb-6">
+        <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-[#1A1A2E] bg-gray-50 rounded-full" onClick={() => navigate("/dashboard")}>
           <X className="w-5 h-5" />
         </Button>
-        <h1 className="text-lg font-bold text-[#6C63FF]">{t("scan_title")}</h1>
-        {previewImage && !isUploading ? (
-          <Button variant="ghost" size="icon" className="hover:bg-gray-100 text-gray-800" onClick={handleReset}>
-            <RefreshCcw className="w-5 h-5" />
-          </Button>
-        ) : <div className="w-10" />}
+        <div className="flex items-center gap-2">
+          <Camera className="w-5 h-5 text-[#6C63FF]" />
+          <h1 className="text-lg font-black text-[#1A1A2E]">{t("scan_title")}</h1>
+        </div>
+        <Badge className="bg-[#6C63FF] text-white border-0 font-bold px-3 py-1 text-[10px] rounded-full shadow-md">
+          {plan === 'pro' ? 'PRO' : 'FREE'}
+        </Badge>
       </div>
 
       {/* Daily scan counter badge */}
@@ -196,61 +252,166 @@ const Scan = () => {
         </div>
       )}
 
-      <div className="p-4 space-y-4">
-        {/* Preview */}
-        <Card
-          className={`aspect-square relative overflow-hidden flex items-center justify-center premium-card ${isAtLimit ? "opacity-60" : "cursor-pointer"}`}
-          onClick={!isUploading && !isAtLimit ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
-        >
-          {previewImage ? (
-            <img src={previewImage} alt="Food preview" className="w-full h-full object-cover rounded-3xl" />
-          ) : (
-            <div className="text-center space-y-4 p-8">
-              <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto animate-pulse-glow" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                {isAtLimit ? <Lock className="w-12 h-12 text-red-400" /> : <Camera className="w-12 h-12" style={{ color: "#6C63FF" }} />}
+      {/* Manual Entry Modal */}
+      {showManualModal && (
+        <div className="fixed inset-0 z-[60] flex flex-col bg-white">
+          <div className="p-4 flex flex-col gap-4 border-b">
+            <div className="flex items-center justify-between">
+              <Button variant="ghost" size="icon" onClick={() => { setShowManualModal(false); setSelectedFood(null); setManualWeight(""); }}>
+                <X className="w-5 h-5" />
+              </Button>
+              <span className="font-bold">Enter Manually / إدخال يدوي</span>
+              <div className="w-10"></div>
+            </div>
+
+            {!selectedFood ? (
+              <div className="relative">
+                <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <Input
+                  autoFocus
+                  placeholder="Search food (e.g., Shawarma)"
+                  className="pl-10 h-12 bg-gray-50 border-gray-200 rounded-xl"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
-              <p className="text-lg font-semibold" style={{ color: isAtLimit ? "#EF4444" : "#6C63FF" }}>
-                {isAtLimit ? t("scan_limit_title") : t("scan_tap_to_pick")}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {isAtLimit ? t("scan_limit_cta") : t("scan_tap_subtitle")}
-              </p>
-            </div>
-          )}
-          {isUploading && (
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center gap-4 rounded-3xl">
-              <Loader2 className="w-12 h-12 animate-spin" style={{ color: "#6C63FF" }} />
-              <p className="font-semibold text-lg" style={{ color: "#6C63FF" }}>{t("scan_analysing")}</p>
-              <p className="text-sm text-muted-foreground">{t("scan_please_wait")}</p>
-            </div>
-          )}
-        </Card>
+            ) : (
+              <div className="flex items-center justify-between p-3 bg-gray-50 border rounded-xl">
+                <span className="font-semibold text-[#6C63FF]">🥩 {lang === "ar" ? selectedFood.name_ar : selectedFood.name_en}</span>
+                <Button variant="ghost" size="sm" onClick={() => setSelectedFood(null)} className="h-8 text-xs underline">
+                  Change
+                </Button>
+              </div>
+            )}
+          </div>
 
-        <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
+          <div className="flex-1 overflow-y-auto p-4">
+            {!selectedFood ? (
+              <div className="space-y-2">
+                {searchResults.length > 0 ? (
+                  searchResults.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl active:bg-gray-100 cursor-pointer"
+                      onClick={() => { setSelectedFood(item); setManualWeight(item.typical_serving_g.toString()); }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">🍲</span>
+                        <div className="flex flex-col">
+                          <span className="font-bold text-sm text-gray-900">{lang === "ar" ? item.name_ar : item.name_en}</span>
+                          <span className="text-[10px] text-gray-500">{item.typical_serving_g}g typical portion</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-gray-400" />
+                    </div>
+                  ))
+                ) : (
+                  searchQuery.length >= 2 ? (
+                    <p className="text-center text-muted-foreground mt-10">No foods found. Try a different search.</p>
+                  ) : (
+                    <p className="text-center text-muted-foreground mt-10">Search for Middle Eastern foods...</p>
+                  )
+                )}
+              </div>
+            ) : (
+              <div className="space-y-6 pt-4">
+                <div className="flex flex-col gap-2 items-center text-center">
+                  <label className="font-bold text-gray-700">Enter Weight</label>
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-400 mr-2">[</span>
+                    <Input
+                      type="number"
+                      value={manualWeight}
+                      onChange={(e) => setManualWeight(e.target.value)}
+                      className="w-24 h-12 text-center font-bold text-xl bg-gray-50 border-gray-200 focus-visible:ring-[#6C63FF]"
+                      min="0"
+                    />
+                    <span className="text-gray-400 ml-2">]</span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-500">grams</span>
+                </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Button size="lg" className="flex flex-col gap-2 h-auto py-5 rounded-full btn-glow" style={{ background: isAtLimit ? "#9CA3AF" : "#6C63FF" }} onClick={handlePickFile} disabled={isUploading}>
-            <Camera className="w-7 h-7 text-white" /><span className="text-white">{t("scan_camera")}</span>
-          </Button>
-          <Button size="lg" variant="secondary" className="flex flex-col gap-2 h-auto py-5 rounded-full bg-white border border-gray-200 shadow-sm text-gray-700" onClick={handlePickFile} disabled={isUploading}>
-            <Upload className="w-7 h-7" /><span>{t("scan_upload")}</span>
-          </Button>
+                <Button className="w-full py-6 rounded-2xl btn-glow text-lg font-bold shadow-xl mt-4" style={{ background: "#6C63FF" }} onClick={handleManualEntrySubmit}>
+                  Calculate Nutrition
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="px-4 space-y-6">
+        {/* Main Floating Card matching reference image */}
+        <div className="bg-white rounded-[32px] p-6 shadow-soft mx-auto w-full relative">
+
+          <h2 className="text-sm font-bold text-[#1A1A2E] mb-4">Upload Food Image</h2>
+
+          <Card
+            className={`aspect-video w-full relative overflow-hidden flex items-center justify-center bg-[#F8F8FC] border-2 border-dashed border-gray-200 rounded-[24px] mb-6 ${isAtLimit ? "opacity-60" : "cursor-pointer hover:bg-gray-50 transition-colors"}`}
+            onClick={!isUploading && !isAtLimit ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
+          >
+            {previewImage ? (
+              <img src={previewImage} alt="Food preview" className="w-full h-full object-cover" />
+            ) : (
+              <div className="text-center space-y-2 p-6">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto bg-white shadow-sm">
+                  {isAtLimit ? <Lock className="w-6 h-6 text-red-400" /> : <Camera className="w-6 h-6 text-[#6C63FF]" />}
+                </div>
+                <p className="text-sm font-bold text-[#1A1A2E]">
+                  {isAtLimit ? t("scan_limit_title") : t("scan_tap_to_pick")}
+                </p>
+                <p className="text-xs text-[#8888A0] max-w-[200px] mx-auto leading-tight">
+                  {isAtLimit ? t("scan_limit_cta") : t("scan_tap_subtitle")}
+                </p>
+              </div>
+            )}
+            {isUploading && (
+              <div className="absolute inset-0 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center gap-3">
+                <Loader2 className="w-8 h-8 animate-spin text-[#6C63FF]" />
+                <p className="font-bold text-[#6C63FF] text-sm tracking-wide">{t("scan_analysing")}</p>
+                <p className="text-[10px] text-[#8888A0] font-medium">{t("scan_please_wait")}</p>
+              </div>
+            )}
+          </Card>
+
+          <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
+
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={handlePickFile} disabled={isUploading}>
+              <Camera className="w-4 h-4 text-[#8888A0]" />
+              {t("scan_camera")}
+            </Button>
+            <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={handlePickFile} disabled={isUploading}>
+              <Upload className="w-4 h-4 text-[#8888A0]" />
+              {t("scan_upload")}
+            </Button>
+          </div>
+
+          {!previewImage && !isUploading && (
+            <Button variant="outline" className="w-full gap-2 rounded-full py-6 font-bold shadow-sm border-gray-200" onClick={() => setShowManualModal(true)}>
+              <Search className="w-4 h-4 text-[#8888A0]" /> Enter Manually
+            </Button>
+          )}
+
+          {previewImage && !isUploading && (
+            <Button className="w-full gap-2 rounded-full py-6 font-bold shadow-glow text-white mt-2 btn-glow transition-all" style={{ background: "#6C63FF" }} onClick={handlePickFile}>
+              <RefreshCcw className="w-4 h-4" /> Change Image
+            </Button>
+          )}
         </div>
 
-        {previewImage && !isUploading && (
-          <Button variant="outline" className="w-full gap-2 rounded-2xl" onClick={handleReset}>
-            <RefreshCcw className="w-4 h-4" />{t("scan_another")}
-          </Button>
-        )}
-
-        <Card className="p-5 premium-card">
-          <h3 className="font-bold mb-3 text-sm text-muted-foreground uppercase tracking-wide">{t("scan_tips_title")}</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground">
+        {/* Tips outside the card */}
+        <div className="px-2 mt-6">
+          <h3 className="font-black mb-3 text-xs text-[#1A1A2E] uppercase tracking-wider pl-2 opacity-60">{t("scan_tips_title")}</h3>
+          <ul className="space-y-2 text-xs text-[#8888A0] font-medium">
             {(["scan_tip1", "scan_tip2", "scan_tip3", "scan_tip4"] as const).map(k => (
-              <li key={k} className="flex gap-2"><span style={{ color: "#43E97B" }}>•</span>{t(k)}</li>
+              <li key={k} className="flex gap-2 items-start bg-white p-3 rounded-2xl shadow-sm border border-gray-50">
+                <span className="text-[#6C63FF] font-bold">•</span>
+                <span>{t(k)}</span>
+              </li>
             ))}
           </ul>
-        </Card>
+        </div>
       </div>
     </div>
   );
