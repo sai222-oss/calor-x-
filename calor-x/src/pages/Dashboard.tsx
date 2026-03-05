@@ -67,7 +67,7 @@ const Dashboard = () => {
         supabase.from("meal_logs").select("id, dish_name, dish_name_ar, calories, protein_g, logged_at")
           .eq("user_id", user.id).gte("logged_at", `${today}T00:00:00`).order("logged_at", { ascending: false }).limit(5),
       ]);
-      if (!profileRes.data || !profileRes.data.onboarding_completed) {
+      if (!profileRes.data || (!profileRes.data.onboarding_completed && !profileRes.data.health_goal)) {
         navigate("/profile-setup", { replace: true });
         return;
       }

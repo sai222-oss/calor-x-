@@ -34,7 +34,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
     const checkRedirect = async (userId: string) => {
       try {
-        const { data, error } = await supabase.from("profiles").select("onboarding_completed").eq("id", userId).single();
+        const { data, error } = await supabase.from("profiles").select("onboarding_completed, health_goal").eq("id", userId).single();
         if (!isMounted) return;
 
         if (error) {
@@ -43,7 +43,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
           return;
         }
 
-        if (data?.onboarding_completed) {
+        if (data?.onboarding_completed || data?.health_goal) {
           navigate("/dashboard");
         } else {
           navigate("/profile-setup");
