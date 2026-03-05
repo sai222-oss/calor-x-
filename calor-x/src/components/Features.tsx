@@ -61,7 +61,7 @@ const Features = () => {
               <div className="p-6">
                 <div
                   className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4"
-                  style={{ background: "rgba(27, 67, 50, 0.08)" }}
+                  style={{ background: "rgba(108, 99, 255, 0.08)" }}
                 >
                   <feature.icon className="w-5 h-5" style={{ color: "#6C63FF" }} />
                 </div>

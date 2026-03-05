@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/hooks/useLanguage";
+import { usePlan } from "@/hooks/usePlan";
 
 interface DailyNutrition {
   total_calories: number;
@@ -43,6 +44,7 @@ const AppName = () => (
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t, lang } = useLanguage();
+  const { isPro } = usePlan();
   const [nutrition, setNutrition] = useState<DailyNutrition | null>(null);
   const [goals, setGoals] = useState<DailyGoals | null>(null);
   const [recentMeals, setRecentMeals] = useState<MealLog[]>([]);
@@ -111,9 +113,11 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Badge className="bg-white text-[#6C63FF] border-0 font-bold px-3 py-1 text-xs rounded-full shadow-sm">
-            💎 PRO
-          </Badge>
+          {isPro && (
+            <Badge className="bg-white text-[#6C63FF] border-0 font-bold px-3 py-1 text-xs rounded-full shadow-sm">
+              💎 PRO
+            </Badge>
+          )}
           <div className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center border border-gray-100 p-1 cursor-pointer hover:scale-105 transition-transform" onClick={() => navigate("/profile")}>
             <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=${profile?.full_name || 'User'}&backgroundColor=f0efff`} alt="avatar" className="w-full h-full rounded-full" />
           </div>
@@ -211,7 +215,10 @@ const Dashboard = () => {
               onClick={() => navigate("/ai-coach")}
             >
               <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
-              <MessageCircle className="w-8 h-8 text-white mb-8" />
+              <div className="flex justify-between items-start mb-8">
+                <MessageCircle className="w-8 h-8 text-white" />
+                {!isPro && <Badge className="bg-white/30 text-white border-0 text-[10px] font-black uppercase">PRO</Badge>}
+              </div>
               <h3 className="font-black text-lg text-white leading-tight">{t("dash_ai_coach")}</h3>
               <p className="text-xs text-white/80 font-medium mt-1">Smart advice</p>
             </Card>
@@ -232,7 +239,10 @@ const Dashboard = () => {
               style={{ background: "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)" }}
               onClick={() => navigate("/meal-planning")}
             >
-              <ChefHat className="w-8 h-8 text-[#1A1A2E] opacity-70 mb-8" />
+              <div className="flex justify-between items-start mb-8">
+                <ChefHat className="w-8 h-8 text-[#1A1A2E] opacity-70" />
+                {!isPro && <Badge className="bg-black/10 text-[#1A1A2E] border-0 text-[10px] font-black uppercase">PRO</Badge>}
+              </div>
               <h3 className="font-black text-lg text-[#1A1A2E] leading-tight">{t("meal_plan_title")}</h3>
               <p className="text-xs text-[#1A1A2E]/60 font-medium mt-1">Daily recipes</p>
             </Card>
@@ -242,7 +252,10 @@ const Dashboard = () => {
               style={{ background: "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)" }}
               onClick={() => navigate("/micronutrients")}
             >
-              <Zap className="w-8 h-8 text-white mb-8" />
+              <div className="flex justify-between items-start mb-8">
+                <Zap className="w-8 h-8 text-white" />
+                {!isPro && <Badge className="bg-white/30 text-white border-0 text-[10px] font-black uppercase">PRO</Badge>}
+              </div>
               <h3 className="font-black text-lg text-white leading-tight">{t("micro_title")}</h3>
               <p className="text-xs text-white/80 font-medium mt-1">Vitamins</p>
             </Card>

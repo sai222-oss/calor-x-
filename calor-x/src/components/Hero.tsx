@@ -21,18 +21,18 @@ const Hero = () => {
       <div className="relative z-10 w-full px-4 pb-8 pt-0 animate-slide-up">
         <div className="bg-white rounded-[32px] p-8 shadow-soft text-center mx-auto max-w-sm w-full">
           <h1 className="text-2xl font-black mb-3 text-[#1A1A2E] leading-tight" style={{ fontFamily: "'Inter', sans-serif" }}>
-            {t("app_name")} - Ignite Your Health With AI
+            {t("app_name")} - {t("hero_tag")}
           </h1>
           <p className="text-sm text-[#8888A0] mb-8 font-medium leading-relaxed">
-            Track your Middle Eastern meals with AI. Scan any dish to instantly get calories and macros like never before.
+            {t("hero_desc")}
           </p>
           <Button
             size="lg"
-            className="w-full py-6 rounded-full font-bold text-lg text-white shadow-md transition-all hover:opacity-90 active:scale-95"
+            className="w-full py-6 rounded-full font-bold text-lg text-white shadow-lg transition-all hover:opacity-90 hover:-translate-y-1 active:scale-95"
             style={{ background: "#6C63FF" }}
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/auth")}
           >
-            Get Started
+            {t("hero_cta")}
           </Button>
         </div>
       </div>
