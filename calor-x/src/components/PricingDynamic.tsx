@@ -125,29 +125,25 @@ const PricingDynamic = () => {
           </p>
         </div>
 
-        {/* Billing Toggle */}
-        <div className="flex justify-center items-center gap-4 mb-14">
-          <span className={`text-sm font-semibold transition-colors ${!isYearly ? "text-[#6C63FF]" : "text-[#8888A0]"}`}>
-            {t("toggle_monthly")}
-          </span>
-          <button
-            onClick={() => setIsYearly(!isYearly)}
-            className="relative w-16 h-8 rounded-full transition-colors duration-300 outline-none"
-            style={{ backgroundColor: isYearly ? "#43E97B" : "#6C63FF" }}
-          >
-            <div
-              className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 blur-[0.5px] shadow-sm ${isYearly ? "left-[34px]" : "left-1"
-                }`}
-            />
-          </button>
-          <div className="flex items-center gap-2">
-            <span className={`text-sm font-semibold transition-colors ${isYearly ? "text-[#6C63FF]" : "text-[#8888A0]"}`}>
+        {/* Modern Segmented Control Billing Toggle */}
+        <div className="flex flex-col items-center mb-14">
+          <div className="bg-white p-1.5 rounded-[20px] shadow-soft flex items-center mb-3 w-full max-w-[340px] border border-gray-100 relative">
+            <button
+              onClick={() => setIsYearly(false)}
+              className={`flex-1 py-4 px-2 tracking-wide rounded-[16px] text-sm font-black transition-all duration-300 ${!isYearly ? "bg-[#6C63FF] text-white shadow-md transform scale-[1.02]" : "text-[#8888A0] hover:bg-gray-50"}`}
+            >
+              {t("toggle_monthly")}
+            </button>
+            <button
+              onClick={() => setIsYearly(true)}
+              className={`flex-1 py-4 px-2 tracking-wide rounded-[16px] text-sm font-black transition-all duration-300 ${isYearly ? "bg-[#6C63FF] text-white shadow-md transform scale-[1.02]" : "text-[#8888A0] hover:bg-gray-50"}`}
+            >
               {t("toggle_yearly")}
-            </span>
-            <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#43E97B" }}>
-              Save 40%
-            </span>
+            </button>
           </div>
+          <Badge className="bg-[#43E97B] text-[#1A1A2E] border-0 text-xs font-black uppercase shadow-sm px-4 py-1 animate-pulse">
+            ⭐ Save 40% on Yearly
+          </Badge>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start">

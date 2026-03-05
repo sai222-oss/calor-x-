@@ -33,6 +33,7 @@ interface MealLog {
 interface ProfileData {
   full_name: string;
   health_goal: string;
+  onboarding_completed?: boolean;
 }
 
 const AppName = () => (
@@ -60,12 +61,17 @@ const Dashboard = () => {
       if (!user) { navigate("/auth"); return; }
       const today = new Date().toISOString().split("T")[0];
       const [profileRes, goalsRes, nutritionRes, mealsRes] = await Promise.all([
-        supabase.from("profiles").select("full_name, health_goal").eq("id", user.id).single(),
+        supabase.from("profiles").select("full_name, health_goal, onboarding_completed").eq("id", user.id).single(),
         supabase.from("daily_goals").select("*").eq("user_id", user.id).single(),
         supabase.from("daily_nutrition").select("*").eq("user_id", user.id).eq("date", today).single(),
         supabase.from("meal_logs").select("id, dish_name, dish_name_ar, calories, protein_g, logged_at")
           .eq("user_id", user.id).gte("logged_at", `${today}T00:00:00`).order("logged_at", { ascending: false }).limit(5),
       ]);
+      if (profileRes.data && !profileRes.data.onboarding_completed) {
+        navigate("/profile-setup", { replace: true });
+        return;
+      }
+
       setProfile(profileRes.data ?? null);
       setGoals(goalsRes.data ?? null);
       setNutrition(nutritionRes.data ?? null);
@@ -266,7 +272,6 @@ const Dashboard = () => {
         <div className="mb-20">
           <div className="flex items-center justify-between mb-3 mx-2">
             <h2 className="text-lg font-black text-[#1A1A2E]">{t("dash_recent_meals")}</h2>
-            <Button variant="link" className="text-xs font-bold text-[#6C63FF] p-0 h-auto">View All</Button>
           </div>
 
           <Card className="p-1 bg-white rounded-[32px] shadow-sm border-0">

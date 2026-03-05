@@ -173,7 +173,7 @@ const strings = {
     // ─── Pricing ──────────────────────────────────────────
     price_title: { ar: "اختر خطتك", en: "Choose Your Plan" },
     price_subtitle: { ar: "اشترك أو ألغِ في أي وقت — بدون قيود أو رسوم خفية.", en: "Upgrade or cancel anytime — no lock-in, no hidden fees." },
-    price_footer: { ar: "جميع الأسعار بالدولار الأمريكي · إلغاء في أي وقت · بدون عقود", en: "All prices in USD · Cancel anytime · No contracts" },
+    price_footer: { ar: "إلغاء في أي وقت · بدون عقود", en: "Cancel anytime · No contracts" },
 
     plan_free: { ar: "مجاني", en: "Free" },
     plan_standard: { ar: "قياسي", en: "Standard" },
@@ -210,12 +210,12 @@ const strings = {
     save_15: { ar: "توفير 15٪", en: "Save 15%" },
 
     // ─── Landing Page ─────────────────────────────────────
-    hero_tag: { ar: "تغذية ذكية للمطبخ العربي", en: "AI-Powered Nutrition for Arabic Cuisine" },
+    hero_tag: { ar: "تطبيقك الشخصي للوصول لهدفك", en: "Your Personal AI Nutrition Assistant" },
     hero_cta: { ar: "ابدأ مجاناً", en: "Start Free" },
     hero_plans: { ar: "عرض الخطط", en: "See Plans" },
-    hero_stat_countries: { ar: "دولة عربية", en: "Arab Countries" },
+    hero_stat_countries: { ar: "مسجلين", en: "Active Users" },
     hero_stat_ai: { ar: "تحليل ذكي", en: "Powered Analysis" },
-    hero_stat_dishes: { ar: "أكثر من مليون وجبة", en: "1M+ Arabic Dishes" },
+    hero_stat_dishes: { ar: "وجبة محللة", en: "Meals Analyzed" },
     hero_desc: { ar: "صوّر طعامك، احصل على التحليل الغذائي الكامل، وتحدث مع مدربك الذكي — في ثوانٍ.", en: "Snap your food, get full nutrition analysis, and chat with your AI coach — in seconds." },
 
     feat_title: { ar: "مصمم للمطبخ العربي", en: "Built for Arabic Cuisine" },
@@ -239,7 +239,6 @@ const strings = {
     footer_pricing: { ar: "الأسعار", en: "Pricing" },
     footer_privacy: { ar: "سياسة الخصوصية", en: "Privacy Policy" },
     footer_terms: { ar: "شروط الخدمة", en: "Terms of Service" },
-    footer_regions: { ar: "المناطق", en: "Regions" },
     footer_rights: { ar: "جميع الحقوق محفوظة © {{year}} كالور إكس", en: "© {{year}} Calor X. All rights reserved." },
 
     // ─── Plan / Upgrade Gate ───────────────────────────────

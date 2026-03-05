@@ -23,6 +23,11 @@ const Scan = () => {
   const [scanError, setScanError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isCameraLive, setIsCameraLive] = useState(false);
+  const [stream, setStream] = useState<MediaStream | null>(null);
+
   // Manual Entry States
   const [showManualModal, setShowManualModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,17 +72,49 @@ const Scan = () => {
   };
   const handleReset = () => { setPreviewImage(null); setIsUploading(false); setScanError(null); resetInput(); };
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    setScanError(null);
-
-    // Double-check limit before processing
-    if (scansToday >= scanLimit) {
-      setShowLimitModal(true);
-      return;
+  const startCamera = async () => {
+    if (!planLoading && scansToday >= scanLimit) {
+      setShowLimitModal(true); return;
     }
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      setStream(mediaStream);
+      setIsCameraLive(true);
+      setPreviewImage(null);
+      if (videoRef.current) videoRef.current.srcObject = mediaStream;
+    } catch (error) { toast.error(lang === "ar" ? "تعذر الوصول للكاميرا" : "Camera access denied"); }
+  };
 
+  const stopCamera = () => {
+    if (stream) { stream.getTracks().forEach(track => track.stop()); setStream(null); }
+    setIsCameraLive(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], "scan.jpg", { type: "image/jpeg" });
+            stopCamera();
+            processFile(file);
+          }
+        }, "image/jpeg", 0.9);
+      }
+    }
+  };
+
+  useEffect(() => { return () => stopCamera(); }, [stream]);
+
+  const processFile = async (file: File) => {
+    setScanError(null);
+    if (scansToday >= scanLimit) { setShowLimitModal(true); return; }
     const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     if (!validTypes.includes(file.type)) { setScanError(t("scan_err_type")); resetInput(); return; }
     if (file.size > 5 * 1024 * 1024) { setScanError(t("scan_err_size")); resetInput(); return; }
@@ -111,6 +148,12 @@ const Scan = () => {
       setScanError(`خطأ: ${err?.message ?? "حدث خطأ غير متوقع"}`);
       setIsUploading(false); resetInput();
     }
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    await processFile(file);
   };
 
   const handleManualEntrySubmit = () => {
@@ -348,9 +391,11 @@ const Scan = () => {
 
           <Card
             className={`aspect-video w-full relative overflow-hidden flex items-center justify-center bg-[#F8F8FC] border-2 border-dashed border-gray-200 rounded-[24px] mb-6 ${isAtLimit ? "opacity-60" : "cursor-pointer hover:bg-gray-50 transition-colors"}`}
-            onClick={!isUploading && !isAtLimit ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
+            onClick={!isUploading && !isAtLimit && !isCameraLive ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
           >
-            {previewImage ? (
+            {isCameraLive ? (
+              <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
+            ) : previewImage ? (
               <img src={previewImage} alt="Food preview" className="w-full h-full object-cover" />
             ) : (
               <div className="text-center space-y-2 p-6">
@@ -376,28 +421,41 @@ const Scan = () => {
 
           <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
 
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={handlePickFile} disabled={isUploading}>
-              <Camera className="w-4 h-4 text-[#8888A0]" />
-              {t("scan_camera")}
-            </Button>
-            <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={handlePickFile} disabled={isUploading}>
-              <Upload className="w-4 h-4 text-[#8888A0]" />
-              {t("scan_upload")}
-            </Button>
-          </div>
+          {isCameraLive ? (
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              <Button className="col-span-2 gap-2 py-6 rounded-2xl font-bold shadow-xl mt-2 text-white text-lg bg-[#43E97B] hover:bg-[#3bc266]" onClick={capturePhoto}>
+                <Camera className="w-5 h-5" /> Capture
+              </Button>
+              <Button variant="outline" className="col-span-2 gap-2 py-4 rounded-2xl font-bold border-gray-200 text-gray-500" onClick={stopCamera}>
+                Cancel
+              </Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={startCamera} disabled={isUploading}>
+                <Camera className="w-4 h-4 text-[#8888A0]" />
+                {t("scan_camera")}
+              </Button>
+              <Button variant="outline" className="flex items-center justify-center gap-2 py-6 rounded-2xl border-gray-100 shadow-sm bg-gray-50 hover:bg-white text-[#1A1A2E] font-bold text-xs" onClick={handlePickFile} disabled={isUploading}>
+                <Upload className="w-4 h-4 text-[#8888A0]" />
+                {t("scan_upload")}
+              </Button>
+            </div>
+          )}
 
-          {!previewImage && !isUploading && (
+          {!previewImage && !isUploading && !isCameraLive && (
             <Button variant="outline" className="w-full gap-2 rounded-full py-6 font-bold shadow-sm border-gray-200" onClick={() => setShowManualModal(true)}>
               <Search className="w-4 h-4 text-[#8888A0]" /> Enter Manually
             </Button>
           )}
 
           {previewImage && !isUploading && (
-            <Button className="w-full gap-2 rounded-full py-6 font-bold shadow-glow text-white mt-2 btn-glow transition-all" style={{ background: "#6C63FF" }} onClick={handlePickFile}>
+            <Button className="w-full gap-2 rounded-full py-6 font-bold shadow-glow text-white mt-2 btn-glow transition-all" style={{ background: "#6C63FF" }} onClick={startCamera}>
               <RefreshCcw className="w-4 h-4" /> Change Image
             </Button>
           )}
+
+          <canvas ref={canvasRef} className="hidden" />
         </div>
 
         {/* Tips outside the card */}
