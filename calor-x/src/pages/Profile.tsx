@@ -146,7 +146,7 @@ const Profile = () => {
                 <div className="mt-6 p-5 rounded-[20px] flex flex-col items-center gap-3 text-left shadow-[0_8px_30px_rgba(108,99,255,0.15)]" style={{ background: "linear-gradient(135deg, #6C63FF, #5A52D5)" }}>
                   <div className="w-full">
                     <h3 className="text-white font-bold text-lg mb-1">Calor X Pro</h3>
-                    <p className="text-white/80 text-sm">Unlock all premium AI coach and macro features.</p>
+                    <p className="text-white/80 text-sm">افتح جميع ميزات المدرب الذكي والماكرو المتقدمة.</p>
                   </div>
                   <Button
                     className="w-full py-6 rounded-full font-bold bg-white text-[#6C63FF] hover:bg-[#F8F8FC] shadow-sm transition-all hover:-translate-y-0.5 mt-2"
@@ -154,7 +154,7 @@ const Profile = () => {
                     disabled={loadingCheckout}
                   >
                     {loadingCheckout ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                    Upgrade Now - $3/mo
+                    اشترك الآن - 3$/شهرياً
                   </Button>
                 </div>
               )}
@@ -262,7 +262,7 @@ const Profile = () => {
                   style={{ background: "#25D366" }}
                   onClick={() => window.open("https://wa.me/+1234567890?text=Hello%2C%20I%20need%20support%20with%20Calor%20X", "_blank")}
                 >
-                  <MessageCircle className="w-4 h-4" />WhatsApp
+                  <MessageCircle className="w-4 h-4" />واتساب
                 </Button>
               </div>
             </Card>

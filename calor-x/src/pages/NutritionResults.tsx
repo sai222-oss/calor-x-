@@ -159,7 +159,7 @@ const NutritionResults = () => {
     setSelectedFood(null);
     setManualWeight("");
     setSearchQuery("");
-    toast.success("Ingredient added! / تم إضافة المكون!");
+    toast.success(t("res_ingredient_added"));
   };
 
   const currentTotals = editableIngredients.reduce(
@@ -231,7 +231,7 @@ const NutritionResults = () => {
                 {lang === "ar" ? nutritionData.dish_label_ar : nutritionData.dish_label}
               </h2>
               <Badge variant="outline" className="mt-2" style={{ color: "#43E97B", borderColor: "#43E97B" }}>
-                {nutritionData.matched_from_db ? "High accuracy Database Match" : t("res_confidence", { n: confidence })}
+                {nutritionData.matched_from_db ? t("res_high_accuracy_db_match") : t("res_confidence", { n: confidence })}
               </Badge>
             </div>
             {nutritionData.cached && !nutritionData.matched_from_db && (
@@ -289,7 +289,7 @@ const NutritionResults = () => {
 
         {/* Ingredients List */}
         <div className="space-y-3 mt-6">
-          <h3 className="font-bold text-sm text-[#6C63FF] uppercase tracking-wide px-2">Adjust Portions / {t("res_ingredients")}</h3>
+          <h3 className="font-bold text-sm text-[#6C63FF] uppercase tracking-wide px-2">{t("res_adjust_portions")} / {t("res_ingredients")}</h3>
           <div>
             {editableIngredients.map((ing, idx) => (
               <EditableIngredient
@@ -301,12 +301,12 @@ const NutritionResults = () => {
           </div>
 
           <div className="mt-4 p-5 rounded-3xl border-2 border-dashed border-[#6C63FF]/30 bg-[#6C63FF]/5 text-center">
-            <h4 className="font-bold text-[#6C63FF] mb-2 text-sm uppercase">Missing Something?</h4>
+            <h4 className="font-bold text-[#6C63FF] mb-2 text-sm uppercase">{t("res_missing_something")}</h4>
             <p className="text-xs text-[#6C63FF]/80 font-medium mb-4">
-              Did the AI miss completely hidden ingredients like olive oil, broth, or bottom-layer meats? Add them manually to perfect your log!
+              {t("res_missing_something_desc")}
             </p>
             <Button variant="outline" className="w-full rounded-2xl py-5 font-bold text-[#6C63FF] border-[#6C63FF]/20 hover:bg-[#6C63FF]/10" onClick={() => setShowAddModal(true)}>
-              <Plus className="w-5 h-5 mr-2" /> Add Hidden Ingredient
+              <Plus className="w-5 h-5 mr-2" /> {t("res_add_hidden_ingredient")}
             </Button>
           </div>
         </div>
@@ -320,7 +320,7 @@ const NutritionResults = () => {
               <Button variant="ghost" size="icon" onClick={() => { setShowAddModal(false); setSelectedFood(null); setManualWeight(""); }}>
                 <X className="w-5 h-5" />
               </Button>
-              <span className="font-bold">Add Ingredient / إدراج مكون</span>
+              <span className="font-bold">{t("res_add_ingredient_title")}</span>
               <div className="w-10"></div>
             </div>
 
@@ -329,7 +329,7 @@ const NutritionResults = () => {
                 <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                 <Input
                   autoFocus
-                  placeholder="Search (e.g., Olive Oil, Chicken, Rice)"
+                  placeholder={t("res_search_ingredient")}
                   className="pl-10 h-12 bg-gray-50 border-gray-200 rounded-xl"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -339,7 +339,7 @@ const NutritionResults = () => {
               <div className="flex items-center justify-between p-3 bg-gray-50 border rounded-xl">
                 <span className="font-semibold text-[#6C63FF]">✨ {lang === "ar" ? selectedFood.name_ar : selectedFood.name_en}</span>
                 <Button variant="ghost" size="sm" onClick={() => setSelectedFood(null)} className="h-8 text-xs underline">
-                  Change
+                  {t("scan_change")}
                 </Button>
               </div>
             )}
@@ -359,7 +359,7 @@ const NutritionResults = () => {
                         <span className="text-xl">🍲</span>
                         <div className="flex flex-col">
                           <span className="font-bold text-sm text-gray-900">{lang === "ar" ? item.name_ar : item.name_en}</span>
-                          <span className="text-[10px] text-gray-500">{item.typical_serving_g}g typical</span>
+                          <span className="text-[10px] text-gray-500">{item.typical_serving_g} {t("res_g_typical")}</span>
                         </div>
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -367,16 +367,16 @@ const NutritionResults = () => {
                   ))
                 ) : (
                   searchQuery.length >= 2 ? (
-                    <p className="text-center text-muted-foreground mt-10">No items found.</p>
+                    <p className="text-center text-muted-foreground mt-10">{t("res_no_items")}</p>
                   ) : (
-                    <p className="text-center text-muted-foreground mt-10">Search for ingredients to add...</p>
+                    <p className="text-center text-muted-foreground mt-10">{t("res_search_to_add")}</p>
                   )
                 )}
               </div>
             ) : (
               <div className="space-y-6 pt-4">
                 <div className="flex flex-col gap-2 items-center text-center">
-                  <label className="font-bold text-gray-700">Enter Hidden Weight</label>
+                  <label className="font-bold text-gray-700">{t("res_enter_hidden_weight")}</label>
                   <div className="flex items-center gap-3">
                     <span className="text-gray-400 mr-2">[</span>
                     <Input
@@ -388,11 +388,11 @@ const NutritionResults = () => {
                     />
                     <span className="text-gray-400 ml-2">]</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-500">grams</span>
+                  <span className="text-sm font-medium text-gray-500">{t("scan_grams")}</span>
                 </div>
 
                 <Button className="w-full py-6 rounded-2xl btn-glow text-lg font-bold shadow-xl mt-4" style={{ background: "#6C63FF" }} onClick={handleAddIngredientSubmit}>
-                  Add to Result!
+                  {t("res_add_to_result")}
                 </Button>
               </div>
             )}
@@ -407,7 +407,7 @@ const NutritionResults = () => {
           onClick={handleSaveMeal}
           disabled={saving}
         >
-          {saving ? t("res_saving") : `Save to Log (${Math.round(currentTotals.calories)} kcal)`}
+          {saving ? t("res_saving") : t("res_save_to_log", { kcal: Math.round(currentTotals.calories) })}
         </Button>
       </div>
     </div>

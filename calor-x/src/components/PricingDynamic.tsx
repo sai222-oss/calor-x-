@@ -97,7 +97,7 @@ const PricingDynamic = () => {
       name: t("plan_pro"),
       price: isYearly ? "3" : "5",
       period: isYearly ? t("per_month") : t("per_month"),
-      description: isYearly ? "Billed as $36/year" : t("desc_pro"),
+      description: isYearly ? "يُفوتر بـ 36$/سنوياً" : t("desc_pro"),
       features: [
         { text: t("feat_scan_unlimited"), included: true },
         { text: t("feat_ai_coach"), included: true },
@@ -142,7 +142,7 @@ const PricingDynamic = () => {
             </button>
           </div>
           <Badge className="bg-[#43E97B] text-[#1A1A2E] border-0 text-xs font-black uppercase shadow-sm px-4 py-1 animate-pulse">
-            ⭐ Save 40% on Yearly
+            ⭐ وفر 40% مع الخطة السنوية
           </Badge>
         </div>
 

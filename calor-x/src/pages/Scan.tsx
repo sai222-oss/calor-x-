@@ -82,7 +82,7 @@ const Scan = () => {
       setIsCameraLive(true);
       setPreviewImage(null);
       if (videoRef.current) videoRef.current.srcObject = mediaStream;
-    } catch (error) { toast.error(lang === "ar" ? "تعذر الوصول للكاميرا" : "Camera access denied"); }
+    } catch (error) { toast.error(t("scan_err_camera")); }
   };
 
   const stopCamera = () => {
@@ -204,17 +204,17 @@ const Scan = () => {
             <AlertTriangle className="h-10 w-10 text-red-600" />
           </div>
           <h2 className="text-2xl font-bold text-red-900">
-            فشل تحليل الصورة
+            {t("scan_err_analysis_failed_title")}
           </h2>
           <p className="text-red-700 font-medium">
             {scanError}
           </p>
           <div className="pt-4 grid gap-3">
             <Button onClick={() => setScanError(null)} className="w-full py-5 font-bold" style={{ background: "#EF4444", color: "white" }}>
-              المحاولة مرة أخرى (Try Again)
+              {t("scan_try_again")}
             </Button>
             <Button variant="outline" onClick={() => navigate("/dashboard")} className="w-full py-5">
-              العودة للرئيسية (Back to Home)
+              {t("scan_back_home")}
             </Button>
           </div>
         </Card>
@@ -303,7 +303,7 @@ const Scan = () => {
               <Button variant="ghost" size="icon" onClick={() => { setShowManualModal(false); setSelectedFood(null); setManualWeight(""); }}>
                 <X className="w-5 h-5" />
               </Button>
-              <span className="font-bold">Enter Manually / إدخال يدوي</span>
+              <span className="font-bold">{t("scan_enter_manually")}</span>
               <div className="w-10"></div>
             </div>
 
@@ -312,7 +312,7 @@ const Scan = () => {
                 <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                 <Input
                   autoFocus
-                  placeholder="Search food (e.g., Shawarma)"
+                  placeholder={t("scan_search_food")}
                   className="pl-10 h-12 bg-gray-50 border-gray-200 rounded-xl"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -322,7 +322,7 @@ const Scan = () => {
               <div className="flex items-center justify-between p-3 bg-gray-50 border rounded-xl">
                 <span className="font-semibold text-[#6C63FF]">🥩 {lang === "ar" ? selectedFood.name_ar : selectedFood.name_en}</span>
                 <Button variant="ghost" size="sm" onClick={() => setSelectedFood(null)} className="h-8 text-xs underline">
-                  Change
+                  {t("scan_change")}
                 </Button>
               </div>
             )}
@@ -342,7 +342,7 @@ const Scan = () => {
                         <span className="text-xl">🍲</span>
                         <div className="flex flex-col">
                           <span className="font-bold text-sm text-gray-900">{lang === "ar" ? item.name_ar : item.name_en}</span>
-                          <span className="text-[10px] text-gray-500">{item.typical_serving_g}g typical portion</span>
+                          <span className="text-[10px] text-gray-500">{item.typical_serving_g} {t("scan_typical_portion")}</span>
                         </div>
                       </div>
                       <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -350,16 +350,16 @@ const Scan = () => {
                   ))
                 ) : (
                   searchQuery.length >= 2 ? (
-                    <p className="text-center text-muted-foreground mt-10">No foods found. Try a different search.</p>
+                    <p className="text-center text-muted-foreground mt-10">{t("scan_no_foods")}</p>
                   ) : (
-                    <p className="text-center text-muted-foreground mt-10">Search for Middle Eastern foods...</p>
+                    <p className="text-center text-muted-foreground mt-10">{t("scan_search_placeholder")}</p>
                   )
                 )}
               </div>
             ) : (
               <div className="space-y-6 pt-4">
                 <div className="flex flex-col gap-2 items-center text-center">
-                  <label className="font-bold text-gray-700">Enter Weight</label>
+                  <label className="font-bold text-gray-700">{t("scan_enter_weight")}</label>
                   <div className="flex items-center gap-3">
                     <span className="text-gray-400 mr-2">[</span>
                     <Input
@@ -371,11 +371,11 @@ const Scan = () => {
                     />
                     <span className="text-gray-400 ml-2">]</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-500">grams</span>
+                  <span className="text-sm font-medium text-gray-500">{t("scan_grams")}</span>
                 </div>
 
                 <Button className="w-full py-6 rounded-2xl btn-glow text-lg font-bold shadow-xl mt-4" style={{ background: "#6C63FF" }} onClick={handleManualEntrySubmit}>
-                  Calculate Nutrition
+                  {t("scan_calc_nutrition")}
                 </Button>
               </div>
             )}
@@ -387,7 +387,7 @@ const Scan = () => {
         {/* Main Floating Card matching reference image */}
         <div className="bg-white rounded-[32px] p-6 shadow-soft mx-auto w-full relative">
 
-          <h2 className="text-sm font-bold text-[#1A1A2E] mb-4">Upload Food Image</h2>
+          <h2 className="text-sm font-bold text-[#1A1A2E] mb-4">{t("scan_upload_image")}</h2>
 
           <Card
             className={`aspect-video w-full relative overflow-hidden flex items-center justify-center bg-[#F8F8FC] border-2 border-dashed border-gray-200 rounded-[24px] mb-6 ${isAtLimit ? "opacity-60" : "cursor-pointer hover:bg-gray-50 transition-colors"}`}
@@ -424,10 +424,10 @@ const Scan = () => {
           {isCameraLive ? (
             <div className="grid grid-cols-2 gap-3 mb-6">
               <Button className="col-span-2 gap-2 py-6 rounded-2xl font-bold shadow-xl mt-2 text-white text-lg bg-[#43E97B] hover:bg-[#3bc266]" onClick={capturePhoto}>
-                <Camera className="w-5 h-5" /> Capture
+                <Camera className="w-5 h-5" /> {t("scan_capture")}
               </Button>
               <Button variant="outline" className="col-span-2 gap-2 py-4 rounded-2xl font-bold border-gray-200 text-gray-500" onClick={stopCamera}>
-                Cancel
+                {t("cancel")}
               </Button>
             </div>
           ) : (
@@ -445,13 +445,13 @@ const Scan = () => {
 
           {!previewImage && !isUploading && !isCameraLive && (
             <Button variant="outline" className="w-full gap-2 rounded-full py-6 font-bold shadow-sm border-gray-200" onClick={() => setShowManualModal(true)}>
-              <Search className="w-4 h-4 text-[#8888A0]" /> Enter Manually
+              <Search className="w-4 h-4 text-[#8888A0]" /> {t("scan_enter_manually")}
             </Button>
           )}
 
           {previewImage && !isUploading && (
             <Button className="w-full gap-2 rounded-full py-6 font-bold shadow-glow text-white mt-2 btn-glow transition-all" style={{ background: "#6C63FF" }} onClick={startCamera}>
-              <RefreshCcw className="w-4 h-4" /> Change Image
+              <RefreshCcw className="w-4 h-4" /> {t("scan_change_image")}
             </Button>
           )}
 

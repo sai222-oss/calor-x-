@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Loader2, MailCheck, AlertCircle } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [isLogin, setIsLogin] = useState(true);
@@ -144,15 +146,15 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             <MailCheck className="h-8 w-8 text-[#6C63FF]" />
           </div>
           <h2 className="text-2xl font-bold text-[#6C63FF]">
-            {verificationType === "signup" ? "Check your email" : "Email Verification Required"}
+            {verificationType === "signup" ? t("auth_check_email") : t("auth_email_verification_required")}
           </h2>
           <p className="text-muted-foreground">
             {verificationType === "signup"
-              ? "We've sent a verification link to your email address. Please verify your email to continue."
-              : "You must verify your email address before you can log in to Calor X. Please check your inbox for the verification link."}
+              ? t("auth_verification_sent")
+              : t("auth_must_verify")}
           </p>
           <Button onClick={() => setShowVerificationModal(false)} className="w-full py-5 btn-glow mt-4 rounded-full text-white font-bold" style={{ background: "#6C63FF" }}>
-            Return to Login
+            {t("auth_return_login")}
           </Button>
         </Card>
       </div>
@@ -163,12 +165,12 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F8F8FC" }}>
       <Card className="w-full max-w-md p-8 space-y-6 premium-card animate-fade-in">
         <div className="text-center space-y-1">
-          <h1 className="text-3xl font-heading font-bold text-[#6C63FF]">Calor <span className="text-[#43E97B]">X</span></h1>
+          <h1 className="text-3xl font-heading font-bold text-[#6C63FF]">{t("app_name")}</h1>
           <h2 className="text-xl font-bold mt-3 text-gray-900">
-            {isLogin ? "تسجيل الدخول" : "إنشاء حساب"}
+            {isLogin ? t("auth_sign_in") : t("auth_sign_up")}
           </h2>
           <p className="text-muted-foreground text-sm">
-            {isLogin ? "Sign in to your account" : "Create your account"}
+            {isLogin ? t("auth_sign_in_desc") : t("auth_sign_up_desc")}
           </p>
         </div>
 
@@ -190,7 +192,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
             </svg>
           )}
-          Continue with Google
+          {t("auth_continue_google")}
         </Button>
 
         <div className="relative">
@@ -198,7 +200,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             <span className="w-full border-t border-gray-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-3 text-muted-foreground">or</span>
+            <span className="bg-white px-3 text-muted-foreground">{t("auth_or")}</span>
           </div>
         </div>
 
@@ -211,7 +213,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
         <form onSubmit={handleAuth} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Email / البريد الإلكتروني</label>
+            <label className="text-sm font-medium text-gray-700">{t("auth_email")}</label>
             <Input
               type="email" placeholder="your@email.com" value={email}
               onChange={e => setEmail(e.target.value)} disabled={loading} required
@@ -219,7 +221,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Password / كلمة المرور</label>
+            <label className="text-sm font-medium text-gray-700">{t("auth_password")}</label>
             <Input
               type="password" placeholder="••••••••" value={password}
               onChange={e => setPassword(e.target.value)} disabled={loading} required minLength={6}
@@ -228,14 +230,14 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
           </div>
           <Button type="submit" className="w-full py-5 btn-glow rounded-full text-white font-bold" style={{ background: "#6C63FF" }} disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isLogin ? "Sign In / تسجيل الدخول" : "Sign Up / إنشاء حساب"}
+            {isLogin ? t("auth_sign_in_btn") : t("auth_sign_up_btn")}
           </Button>
           {!isLogin && (
             <p className="text-xs text-center text-muted-foreground mt-1">
-              By signing up you agree to our{" "}
-              <a href="/terms" className="text-primary hover:underline">Terms of Service</a>
-              {" "}and{" "}
-              <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>
+              {t("auth_agree_terms")}{" "}
+              <a href="/terms" className="text-primary hover:underline">{t("prof_terms")}</a>
+              {" "}{t("auth_and")}{" "}
+              <a href="/privacy" className="text-primary hover:underline">{t("prof_privacy")}</a>
             </p>
           )}
         </form>
@@ -245,7 +247,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             type="button" onClick={toggleAuthMode}
             className="text-sm text-[#6C63FF] font-semibold hover:underline" disabled={loading}
           >
-            {isLogin ? "Don't have an account? Sign up →" : "Already have an account? Sign in →"}
+            {isLogin ? t("auth_no_account") : t("auth_has_account")}
           </button>
           <br />
           <button
@@ -253,7 +255,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
             className="text-sm text-muted-foreground hover:text-foreground"
             disabled={loading}
           >
-            ← Back to Home
+            {t("auth_back_home")}
           </button>
         </div>
       </Card>

@@ -141,13 +141,13 @@ const Dashboard = () => {
           <div className="relative z-10 flex items-center justify-between">
             <div className="flex-1 pr-4">
               <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-black uppercase tracking-widest mb-3 shadow-sm border border-white/10">
-                Daily Streak 🔥 3
+                {t("dash_daily_streak_badge", { n: 3 })}
               </span>
               <h1 className="text-2xl font-black text-white leading-tight mb-2">
                 {t("dash_welcome")},<br />{profile?.full_name || "Guest"}!
               </h1>
               <p className="text-xs font-medium text-white/90 max-w-[200px] leading-relaxed">
-                Ready to crush your goals today? Let's track some delicious food! 🚀
+                {t("dash_ready_crush")}
               </p>
             </div>
 
@@ -213,7 +213,7 @@ const Dashboard = () => {
 
         {/* Captivating Quick Actions (Vibrant cards) */}
         <div>
-          <h2 className="text-lg font-black text-[#1A1A2E] mb-3 ml-2">Quick Actions</h2>
+          <h2 className="text-lg font-black text-[#1A1A2E] mb-3 ml-2">{t("dash_quick_actions")}</h2>
           <div className="grid grid-cols-2 gap-3">
             <Card
               className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
@@ -226,7 +226,7 @@ const Dashboard = () => {
                 {!isPro && <Badge className="bg-white/30 text-white border-0 text-[10px] font-black uppercase">PRO</Badge>}
               </div>
               <h3 className="font-black text-lg text-white leading-tight">{t("dash_ai_coach")}</h3>
-              <p className="text-xs text-white/80 font-medium mt-1">Smart advice</p>
+              <p className="text-xs text-white/80 font-medium mt-1">{t("dash_smart_advice")}</p>
             </Card>
 
             <Card
@@ -237,7 +237,7 @@ const Dashboard = () => {
               <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
               <TrendingUp className="w-8 h-8 text-white mb-8" />
               <h3 className="font-black text-lg text-white leading-tight">{t("dash_progress")}</h3>
-              <p className="text-xs text-white/80 font-medium mt-1">View trends</p>
+              <p className="text-xs text-white/80 font-medium mt-1">{t("dash_view_trends")}</p>
             </Card>
 
             <Card
@@ -250,7 +250,7 @@ const Dashboard = () => {
                 {!isPro && <Badge className="bg-black/10 text-[#1A1A2E] border-0 text-[10px] font-black uppercase">PRO</Badge>}
               </div>
               <h3 className="font-black text-lg text-[#1A1A2E] leading-tight">{t("meal_plan_title")}</h3>
-              <p className="text-xs text-[#1A1A2E]/60 font-medium mt-1">Daily recipes</p>
+              <p className="text-xs text-[#1A1A2E]/60 font-medium mt-1">{t("dash_daily_recipes")}</p>
             </Card>
 
             <Card
@@ -263,7 +263,7 @@ const Dashboard = () => {
                 {!isPro && <Badge className="bg-white/30 text-white border-0 text-[10px] font-black uppercase">PRO</Badge>}
               </div>
               <h3 className="font-black text-lg text-white leading-tight">{t("micro_title")}</h3>
-              <p className="text-xs text-white/80 font-medium mt-1">Vitamins</p>
+              <p className="text-xs text-white/80 font-medium mt-1">{t("dash_vitamins")}</p>
             </Card>
           </div>
         </div>
@@ -297,12 +297,12 @@ const Dashboard = () => {
                         {lang === "ar" ? (meal.dish_name_ar || meal.dish_name) : meal.dish_name}
                       </p>
                       <p className="text-xs font-medium text-[#8888A0] mt-0.5">
-                        {formatTime(meal.logged_at)} • {Math.round(meal.protein_g)}g protein
+                        {formatTime(meal.logged_at)} • {Math.round(meal.protein_g)} {t("dash_protein_g")}
                       </p>
                     </div>
                     <div className="text-right ml-2 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
                       <p className="font-black text-sm text-[#6C63FF]">{Math.round(meal.calories)}</p>
-                      <p className="text-[9px] font-bold text-[#8888A0] uppercase">kcal</p>
+                      <p className="text-[9px] font-bold text-[#8888A0] uppercase">{t("dash_kcal")}</p>
                     </div>
                   </div>
                 ))}
@@ -321,7 +321,7 @@ const Dashboard = () => {
           onClick={() => navigate("/scan")}
         >
           <Camera className="w-5 h-5 mr-2" />
-          Generate Scan
+          {t("dash_generate_scan")}
         </Button>
       </div>
     </div>
