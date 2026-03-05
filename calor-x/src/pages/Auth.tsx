@@ -34,7 +34,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
     const checkRedirect = async (userId: string) => {
       try {
-        const { data, error } = await supabase.from("profiles").select("onboarding_completed, health_goal").eq("id", userId).single();
+        const { data, error } = await supabase.from("profiles").select("onboarding_completed, health_goal").eq("id", userId).maybeSingle();
         if (!isMounted) return;
 
         if (error) {

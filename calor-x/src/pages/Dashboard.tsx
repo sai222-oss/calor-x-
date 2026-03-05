@@ -61,9 +61,9 @@ const Dashboard = () => {
       if (!user) { navigate("/auth"); return; }
       const today = new Date().toISOString().split("T")[0];
       const [profileRes, goalsRes, nutritionRes, mealsRes] = await Promise.all([
-        supabase.from("profiles").select("full_name, health_goal, onboarding_completed").eq("id", user.id).single(),
-        supabase.from("daily_goals").select("*").eq("user_id", user.id).single(),
-        supabase.from("daily_nutrition").select("*").eq("user_id", user.id).eq("date", today).single(),
+        supabase.from("profiles").select("full_name, health_goal, onboarding_completed").eq("id", user.id).maybeSingle(),
+        supabase.from("daily_goals").select("*").eq("user_id", user.id).maybeSingle(),
+        supabase.from("daily_nutrition").select("*").eq("user_id", user.id).eq("date", today).maybeSingle(),
         supabase.from("meal_logs").select("id, dish_name, dish_name_ar, calories, protein_g, logged_at")
           .eq("user_id", user.id).gte("logged_at", `${today}T00:00:00`).order("logged_at", { ascending: false }).limit(5),
       ]);
@@ -76,7 +76,9 @@ const Dashboard = () => {
       setGoals(goalsRes.data ?? null);
       setNutrition(nutritionRes.data ?? null);
       setRecentMeals(mealsRes.data ?? []);
-    } catch (e) { console.error("Dashboard load error", e); }
+    } catch (e) {
+      console.error("Dashboard load error", e);
+    }
     finally { setLoading(false); }
   };
 
