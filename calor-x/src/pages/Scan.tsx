@@ -394,7 +394,7 @@ const Scan = () => {
             onClick={!isUploading && !isAtLimit && !isCameraLive ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
           >
             {isCameraLive ? (
-              <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
+              <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
             ) : previewImage ? (
               <img src={previewImage} alt="Food preview" className="w-full h-full object-cover" />
             ) : (

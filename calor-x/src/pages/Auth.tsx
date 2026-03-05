@@ -39,6 +39,7 @@ const Auth = ({ mode }: { mode?: "login" | "signup" } = {}) => {
 
         if (error) {
           console.error("Error checking profile:", error);
+          navigate("/profile-setup");
           return;
         }
 

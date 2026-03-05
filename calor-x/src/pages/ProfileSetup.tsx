@@ -51,7 +51,8 @@ const ProfileSetup = () => {
       const carbTarget = (calTarget - (protTarget * 4) - (fatTarget * 9)) / 4;
 
       const [profileRes, goalsRes] = await Promise.all([
-        supabase.from("profiles").update({
+        supabase.from("profiles").upsert({
+          id: user.id,
           full_name: formData.name,
           age,
           weight_kg: weight,
@@ -63,7 +64,7 @@ const ProfileSetup = () => {
           country: formData.country || null,
           fitness_level: formData.fitness_level || null,
           dietary_preferences: formData.dietary_preference !== "no_restriction" ? [formData.dietary_preference] : null
-        }).eq("id", user.id),
+        }, { onConflict: "id" }),
         supabase.from("daily_goals").upsert({
           user_id: user.id,
           calories_target: Math.round(calTarget),
