@@ -1,6 +1,6 @@
 import { Camera, Brain, MessageSquare, Shield } from "lucide-react";
 import aiScanImage from "@/assets/ai-scan-feature-clean.jpg";
-import nutritionImage from "@/assets/nutrition-dashboard.jpg";
+const nutritionImage = "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1000&auto=format&fit=crop";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Features = () => {

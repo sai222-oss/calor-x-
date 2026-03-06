@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowLeft, User, LogOut, Info,
+  ArrowLeft, User, LogOut, Info, Camera,
   Dumbbell, Target, Activity, Loader2, Edit2, Headphones, Mail, MessageCircle, Star, Zap, ChevronRight
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +30,8 @@ const Profile = () => {
   const [loadingCheckout, setLoadingCheckout] = useState(false);
   const [weeklyMeals, setWeeklyMeals] = useState(0);
   const [totalCaloriesTracked, setTotalCaloriesTracked] = useState(0);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   useEffect(() => { loadProfile(); }, []);
 
@@ -66,6 +68,7 @@ const Profile = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { navigate("/auth"); return; }
       setEmail(user.email ?? "");
+      setAvatarUrl(user.user_metadata?.avatar_url || null);
       const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
       const [profileRes, goalsRes, statsRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", user.id).single(),
@@ -83,6 +86,35 @@ const Profile = () => {
 
   const handleUpgrade = () => {
     navigate("/pricing");
+  };
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingAvatar(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No user");
+
+      const fileExt = file.name.split('.').pop();
+      const filePath = `avatars/${user.id}-${Math.random()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage.from("food-images").upload(filePath, file);
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabase.storage.from("food-images").getPublicUrl(filePath);
+      const url = publicUrlData.publicUrl;
+
+      await supabase.auth.updateUser({ data: { avatar_url: url } });
+      setAvatarUrl(url);
+      toast.success(t("res_save_success") || "Image added successfully!");
+    } catch (err) {
+      console.error(err);
+      toast.error(t("res_save_error") || "Error uploading image");
+    } finally {
+      setUploadingAvatar(false);
+    }
   };
 
   const handleLogout = async () => { await supabase.auth.signOut(); toast.success(t("prof_logout_ok")); navigate("/"); };
@@ -122,8 +154,18 @@ const Profile = () => {
           <>
             {/* Avatar */}
             <Card className="p-6 text-center premium-card">
-              <div className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#F0EFFF]">
-                <User className="w-12 h-12 text-[#6C63FF]" />
+              <div className="relative w-24 h-24 mx-auto mb-4 group cursor-pointer">
+                <input type="file" accept="image/*" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onChange={handleAvatarUpload} disabled={uploadingAvatar} />
+                <div className="w-full h-full rounded-full overflow-hidden bg-[#F0EFFF] flex items-center justify-center border-2 border-white shadow-md">
+                  {uploadingAvatar ? <Loader2 className="w-6 h-6 animate-spin text-[#6C63FF]" /> : avatarUrl ? (
+                    <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-12 h-12 text-[#6C63FF]" />
+                  )}
+                </div>
+                <div className="absolute bottom-0 right-0 bg-[#6C63FF] w-8 h-8 rounded-full flex items-center justify-center border-2 border-white shadow-md cursor-pointer z-0">
+                  <Camera className="w-4 h-4 text-white" />
+                </div>
               </div>
               <h2 className="text-2xl font-bold text-[#1A1A2E] mb-1">
                 {profile?.full_name ?? t("prof_user")}

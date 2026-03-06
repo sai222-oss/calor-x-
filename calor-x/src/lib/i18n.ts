@@ -248,7 +248,7 @@ const strings = {
     save_15: { ar: "توفير 15٪", en: "Save 15%" },
 
     // ─── Landing Page ─────────────────────────────────────
-    hero_tag: { ar: "تطبيقك الشخصي للوصول لهدفك", en: "Your Personal AI Nutrition Assistant" },
+    hero_tag: { ar: "رفيقك الذكي لحياة صحية", en: "Your Smart Health Companion" },
     hero_cta: { ar: "ابدأ مجاناً", en: "Start Free" },
     hero_plans: { ar: "عرض الخطط", en: "See Plans" },
     hero_stat_countries: { ar: "مسجلين", en: "Active Users" },

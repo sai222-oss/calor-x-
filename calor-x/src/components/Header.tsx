@@ -11,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { t } = useLanguage();
-  const [user, setUser] = useState<{ email?: string } | null>(null);
+  const [user, setUser] = useState<{ email?: string; user_metadata?: any } | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -52,9 +52,13 @@ const Header = () => {
                 <LayoutDashboard className="w-4 h-4" />
                 <span className="hidden sm:inline">Dashboard</span>
               </Button>
-              <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold text-sm cursor-pointer shadow-lg active:scale-95 transition-transform"
+              <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold text-sm cursor-pointer shadow-lg active:scale-95 transition-transform overflow-hidden border border-white/20"
                 onClick={() => navigate("/profile")}>
-                {initial}
+                {user?.user_metadata?.avatar_url ? (
+                  <img src={user.user_metadata.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  initial
+                )}
               </div>
               <Button size="sm" variant="ghost" onClick={handleLogout} className="text-white/70 hover:text-destructive px-2 hover:bg-white/5">
                 <LogOut className="w-4 h-4" />
@@ -63,7 +67,7 @@ const Header = () => {
           ) : (
             <div className="flex items-center gap-2">
               <Button size="sm" variant="ghost" onClick={() => navigate("/auth")} className="text-white/90 hover:bg-white/10">{t("prof_logout") ? "Sign In" : "Login"}</Button>
-              <Button size="sm" onClick={() => navigate("/signup")} className="btn-glow bg-accent text-accent-foreground hover:bg-accent/90">Sign Up</Button>
+              <Button size="sm" onClick={() => navigate("/signup")} className="btn-glow hover:bg-opacity-90 border-0" style={{ background: "#6C63FF", color: "white" }}>{t("auth_sign_up") || "Sign Up"}</Button>
             </div>
           )}
         </nav>

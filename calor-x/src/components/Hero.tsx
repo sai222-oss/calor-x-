@@ -11,12 +11,12 @@ const Hero = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#1A1A2E]">
       {/* Dynamic Background Image */}
       <div
-        className="absolute inset-0 z-0 h-full w-full bg-cover bg-center opacity-60 mix-blend-overlay"
+        className="absolute inset-0 z-0 h-full w-full bg-cover bg-center opacity-90 mix-blend-overlay"
         style={{ backgroundImage: `url(${heroImage})` }}
       />
       {/* Gradient overlays for premium depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/80 to-transparent z-0" />
-      <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-fuchsia-600/20 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/50 to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 to-fuchsia-600/10 z-0" />
 
       {/* Hero Content */}
       <div className="relative z-10 w-full px-6 pt-20 animate-fade-in flex flex-col items-center justify-center h-full">
