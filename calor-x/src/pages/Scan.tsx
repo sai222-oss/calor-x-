@@ -81,7 +81,6 @@ const Scan = () => {
       setStream(mediaStream);
       setIsCameraLive(true);
       setPreviewImage(null);
-      if (videoRef.current) videoRef.current.srcObject = mediaStream;
     } catch (error) { toast.error(t("scan_err_camera")); }
   };
 
@@ -89,6 +88,12 @@ const Scan = () => {
     if (stream) { stream.getTracks().forEach(track => track.stop()); setStream(null); }
     setIsCameraLive(false);
   };
+
+  useEffect(() => {
+    if (isCameraLive && stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [isCameraLive, stream]);
 
   const capturePhoto = () => {
     if (videoRef.current && canvasRef.current) {
