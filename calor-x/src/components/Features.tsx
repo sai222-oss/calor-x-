@@ -1,6 +1,8 @@
 import { Camera, Brain, MessageSquare, Shield } from "lucide-react";
 import aiScanImage from "@/assets/ai-scan-feature-clean.jpg";
 const nutritionImage = "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=1000&auto=format&fit=crop";
+const coachImage = "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1000&auto=format&fit=crop";
+const securityImage = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1000&auto=format&fit=crop";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Features = () => {
@@ -23,11 +25,13 @@ const Features = () => {
       icon: MessageSquare,
       title: t("feat_coach_title"),
       description: t("feat_coach_desc"),
+      image: coachImage,
     },
     {
       icon: Shield,
       title: t("feat_secure_title"),
       description: t("feat_secure_desc"),
+      image: securityImage,
     },
   ];
 
