@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp, AlertTriangle, Search, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { generateImageHash } from "@/lib/imageHash";
@@ -23,10 +23,21 @@ const Scan = () => {
   const [scanError, setScanError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // streamRef holds the active MediaStream so callback ref can assign it immediately on mount
+  const streamRef = useRef<MediaStream | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraLive, setIsCameraLive] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
+
+  // Callback ref: fires the instant the <video> element mounts/unmounts
+  const videoCallbackRef = useCallback((node: HTMLVideoElement | null) => {
+    videoRef.current = node;
+    if (node && streamRef.current) {
+      node.srcObject = streamRef.current;
+      node.play().catch(() => { });
+    }
+  }, []);
 
   // Manual Entry States
   const [showManualModal, setShowManualModal] = useState(false);
@@ -77,23 +88,41 @@ const Scan = () => {
       setShowLimitModal(true); return;
     }
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      // Store in ref FIRST so videoCallbackRef can immediately assign srcObject when element mounts
+      streamRef.current = mediaStream;
       setStream(mediaStream);
       setIsCameraLive(true);
       setPreviewImage(null);
-    } catch (error) { toast.error(t("scan_err_camera")); }
+      // Also assign directly if video element already mounted
+      if (videoRef.current) {
+        videoRef.current.srcObject = mediaStream;
+        videoRef.current.play().catch(() => { });
+      }
+    } catch (error: any) {
+      console.error("Camera error:", error?.name, error?.message);
+      toast.error(t("scan_err_camera"));
+    }
   };
 
   const stopCamera = () => {
-    if (stream) { stream.getTracks().forEach(track => track.stop()); setStream(null); }
+    if (streamRef.current) { streamRef.current.getTracks().forEach(t => t.stop()); streamRef.current = null; }
+    if (stream) { stream.getTracks().forEach(t => t.stop()); }
+    if (videoRef.current) { videoRef.current.srcObject = null; }
+    setStream(null);
     setIsCameraLive(false);
   };
 
+  // Safety net: sync srcObject whenever stream state changes
   useEffect(() => {
-    if (isCameraLive && stream && videoRef.current) {
+    if (isCameraLive && stream && videoRef.current && videoRef.current.srcObject !== stream) {
       videoRef.current.srcObject = stream;
+      videoRef.current.play().catch(() => { });
     }
   }, [isCameraLive, stream]);
+
 
   const capturePhoto = () => {
     if (videoRef.current && canvasRef.current) {
@@ -128,27 +157,52 @@ const Scan = () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { navigate("/auth"); return; }
+
+      // Read file as data URL for preview + base64 for edge function
       const dataUrl = await new Promise<string>((res) => { const r = new FileReader(); r.onloadend = () => res(r.result as string); r.readAsDataURL(file); });
       setPreviewImage(dataUrl);
+
       let imageHash = "";
       try { imageHash = await generateImageHash(dataUrl); } catch { /* ok */ }
+
+      // Extract base64 payload (strip the data URL prefix)
+      const base64Data = dataUrl.split(",")[1];
+      const mimeType = file.type || "image/jpeg";
+
+      // Upload to storage for persistent URL reference
       const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, "_").toLowerCase();
       const fileName = `${user.id}/${Date.now()}_${safeName}`;
       const { error: uploadError } = await supabase.storage.from("food-images").upload(fileName, file, { cacheControl: "3600", upsert: false });
-      if (uploadError) { setScanError(`فشل الرفع: ${uploadError.message}`); setIsUploading(false); resetInput(); return; }
       const { data: urlData } = supabase.storage.from("food-images").getPublicUrl(fileName);
+      const imageUrl = uploadError ? "" : urlData.publicUrl;
 
+      // Send base64 directly to edge function — avoids the function needing to re-fetch the image
       const { data: analysisData, error: analysisError } = await supabase.functions.invoke("analyze-food", {
-        body: { imageUrl: urlData.publicUrl, imageHash, userId: user.id },
+        body: { imageBase64: base64Data, mimeType, imageUrl, imageHash, userId: user.id },
       });
+
       if (analysisError) {
-        const msg = analysisError.message ?? "Unknown error";
-        if (msg.includes("GEMINI_API_KEY")) {
-          setScanError("مفتاح Gemini API غير مضبوط في Supabase. يرجى إضافة المفتاح في إعدادات Edge Function.");
-        } else { setScanError(`فشل التحليل: ${msg}`); }
+        // Extract the real error message: it may be buried in context or message
+        let msg = "Unknown error";
+        try {
+          const ctx = (analysisError as any).context;
+          if (ctx) {
+            const body = typeof ctx === "string" ? JSON.parse(ctx) : ctx;
+            msg = body?.error || body?.message || analysisError.message || msg;
+          } else {
+            msg = analysisError.message || msg;
+          }
+        } catch { msg = analysisError.message || msg; }
+        setScanError(`فشل التحليل: ${msg}`);
         setIsUploading(false); resetInput(); return;
       }
-      navigate("/nutrition-results", { state: { nutritionData: { ...analysisData, imageUrl: urlData.publicUrl, imageHash } } });
+
+      if (analysisData?.error) {
+        setScanError(`فشل التحليل: ${analysisData.error}`);
+        setIsUploading(false); resetInput(); return;
+      }
+
+      navigate("/nutrition-results", { state: { nutritionData: { ...analysisData, imageUrl: imageUrl || dataUrl, imageHash } } });
     } catch (err: any) {
       setScanError(`خطأ: ${err?.message ?? "حدث خطأ غير متوقع"}`);
       setIsUploading(false); resetInput();
@@ -398,8 +452,16 @@ const Scan = () => {
             className={`aspect-video w-full relative overflow-hidden flex items-center justify-center bg-[#F8F8FC] border-2 border-dashed border-gray-200 rounded-[24px] mb-6 ${isAtLimit ? "opacity-60" : "cursor-pointer hover:bg-gray-50 transition-colors"}`}
             onClick={!isUploading && !isAtLimit && !isCameraLive ? handlePickFile : isAtLimit ? () => setShowLimitModal(true) : undefined}
           >
+            {/* Video always rendered — display:none blocks autoplay on Android; use absolute+opacity instead */}
+            <video
+              ref={videoCallbackRef}
+              autoPlay
+              playsInline
+              muted
+              style={isCameraLive ? { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 } : { position: 'absolute', opacity: 0, pointerEvents: 'none', width: 1, height: 1 }}
+            />
             {isCameraLive ? (
-              <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+              <></> /* live camera — video element above fills the card */
             ) : previewImage ? (
               <img src={previewImage} alt="Food preview" className="w-full h-full object-cover" />
             ) : (

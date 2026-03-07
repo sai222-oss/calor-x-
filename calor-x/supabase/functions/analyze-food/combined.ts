@@ -1,6 +1,36 @@
+export function calculateHammingDistance(hash1: string, hash2: string): number {
+  if (!hash1 || !hash2) return 1000;
+  if (hash1.length !== hash2.length) return 1000; // Invalid comparison
+
+  let diff = 0;
+  for (let i = 0; i < hash1.length; i++) {
+    if (hash1[i] !== hash2[i]) {
+      const val1 = parseInt(hash1[i], 16);
+      const val2 = parseInt(hash2[i], 16);
+      let xor = val1 ^ val2;
+      while (xor > 0) {
+        diff += xor & 1;
+        xor >>= 1;
+      }
+    }
+  }
+  return diff;
+}
+
+export function parseAIResponse(aiResponse: string): any {
+  // Try direct JSON first
+  try {
+    return JSON.parse(aiResponse);
+  } catch (e) {
+    // Fallback: extract json from markdown fences
+    const jsonMatch = aiResponse.match(/```json\n([\s\S]*?)\n```/) || aiResponse.match(/```\n([\s\S]*?)\n```/);
+    const candidate = jsonMatch ? jsonMatch[1] : aiResponse;
+    return JSON.parse(candidate);
+  }
+}
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.76.1';
-import { calculateHammingDistance, parseAIResponse } from './utils.ts';
+
 
 declare const Deno: any;
 
@@ -9,10 +39,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const ANALYSIS_VERSION = 'v13.0.0-base64-direct';
+const ANALYSIS_VERSION = 'v12.0.0-real-only';
 
 async function callOpenAI(apiKey: string, base64Image: string, mimeType: string, imageHash: string): Promise<{ text: string, modelUsed: string }> {
-  const model = "gpt-4o-mini";
+  const model = "gpt-4o-mini"; // or gpt-4o for better vision
   const systemPrompt = `You are an expert nutritionist specialized in Middle Eastern and Arab cuisine.
 
 When analyzing a food image:
@@ -103,9 +133,7 @@ When analyzing a food image:
 
 Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_weight_g, total_nutrition (calories, protein, carbs, fat, fiber, sugar, sodium), ingredients [{name_ar, name_en, weight_g, calories, protein, carbs, fat}], meal_type, cuisine_type, glycemic_index, protein_quality_score, gym_tip, gym_tip_ar }`;
 
-  let lastError = '';
   for (const model of models) {
-
     try {
       const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
         method: 'POST',
@@ -119,28 +147,18 @@ Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_we
         const data = await resp.json();
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (text) return { text, modelUsed: model };
-        // Sometimes Gemini returns ok but empty candidates (safety block)
-        const finishReason = data?.candidates?.[0]?.finishReason;
-        lastError = `Gemini ${model}: empty response (finishReason=${finishReason || 'unknown'})`;
-        console.warn(lastError);
-      } else {
-        const errText = await resp.text();
-        lastError = `Gemini ${model} HTTP ${resp.status}: ${errText.slice(0, 300)}`;
-        console.warn(lastError);
       }
-    } catch (e: any) {
-      lastError = `Gemini ${model} exception: ${e.message}`;
-      console.warn(lastError);
-    }
+    } catch (e) { console.warn(`Model ${model} failed`, e); }
   }
-  throw new Error(`GEMINI_FAILED: ${lastError || 'All models failed'}`);
+  throw new Error("GEMINI_FAILED");
 }
 
 serve(async (req: Request) => {
+  const requestStart = Date.now();
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {
-    const { imageUrl, imageBase64, mimeType: clientMimeType, imageHash: rawImageHash, userId } = await req.json();
+    const { imageUrl, imageHash: rawImageHash, userId } = await req.json();
     const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
     const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
@@ -161,49 +179,37 @@ serve(async (req: Request) => {
       }
     }
 
-    // 2. Get image data — prefer base64 sent directly from client (most reliable, no re-fetch needed)
+    // 2. Real Analysis
+    const imgResp = await fetch(imageUrl);
+    if (!imgResp.ok) throw new Error("Image fetch failed");
+    const imgBuffer = await imgResp.arrayBuffer();
+    const imgBytes = new Uint8Array(imgBuffer);
     let imgBase64 = '';
-    let mimeType = 'image/jpeg';
-
-    if (imageBase64) {
-      // Client sent base64 directly — use it straight away
-      imgBase64 = imageBase64;
-      mimeType = clientMimeType || 'image/jpeg';
-    } else if (imageUrl) {
-      // Fallback: fetch image from storage URL
-      const imgResp = await fetch(imageUrl);
-      if (!imgResp.ok) throw new Error(`Image fetch failed: ${imgResp.status}`);
-      const imgBuffer = await imgResp.arrayBuffer();
-      const imgBytes = new Uint8Array(imgBuffer);
-      let raw = '';
-      const chunkSize = 8192;
-      for (let i = 0; i < imgBytes.length; i += chunkSize) { raw += String.fromCharCode(...imgBytes.subarray(i, i + chunkSize)); }
-      imgBase64 = btoa(raw);
-      mimeType = imgResp.headers.get('content-type') || 'image/jpeg';
-    } else {
-      throw new Error('No image data provided');
-    }
+    const chunkSize = 8192;
+    for (let i = 0; i < imgBytes.length; i += chunkSize) { imgBase64 += String.fromCharCode(...imgBytes.subarray(i, i + chunkSize)); }
+    imgBase64 = btoa(imgBase64);
+    const mimeType = imgResp.headers.get('content-type') || 'image/jpeg';
 
     let result;
     let finalError = "";
 
-    // Try Gemini first
+    // Try Gemini
     try {
       if (GEMINI_API_KEY) {
         result = await callGemini(GEMINI_API_KEY, imgBase64, mimeType, imageHash);
       }
-    } catch (e: any) {
-      console.warn("Gemini failed, trying OpenAI:", e?.message);
-      finalError += `Gemini: ${e?.message}. `;
+    } catch (e) {
+      console.warn("Gemini failed, trying OpenAI:", e.message);
+      finalError += `Gemini: ${e.message}. `;
     }
 
     // Try OpenAI if Gemini failed
     if (!result && OPENAI_API_KEY) {
       try {
         result = await callOpenAI(OPENAI_API_KEY, imgBase64, mimeType, imageHash);
-      } catch (e: any) {
-        console.warn("OpenAI failed:", e?.message);
-        finalError += `OpenAI: ${e?.message}. `;
+      } catch (e) {
+        console.warn("OpenAI failed:", e.message);
+        finalError += `OpenAI: ${e.message}. `;
       }
     }
 
@@ -218,13 +224,13 @@ serve(async (req: Request) => {
 
     // Save to cache
     if (imageHash && userId) {
-      await supabase.from('image_analysis_cache').insert({ user_id: userId, image_hash: imageHash, image_url: imageUrl || '', result_json: nutritionData }).catch(() => { });
+      await supabase.from('image_analysis_cache').insert({ user_id: userId, image_hash: imageHash, image_url: imageUrl, result_json: nutritionData }).catch(() => { });
     }
 
     return new Response(JSON.stringify(nutritionData), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
-  } catch (error: any) {
-    console.error('Final error:', error?.message || String(error));
-    return new Response(JSON.stringify({ error: error?.message || String(error) }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+  } catch (error) {
+    console.error('Final error:', error.message);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
   }
 });
