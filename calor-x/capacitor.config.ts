@@ -5,7 +5,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const devServerUrl = process.env.CAPACITOR_DEV_SERVER_URL || process.env.CAPACITOR_SERVER_URL || '';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.calorx',
+  appId: 'com.calorx.app',
   appName: 'Calor X',
   webDir: 'dist',
   // Only set server.url when a dev server is explicitly provided
