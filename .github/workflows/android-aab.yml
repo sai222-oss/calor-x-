@@ -1,6 +1,9 @@
 name: Build & Sign Android AAB
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -9,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: '18'
+    defaults:
+      run:
+        working-directory: calor-x
 
     steps:
       - name: Checkout
@@ -23,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          key: npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('calor-x/**/package-lock.json') }}
           restore-keys: |
             npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-
 
@@ -56,9 +62,9 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/keystore.jks
 
       - name: Build signed AAB
-        working-directory: android
+        working-directory: calor-x/android
         env:
-          KEYSTORE_FILE: ${{ github.workspace }}/android/keystore.jks
+          KEYSTORE_FILE: ${{ github.workspace }}/calor-x/android/keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -74,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-signed-aab
-          path: android/app/build/outputs/bundle/release/*.aab
+          path: calor-x/android/app/build/outputs/bundle/release/*.aab
 
       - name: Clean up keystore
         if: always()
