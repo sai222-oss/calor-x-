@@ -34,7 +34,9 @@ jobs:
             npm-${{ runner.os }}-node-${{ env.NODE_VERSION }}-
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          rm -rf package-lock.json node_modules
+          npm install
 
       - name: Build web assets
         run: npm run build
