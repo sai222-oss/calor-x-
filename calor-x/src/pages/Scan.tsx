@@ -176,9 +176,9 @@ const Scan = () => {
       const { data: urlData } = supabase.storage.from("food-images").getPublicUrl(fileName);
       const imageUrl = uploadError ? "" : urlData.publicUrl;
 
-      // Send base64 directly to edge function — avoids the function needing to re-fetch the image
+      // Send only the imageUrl to avoid hitting Supabase Edge Function payload limits (which causes non-2xx status codes on large images)
       const { data: analysisData, error: analysisError } = await supabase.functions.invoke("analyze-food", {
-        body: { imageBase64: base64Data, mimeType, imageUrl, imageHash, userId: user.id },
+        body: { mimeType, imageUrl, imageHash, userId: user.id },
       });
 
       if (analysisError) {
