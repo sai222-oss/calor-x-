@@ -100,12 +100,15 @@ const NutritionResults = () => {
           protein: (ing.protein / ing.weight_g) * 100,
           carbs: (ing.carbs / ing.weight_g) * 100,
           fat: (ing.fat / ing.weight_g) * 100,
+          fiber: ing.fiber ? (ing.fiber / ing.weight_g) * 100 : 0,
+          sugar: ing.sugar ? (ing.sugar / ing.weight_g) * 100 : 0,
+          sodium: ing.sodium ? (ing.sodium / ing.weight_g) * 100 : 0,
           vitamin_c_mg: ing.vitamin_c_mg ? (ing.vitamin_c_mg / ing.weight_g) * 100 : 0,
           calcium_mg: ing.calcium_mg ? (ing.calcium_mg / ing.weight_g) * 100 : 0,
           iron_mg: ing.iron_mg ? (ing.iron_mg / ing.weight_g) * 100 : 0,
         };
       } else if (!per100g) {
-        per100g = { calories: 0, protein: 0, carbs: 0, fat: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 };
+        per100g = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugar: 0, sodium: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 };
       }
       return { ...ing, per100g, name_ar: ing.name_ar || fallbackNameAr, name_en: ing.name_en || fallbackNameEn };
     }));
@@ -127,6 +130,9 @@ const NutritionResults = () => {
         protein: ing.per100g.protein * ratio,
         carbs: ing.per100g.carbs * ratio,
         fat: ing.per100g.fat * ratio,
+        fiber: ing.per100g.fiber ? ing.per100g.fiber * ratio : 0,
+        sugar: ing.per100g.sugar ? ing.per100g.sugar * ratio : 0,
+        sodium: ing.per100g.sodium ? ing.per100g.sodium * ratio : 0,
         vitamin_c_mg: ing.per100g.vitamin_c_mg ? ing.per100g.vitamin_c_mg * ratio : 0,
         calcium_mg: ing.per100g.calcium_mg ? ing.per100g.calcium_mg * ratio : 0,
         iron_mg: ing.per100g.iron_mg ? ing.per100g.iron_mg * ratio : 0,
@@ -147,6 +153,9 @@ const NutritionResults = () => {
       protein: item.per100g.protein * ratio,
       carbs: item.per100g.carbs * ratio,
       fat: item.per100g.fat * ratio,
+      fiber: item.per100g.fiber ? item.per100g.fiber * ratio : 0,
+      sugar: item.per100g.sugar ? item.per100g.sugar * ratio : 0,
+      sodium: item.per100g.sodium ? item.per100g.sodium * ratio : 0,
       vitamin_c_mg: item.per100g.vitamin_c_mg ? item.per100g.vitamin_c_mg * ratio : 0,
       calcium_mg: item.per100g.calcium_mg ? item.per100g.calcium_mg * ratio : 0,
       iron_mg: item.per100g.iron_mg ? item.per100g.iron_mg * ratio : 0,
@@ -170,6 +179,9 @@ const NutritionResults = () => {
       protein: per100g.protein * ratio,
       carbs: per100g.carbs * ratio,
       fat: per100g.fat * ratio,
+      fiber: per100g.fiber ? per100g.fiber * ratio : 0,
+      sugar: per100g.sugar ? per100g.sugar * ratio : 0,
+      sodium: per100g.sodium ? per100g.sodium * ratio : 0,
       vitamin_c_mg: per100g.vitamin_c_mg ? per100g.vitamin_c_mg * ratio : 0,
       calcium_mg: per100g.calcium_mg ? per100g.calcium_mg * ratio : 0,
       iron_mg: per100g.iron_mg ? per100g.iron_mg * ratio : 0,
@@ -190,12 +202,15 @@ const NutritionResults = () => {
       acc.protein_g += ing.protein || 0;
       acc.carbs_g += ing.carbs || 0;
       acc.fat_g += ing.fat || 0;
+      acc.fiber_g += ing.fiber || 0;
+      acc.sugar_g += ing.sugar || 0;
+      acc.sodium_mg += ing.sodium || 0;
       acc.vitamin_c_mg += ing.vitamin_c_mg || 0;
       acc.calcium_mg += ing.calcium_mg || 0;
       acc.iron_mg += ing.iron_mg || 0;
       return acc;
     },
-    { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 }
+    { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0, fiber_g: 0, sugar_g: 0, sodium_mg: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 }
   );
 
   const handleSaveMeal = async () => {
@@ -266,7 +281,7 @@ const NutritionResults = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-4 gap-2 text-center">
+          <div className="grid grid-cols-4 gap-2 text-center mb-4">
             {[
               { label: t("res_calories"), val: Math.round(currentTotals.calories), unit: "", color: "#6C63FF", icon: Zap },
               { label: t("res_protein_g"), val: Math.round(currentTotals.protein_g), unit: "g", color: "#6C63FF", icon: Dumbbell },
@@ -279,6 +294,21 @@ const NutritionResults = () => {
               </div>
             ))}
           </div>
+
+          {(currentTotals.fiber_g > 0 || currentTotals.sugar_g > 0 || currentTotals.sodium_mg > 0) && (
+            <div className="grid grid-cols-3 gap-2 text-center border-t pt-4 border-gray-100">
+              {[
+                { label: t("res_fiber_g"), val: Math.round(currentTotals.fiber_g), unit: "g" },
+                { label: t("res_sugar_g"), val: Math.round(currentTotals.sugar_g), unit: "g" },
+                { label: t("res_sodium_mg"), val: Math.round(currentTotals.sodium_mg), unit: "mg" }
+              ].map(m => m.val > 0 && (
+                <div key={m.label} className="p-2 rounded-xl bg-gray-50/80">
+                  <p className="text-sm font-bold text-gray-700">{m.val}<span className="text-[10px] whitespace-nowrap">{m.unit}</span></p>
+                  <p className="text-[9px] text-muted-foreground uppercase">{m.label}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </Card>
 
         {/* Gym Intelligence & Health Tips */}
