@@ -76,13 +76,19 @@ const NutritionResults = () => {
       };
     }
 
+    // Fallback logic for single-ingredient or missing dish names
+    const fallbackNameEn = matchedData.ingredients?.[0]?.name_en || "Food Item";
+    const fallbackNameAr = matchedData.ingredients?.[0]?.name_ar || "طعام";
+
     const normalizedData = {
       ...matchedData,
-      dish_label: matchedData.dish_name_en || matchedData.dish_label,
-      dish_label_ar: matchedData.dish_name_ar || matchedData.dish_label_ar,
+      dish_label: matchedData.dish_name_en || matchedData.dish_label || fallbackNameEn,
+      dish_label_ar: matchedData.dish_name_ar || matchedData.dish_label_ar || fallbackNameAr,
       confidence: matchedData.confidence || (matchedData.confidence_score ? matchedData.confidence_score / 100 : 0.9),
       ingredients: matchedData.ingredients || [],
-      total: matchedData.total || matchedData.total_nutrition
+      total: matchedData.total || matchedData.total_nutrition,
+      health_tip_en: matchedData.health_tip_en || matchedData.gym_tip || "A good addition to your day.",
+      health_tip_ar: matchedData.health_tip_ar || matchedData.gym_tip_ar || "إضافة جيدة ليومك.",
     };
 
     setNutritionData(normalizedData);
@@ -94,11 +100,14 @@ const NutritionResults = () => {
           protein: (ing.protein / ing.weight_g) * 100,
           carbs: (ing.carbs / ing.weight_g) * 100,
           fat: (ing.fat / ing.weight_g) * 100,
+          vitamin_c_mg: ing.vitamin_c_mg ? (ing.vitamin_c_mg / ing.weight_g) * 100 : 0,
+          calcium_mg: ing.calcium_mg ? (ing.calcium_mg / ing.weight_g) * 100 : 0,
+          iron_mg: ing.iron_mg ? (ing.iron_mg / ing.weight_g) * 100 : 0,
         };
       } else if (!per100g) {
-        per100g = { calories: 0, protein: 0, carbs: 0, fat: 0 };
+        per100g = { calories: 0, protein: 0, carbs: 0, fat: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 };
       }
-      return { ...ing, per100g };
+      return { ...ing, per100g, name_ar: ing.name_ar || fallbackNameAr, name_en: ing.name_en || fallbackNameEn };
     }));
 
     if ((normalizedData.total?.calories || 0) > 3500 || (normalizedData.confidence || 0) < 0.7) {
