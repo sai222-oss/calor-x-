@@ -11,13 +11,11 @@ const corsHeaders = {
 serve(async (req: Request) => {
     if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
-    const start = Date.now();
     try {
-        const GROQ_API_KEY = Deno.env.get("GROQ_API_KEY");
+        const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+        const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
         const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
         const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-
-        if (!GROQ_API_KEY) throw new Error("GROQ_API_KEY not configured");
 
         const { message, userId, conversationHistory = [] } = await req.json();
         if (!message) throw new Error("message is required");
@@ -66,36 +64,67 @@ ${profileContext}
 ${goalsContext}
 ${todayMealsContext}`;
 
-        const groqMessages = [
-            { role: "system", content: systemPrompt },
-            ...conversationHistory.slice(-10).map((msg: any) => ({
-                role: msg.role === "assistant" ? "assistant" : "user",
-                content: msg.content
-            })),
-            { role: "user", content: message }
-        ];
+        let reply = "";
 
-        const groqResp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${GROQ_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
-                messages: groqMessages,
-                temperature: 0.7,
-                max_tokens: 1024
-            })
-        });
-
-        if (!groqResp.ok) {
-            const err = await groqResp.text();
-            throw new Error(`Groq error ${groqResp.status}: ${err}`);
+        // 1. Try Gemini
+        if (GEMINI_API_KEY) {
+            try {
+                const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            { role: 'user', parts: [{ text: systemPrompt }] },
+                            ...conversationHistory.map((m: any) => ({
+                                role: m.role === 'assistant' ? 'model' : 'user',
+                                parts: [{ text: m.content }]
+                            })),
+                            { role: 'user', parts: [{ text: message }] }
+                        ],
+                        generationConfig: { temperature: 0.7 }
+                    })
+                });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                }
+            } catch (e) {
+                console.warn("Gemini failed:", e);
+            }
         }
 
-        const data = await groqResp.json();
-        const reply = data?.choices?.[0]?.message?.content || "Sorry, I couldn't generate a response.";
+        // 2. Try OpenAI as fallback
+        if (!reply && OPENAI_API_KEY) {
+            try {
+                const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-4o-mini",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            ...conversationHistory.map((msg: any) => ({
+                                role: msg.role === "assistant" ? "assistant" : "user",
+                                content: msg.content
+                            })),
+                            { role: "user", content: message }
+                        ],
+                        temperature: 0.7
+                    })
+                });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    reply = data?.choices?.[0]?.message?.content || "";
+                }
+            } catch (e) {
+                console.warn("OpenAI failed:", e);
+            }
+        }
+
+        if (!reply) throw new Error("Failed to generate response from any AI provider.");
 
         return new Response(JSON.stringify({ reply }), {
             headers: { ...corsHeaders, "Content-Type": "application/json" },

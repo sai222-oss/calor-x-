@@ -19,37 +19,88 @@ const AICoach = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { isPro, loading: planLoading } = usePlan();
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: t("coach_greeting") },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { supabase.auth.getUser().then(({ data }) => { setUserId(data.user?.id ?? null); }); }, []);
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      const uid = data.user?.id ?? null;
+      setUserId(uid);
+      if (uid) fetchHistory(uid);
+    });
+  }, []);
+
+  const fetchHistory = async (uid: string) => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("coach_messages")
+        .select("role, content")
+        .eq("user_id", uid)
+        .order("created_at", { ascending: true });
+
+      if (error) throw error;
+      if (data && data.length > 0) {
+        setMessages(data as Message[]);
+      } else {
+        setMessages([{ role: "assistant", content: t("coach_greeting") }]);
+      }
+    } catch (err) {
+      console.error("Error fetching history:", err);
+      setMessages([{ role: "assistant", content: t("coach_greeting") }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
 
   const sendMessage = async (text?: string) => {
     const messageText = text ?? input.trim();
-    if (!messageText || loading) return;
-    setMessages((prev) => [...prev, { role: "user", content: messageText }]);
-    setInput(""); setLoading(true);
+    if (!messageText || loading || !userId) return;
+
+    const newUserMessage: Message = { role: "user", content: messageText };
+    setMessages((prev) => [...prev, newUserMessage]);
+    setInput("");
+    setLoading(true);
+
     try {
-      const history = messages.slice(1).map((m) => ({ role: m.role, content: m.content }));
+      // 1. Save user message to DB
+      await supabase.from("coach_messages").insert({
+        user_id: userId,
+        role: "user",
+        content: messageText
+      });
+
+      const history = messages.map((m) => ({ role: m.role, content: m.content }));
       const { data, error } = await supabase.functions.invoke("coach", {
         body: { message: messageText, userId, conversationHistory: history },
       });
-      if (error) {
-        const msg = error.message ?? "Unknown error";
-        if (msg.includes("GEMINI_API_KEY")) throw new Error("مفتاح Gemini API غير مضبوط.");
-        throw error;
-      }
-      setMessages((prev) => [...prev, { role: "assistant", content: data?.reply ?? t("coach_error_msg") }]);
+
+      if (error) throw error;
+
+      const reply = data?.reply ?? t("coach_error_msg");
+      const newAssistantMessage: Message = { role: "assistant", content: reply };
+
+      // 2. Save assistant message to DB
+      await supabase.from("coach_messages").insert({
+        user_id: userId,
+        role: "assistant",
+        content: reply
+      });
+
+      setMessages((prev) => [...prev, newAssistantMessage]);
     } catch (err: any) {
+      console.error("Coach error:", err);
       toast.error(err?.message ?? t("coach_error"));
-      setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${err?.message ?? t("coach_error_msg")}` }]);
-    } finally { setLoading(false); }
+      const errorMsg = `⚠️ ${err?.message ?? t("coach_error_msg")}`;
+      setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
