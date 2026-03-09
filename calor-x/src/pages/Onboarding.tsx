@@ -20,7 +20,7 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/90 via-primary/70 to-accent/80 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#1A1A2E] via-[#303050] to-[#6C63FF] flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-8 text-center text-white">
         <h1 className="text-4xl font-bold mb-4">{t("app_name")}</h1>
         <p className="text-xl font-arabic mb-8">مساعدك الذكي للتغذية الصحية</p>

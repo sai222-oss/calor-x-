@@ -39,7 +39,7 @@ const Hero = () => {
             <Button
               size="lg"
               className="py-7 px-10 rounded-full font-black text-xl text-white shadow-[0_10px_40px_rgba(108,99,255,0.5)] transition-all hover:scale-105 active:scale-95 border border-white/10"
-              style={{ background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)" }}
+              style={{ background: "linear-gradient(135deg, #1A1A2E 0%, #6C63FF 100%)" }}
               onClick={() => navigate("/auth")}
             >
               {t("hero_cta")}

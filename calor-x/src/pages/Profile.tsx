@@ -123,7 +123,7 @@ const Profile = () => {
   const bmiCategory = bmi
     ? Number(bmi) < 18.5 ? { label: t("prof_bmi_under"), color: "#3B82F6" }
       : Number(bmi) < 25 ? { label: t("prof_bmi_healthy"), color: "#6C63FF" }
-        : Number(bmi) < 30 ? { label: t("prof_bmi_over"), color: "#43E97B" }
+        : Number(bmi) < 30 ? { label: t("prof_bmi_over"), color: "#6C63FF" }
           : { label: t("prof_bmi_obese"), color: "#EF4444" }
     : null;
 
@@ -172,7 +172,7 @@ const Profile = () => {
                 {isPro && (
                   <BadgeCheck
                     className="w-6 h-6"
-                    fill="#0095F6"
+                    fill="#6C63FF"
                     stroke="white"
                   />
                 )}
@@ -293,7 +293,7 @@ const Profile = () => {
               </h3>
               <div className="mb-3 p-3 rounded-2xl" style={{ background: "#F8F8FC" }}>
                 {isPro ? (
-                  <Badge className="bg-yellow-50 text-yellow-700 border-0 text-xs">{t("support_priority")}</Badge>
+                  <Badge className="bg-[#6C63FF]/10 text-[#6C63FF] border-0 text-xs">{t("support_priority")}</Badge>
                 ) : (
                   <p className="text-sm text-muted-foreground">{t("support_free")}</p>
                 )}

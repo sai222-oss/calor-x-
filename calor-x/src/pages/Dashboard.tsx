@@ -135,7 +135,7 @@ const Dashboard = () => {
       <div className="px-5 pt-2 pb-6 space-y-5 relative z-20">
 
         {/* 3D Greeting Card */}
-        <div className="relative bg-gradient-to-br from-[#6C63FF] to-[#8fd3f4] rounded-[32px] p-6 shadow-elevated overflow-hidden group">
+        <div className="relative bg-gradient-to-br from-[#1A1A2E] to-[#6C63FF] rounded-[32px] p-6 shadow-elevated overflow-hidden group">
           {/* Decorative 3D elements */}
           <div className="absolute -right-6 -top-6 w-32 h-32 bg-white opacity-20 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700"></div>
           <div className="absolute -left-6 -bottom-6 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
@@ -152,7 +152,7 @@ const Dashboard = () => {
                   {isPro && (
                     <BadgeCheck
                       className="w-6 h-6 flex-shrink-0"
-                      fill="#0095F6"
+                      fill="#6C63FF"
                       stroke="white"
                     />
                   )}
@@ -254,20 +254,20 @@ const Dashboard = () => {
 
             <Card
               className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
-              style={{ background: "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)" }}
+              style={{ background: "linear-gradient(135deg, #F8F8FC 0%, #EAE9F2 100%)" }}
               onClick={() => navigate("/meal-planning")}
             >
               <div className="flex justify-between items-start mb-8">
-                <ChefHat className="w-8 h-8 text-[#1A1A2E] opacity-70" />
-                {!isPro && <Badge className="bg-black/10 text-[#1A1A2E] border-0 text-[10px] font-black uppercase">PRO</Badge>}
+                <ChefHat className="w-8 h-8 text-[#6C63FF]" />
+                {!isPro && <Badge className="bg-[#6C63FF]/10 text-[#6C63FF] border-0 text-[10px] font-black uppercase">PRO</Badge>}
               </div>
               <h3 className="font-black text-lg text-[#1A1A2E] leading-tight">{t("meal_plan_title")}</h3>
-              <p className="text-xs text-[#1A1A2E]/60 font-medium mt-1">{t("dash_daily_recipes")}</p>
+              <p className="text-xs text-[#8888A0] font-medium mt-1">{t("dash_daily_recipes")}</p>
             </Card>
 
             <Card
               className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
-              style={{ background: "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)" }}
+              style={{ background: "linear-gradient(135deg, #1A1A2E 0%, #6C63FF 100%)", opacity: 0.9 }}
               onClick={() => navigate("/micronutrients")}
             >
               <div className="flex justify-between items-start mb-8">
@@ -329,7 +329,7 @@ const Dashboard = () => {
         <Button
           size="lg"
           className="w-full py-7 rounded-full text-lg font-black shadow-elevated text-white transition-all hover:scale-[1.02] active:scale-95 pointer-events-auto"
-          style={{ background: "linear-gradient(135deg, #6C63FF 0%, #FF6584 100%)" }}
+          style={{ background: "linear-gradient(135deg, #1A1A2E 0%, #6C63FF 100%)" }}
           onClick={() => navigate("/scan")}
         >
           <Camera className="w-5 h-5 mr-2" />

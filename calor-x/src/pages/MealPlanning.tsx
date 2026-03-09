@@ -154,7 +154,7 @@ const MealPlanning = () => {
     return (
         <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
             {/* Header */}
-            <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #6C63FF, #FF6584)" }}>
+            <div className="p-4 text-white flex items-center gap-3" style={{ background: "linear-gradient(135deg, #1A1A2E, #6C63FF)" }}>
                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/dashboard")}>
                     <ArrowLeft className="w-6 h-6" />
                 </Button>
@@ -162,7 +162,7 @@ const MealPlanning = () => {
                     <h1 className="text-lg font-bold">{t("meal_plan_title")}</h1>
                     <p className="text-xs opacity-80">Pro Plan</p>
                 </div>
-                <Badge className="bg-yellow-400/20 text-yellow-300 border-0 text-xs">⭐ Pro</Badge>
+                <Badge className="bg-white/20 text-white border-0 text-xs">⭐ Pro</Badge>
             </div>
 
             {/* Tabs */}

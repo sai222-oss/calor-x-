@@ -357,21 +357,21 @@ const NutritionResults = () => {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
               <div className="flex items-center gap-1.5 mb-2">
-                <Dumbbell className="w-4 h-4 text-red-500 fill-red-500/20" />
+                <Dumbbell className="w-4 h-4 text-[#6C63FF] fill-[#6C63FF]/20" />
                 <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_protein_g")}</span>
               </div>
               <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.protein_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
             </div>
             <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
               <div className="flex items-center gap-1.5 mb-2">
-                <Activity className="w-4 h-4 text-orange-500 fill-orange-500/20" />
+                <Activity className="w-4 h-4 text-gray-400 fill-gray-400/20" />
                 <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_carbs_g")}</span>
               </div>
               <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.carbs_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
             </div>
             <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
               <div className="flex items-center gap-1.5 mb-2">
-                <Droplets className="w-4 h-4 text-blue-500 fill-blue-500/20" />
+                <Droplets className="w-4 h-4 text-gray-300 fill-gray-300/20" />
                 <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_fat_g")}</span>
               </div>
               <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.fat_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
@@ -399,8 +399,8 @@ const NutritionResults = () => {
             <div className="bg-white rounded-3xl p-5 shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 mt-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="bg-pink-100 p-1.5 rounded-lg">
-                    <Zap className="w-4 h-4 text-pink-500 fill-pink-500" />
+                  <div className="bg-[#6C63FF]/10 p-1.5 rounded-lg">
+                    <Zap className="w-4 h-4 text-[#6C63FF] fill-[#6C63FF]" />
                   </div>
                   <span className="text-sm font-semibold text-gray-700">{t("res_health_insights")}</span>
                 </div>
@@ -410,7 +410,7 @@ const NutritionResults = () => {
                     {currentTotals.protein_g > 15 ? '8/10' : '6/10'}
                   </span>
                   <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-400 rounded-full" style={{ width: currentTotals.protein_g > 15 ? '80%' : '60%' }} />
+                    <div className="h-full bg-[#6C63FF] rounded-full" style={{ width: currentTotals.protein_g > 15 ? '80%' : '60%' }} />
                   </div>
                 </div>
               </div>
@@ -428,21 +428,21 @@ const NutritionResults = () => {
               <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">{t("res_vitamins")}</h3>
               <div className="flex gap-3">
                 {currentTotals.vitamin_c_mg > 0 && (
-                  <div className="flex-1 bg-yellow-50/50 border border-yellow-100 p-3 rounded-2xl text-center">
-                    <p className="text-yellow-700 font-bold">{Math.round(currentTotals.vitamin_c_mg)}mg</p>
-                    <p className="text-[10px] text-yellow-600/70 font-bold mt-0.5">Vit C</p>
+                  <div className="flex-1 bg-gray-50 border border-gray-100 p-3 rounded-2xl text-center">
+                    <p className="text-gray-900 font-bold">{Math.round(currentTotals.vitamin_c_mg)}mg</p>
+                    <p className="text-[10px] text-gray-500 font-bold mt-0.5">Vit C</p>
                   </div>
                 )}
                 {currentTotals.calcium_mg > 0 && (
-                  <div className="flex-1 bg-blue-50/50 border border-blue-100 p-3 rounded-2xl text-center">
-                    <p className="text-blue-700 font-bold">{Math.round(currentTotals.calcium_mg)}mg</p>
-                    <p className="text-[10px] text-blue-600/70 font-bold mt-0.5">Calcium</p>
+                  <div className="flex-1 bg-gray-50 border border-gray-100 p-3 rounded-2xl text-center">
+                    <p className="text-gray-900 font-bold">{Math.round(currentTotals.calcium_mg)}mg</p>
+                    <p className="text-[10px] text-gray-500 font-bold mt-0.5">Calcium</p>
                   </div>
                 )}
                 {currentTotals.iron_mg > 0 && (
-                  <div className="flex-1 bg-red-50/50 border border-red-100 p-3 rounded-2xl text-center">
-                    <p className="text-red-700 font-bold">{Math.round(currentTotals.iron_mg)}mg</p>
-                    <p className="text-[10px] text-red-600/70 font-bold mt-0.5">Iron</p>
+                  <div className="flex-1 bg-gray-50 border border-gray-100 p-3 rounded-2xl text-center">
+                    <p className="text-gray-900 font-bold">{Math.round(currentTotals.iron_mg)}mg</p>
+                    <p className="text-[10px] text-gray-500 font-bold mt-0.5">Iron</p>
                   </div>
                 )}
               </div>

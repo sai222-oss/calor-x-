@@ -140,7 +140,7 @@ const MicronutrientTracking = () => {
     const { isPro, loading: planLoading } = usePlan();
 
     const header = (
-        <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #6C63FF, #FF6584)" }}>
+        <div className="p-4 text-white flex items-center gap-3 sticky top-0 z-10" style={{ background: "linear-gradient(135deg, #1A1A2E, #6C63FF)" }}>
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate("/progress")}>
                 <ArrowLeft className="w-6 h-6" />
             </Button>
