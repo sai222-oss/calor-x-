@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Camera, MessageCircle, TrendingUp, Flame, Zap, Droplets, Loader2, ChefHat } from "lucide-react";
+import { Camera, MessageCircle, TrendingUp, Flame, Zap, Droplets, Loader2, ChefHat, BadgeCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -146,7 +146,17 @@ const Dashboard = () => {
                 {t("dash_daily_streak_badge", { n: 3 })}
               </span>
               <h1 className="text-2xl font-black text-white leading-tight mb-2">
-                {t("dash_welcome")},<br />{profile?.full_name || "Guest"}!
+                {t("dash_welcome")},<br />
+                <span className="flex items-center gap-1">
+                  {profile?.full_name || "Guest"}!
+                  {isPro && (
+                    <BadgeCheck
+                      className="w-6 h-6 flex-shrink-0"
+                      fill="#0095F6"
+                      stroke="white"
+                    />
+                  )}
+                </span>
               </h1>
               <p className="text-xs font-medium text-white/90 max-w-[200px] leading-relaxed">
                 {t("dash_ready_crush")}

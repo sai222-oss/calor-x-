@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowLeft, User, LogOut, Info, Camera,
-  Dumbbell, Target, Activity, Loader2, Edit2, Headphones, Mail, MessageCircle, Star, Zap, ChevronRight
+  Dumbbell, Target, Activity, Loader2, Edit2, Headphones, Mail, MessageCircle, Star, Zap, ChevronRight, BadgeCheck
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -167,8 +167,15 @@ const Profile = () => {
                   <Camera className="w-4 h-4 text-white" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-[#1A1A2E] mb-1">
+              <h2 className="text-2xl font-bold text-[#1A1A2E] mb-1 flex items-center justify-center gap-1">
                 {profile?.full_name ?? t("prof_user")}
+                {isPro && (
+                  <BadgeCheck
+                    className="w-6 h-6"
+                    fill="#0095F6"
+                    stroke="white"
+                  />
+                )}
               </h2>
               <p className="text-sm text-[#8888A0] mb-3">{email}</p>
 

@@ -90,7 +90,7 @@ Return ONLY this JSON:
 }
 
 async function callGemini(apiKey: string, base64Image: string, mimeType: string, imageHash: string): Promise<{ text: string, modelUsed: string }> {
-  const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+  const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-flash-latest'];
   const systemPrompt = `You are an expert nutritionist specialized in Middle Eastern and Arab cuisine.
 
 When analyzing a food image:
@@ -179,7 +179,9 @@ serve(async (req: Request) => {
       const chunkSize = 8192;
       for (let i = 0; i < imgBytes.length; i += chunkSize) { raw += String.fromCharCode(...imgBytes.subarray(i, i + chunkSize)); }
       imgBase64 = btoa(raw);
-      mimeType = imgResp.headers.get('content-type') || 'image/jpeg';
+      // Gemini expects exactly 'image/jpeg', 'image/png', etc. If the content-type from headers is generic block, use what the client sent.
+      mimeType = clientMimeType || imgResp.headers.get('content-type') || 'image/jpeg';
+      if (mimeType === 'application/octet-stream') mimeType = 'image/jpeg';
     } else {
       throw new Error('No image data provided');
     }
@@ -218,7 +220,8 @@ serve(async (req: Request) => {
 
     // Save to cache
     if (imageHash && userId) {
-      await supabase.from('image_analysis_cache').insert({ user_id: userId, image_hash: imageHash, image_url: imageUrl || '', result_json: nutritionData }).catch(() => { });
+      const { error: cacheErr } = await supabase.from('image_analysis_cache').insert({ user_id: userId, image_hash: imageHash, image_url: imageUrl || '', result_json: nutritionData });
+      if (cacheErr) console.warn("Cache save failed:", cacheErr);
     }
 
     return new Response(JSON.stringify(nutritionData), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
