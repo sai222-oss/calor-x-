@@ -401,7 +401,6 @@ const Scan = () => {
       </div>
 
       <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
-      <canvas ref={canvasRef} className="hidden" />
 
       {/* Scan Error Alert Overlay */}
       {scanError && !isUploading && (
