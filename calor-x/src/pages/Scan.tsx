@@ -331,21 +331,42 @@ const Scan = () => {
                 {t("scan_tap_subtitle") || "Position the food inside the frame and we'll analyze the nutritional value automatically."}
               </p>
 
-              <div className="w-full grid grid-cols-2 gap-4 pb-12 mt-8">
+              <div className="w-full flex items-center justify-between pb-12 mt-4 px-4">
+                {/* Left: Upload from Gallery */}
+                <button
+                  onClick={handlePickFile}
+                  disabled={isUploading}
+                  className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20 shadow-lg backdrop-blur-md active:scale-95"
+                >
+                  <Upload className="w-6 h-6 text-white" />
+                </button>
+
+                {/* Center: Main Shutter */}
                 {isCameraLive ? (
-                  <Button className="col-span-2 py-7 rounded-2xl text-lg font-bold bg-[#43E97B] hover:bg-[#3bc266] text-black shadow-[0_0_20px_rgba(67,233,123,0.3)] transition-all active:scale-95" onClick={capturePhoto}>
-                    <Camera className="w-6 h-6 mr-2" /> {t("scan_capture")}
-                  </Button>
+                  <button
+                    className="w-20 h-20 rounded-full border-[6px] border-white/30 flex items-center justify-center p-1 cursor-pointer"
+                    onClick={capturePhoto}
+                  >
+                    <div className="w-full h-full bg-[#43E97B] rounded-full shadow-[0_0_20px_rgba(67,233,123,0.5)] transition-transform active:scale-90" />
+                  </button>
                 ) : (
-                  <>
-                    <Button variant="outline" className="py-6 rounded-2xl border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold" onClick={handlePickFile} disabled={isUploading}>
-                      <Upload className="w-4 h-4 mr-2" /> {t("scan_upload")}
-                    </Button>
-                    <Button variant="outline" className="py-6 rounded-2xl border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold" onClick={() => setShowManualModal(true)}>
-                      <Search className="w-4 h-4 mr-2" /> {t("scan_enter_manually")}
-                    </Button>
-                  </>
+                  <button
+                    className="w-20 h-20 rounded-full border-[6px] border-white/30 flex items-center justify-center p-1 cursor-pointer"
+                    onClick={startCamera}
+                  >
+                    <div className="w-full h-full bg-[#6C63FF] rounded-full transition-transform active:scale-90 flex items-center justify-center shadow-[0_0_20px_rgba(108,99,255,0.5)]">
+                      <Camera className="w-8 h-8 text-white" />
+                    </div>
+                  </button>
                 )}
+
+                {/* Right: Manual Text Entry */}
+                <button
+                  onClick={() => setShowManualModal(true)}
+                  className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20 shadow-lg backdrop-blur-md active:scale-95"
+                >
+                  <Search className="w-6 h-6 text-white" />
+                </button>
               </div>
             </div>
           </div>

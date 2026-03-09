@@ -217,7 +217,15 @@ const NutritionResults = () => {
     if (!nutritionData) return;
     setSaving(true);
     try {
-      const { error } = await supabase.from('meal_logs').insert({
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No user");
+
+      const today = new Date().toISOString().split("T")[0];
+      const now = new Date().toISOString();
+
+      // 1. Insert Meal Log
+      const { error: mealError } = await supabase.from('meal_logs').insert({
+        user_id: user.id,
         dish_name: nutritionData.dish_label,
         dish_name_ar: nutritionData.dish_label_ar,
         image_url: nutritionData.imageUrl,
@@ -225,13 +233,46 @@ const NutritionResults = () => {
         protein_g: currentTotals.protein_g,
         carbs_g: currentTotals.carbs_g,
         fat_g: currentTotals.fat_g,
+        fiber_g: currentTotals.fiber_g,
+        sugar_g: currentTotals.sugar_g,
+        sodium_mg: currentTotals.sodium_mg,
         ingredients: editableIngredients,
+        logged_at: now,
       } as any);
 
-      if (error) throw error;
+      if (mealError) throw mealError;
+
+      // 2. Upsert Daily Nutrition
+      const { data: currentDaily } = await supabase
+        .from('daily_nutrition')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('date', today)
+        .maybeSingle();
+
+      const newTotals = {
+        user_id: user.id,
+        date: today,
+        total_calories: (currentDaily?.total_calories || 0) + currentTotals.calories,
+        total_protein_g: (currentDaily?.total_protein_g || 0) + currentTotals.protein_g,
+        total_carbs_g: (currentDaily?.total_carbs_g || 0) + currentTotals.carbs_g,
+        total_fat_g: (currentDaily?.total_fat_g || 0) + currentTotals.fat_g,
+        total_fiber_g: (currentDaily?.total_fiber_g || 0) + currentTotals.fiber_g,
+        total_sugar_g: (currentDaily?.total_sugar_g || 0) + currentTotals.sugar_g,
+        total_sodium_mg: (currentDaily?.total_sodium_mg || 0) + currentTotals.sodium_mg,
+        meals_count: (currentDaily?.meals_count || 0) + 1,
+      };
+
+      if (currentDaily?.id) {
+        await supabase.from('daily_nutrition').update(newTotals).eq('id', currentDaily.id);
+      } else {
+        await supabase.from('daily_nutrition').insert(newTotals as any);
+      }
+
       toast.success(t("res_save_success"));
       navigate('/dashboard');
     } catch (error) {
+      console.error(error);
       toast.error(t("res_save_error"));
     } finally { setSaving(false); }
   };
@@ -242,7 +283,7 @@ const NutritionResults = () => {
   const confidence = Math.round((confidenceValue || 0) * 100);
 
   return (
-    <div className="min-h-screen pb-24" style={{ background: "#F8F8FC" }}>
+    <div className="min-h-screen bg-[#F8F9FA] pb-28 relative">
       <PortionConfirmDialog
         open={showPortionDialog}
         onConfirm={handlePortionConfirm}
@@ -251,130 +292,168 @@ const NutritionResults = () => {
         totalCalories={currentTotals.calories}
       />
 
-      <div className="p-4 flex items-center justify-between text-white" style={{ background: "#6C63FF" }}>
-        <Button variant="ghost" size="icon" className="text-white hover:bg-white/20" onClick={() => navigate('/dashboard')}>
+      {/* Top Image Section */}
+      <div className="relative w-full h-[35vh]">
+        {nutritionData.imageUrl ? (
+          <img src={nutritionData.imageUrl} alt="Food" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full bg-gray-200" />
+        )}
+        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-black/50 to-transparent" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-12 left-4 text-white bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full"
+          onClick={() => navigate('/dashboard')}
+        >
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h1 className="text-lg font-bold">{t("res_title")}</h1>
-        <div className="w-10" />
       </div>
 
-      <main className="p-4 space-y-4">
-        {nutritionData.imageUrl && (
-          <img src={nutritionData.imageUrl} alt="Food" className="w-full h-56 object-cover rounded-3xl premium-card shadow-lg" />
-        )}
+      {/* Main Bottom Card Container */}
+      <div className="relative z-10 -mt-8 bg-[#F8F9FA] rounded-t-[32px] w-full min-h-[70vh] px-6 pt-8 pb-32 shadow-[0_-8px_30px_rgb(0,0,0,0.12)]">
 
-        <Card className="p-6 premium-card">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h2 className="text-2xl font-black text-[#6C63FF]">
-                {lang === "ar" ? nutritionData.dish_label_ar : nutritionData.dish_label}
-              </h2>
-              <Badge variant="outline" className="mt-2" style={{ color: "#43E97B", borderColor: "#43E97B" }}>
+        {/* Title and Controls Header */}
+        <div className="flex justify-between items-start mb-6 gap-4">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Badge variant="outline" className="bg-white border-0 shadow-sm text-[10px] uppercase font-bold" style={{ color: "#6C63FF" }}>
                 {nutritionData.matched_from_db ? t("res_high_accuracy_db_match") : t("res_confidence", { n: confidence })}
               </Badge>
+              {nutritionData.cached && !nutritionData.matched_from_db && (
+                <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">{t("res_cached")}</span>
+              )}
             </div>
-            {nutritionData.cached && !nutritionData.matched_from_db && (
-              <Badge variant="secondary" className="bg-[#6C63FF]/10 text-[#6C63FF] border-0 uppercase text-[10px]">
-                {t("res_cached")}
-              </Badge>
-            )}
+            <h2 className="text-[26px] leading-tight font-black text-gray-900 tracking-tight line-clamp-2">
+              {lang === "ar" ? nutritionData.dish_label_ar : nutritionData.dish_label}
+            </h2>
+          </div>
+          <div className="flex items-center bg-white rounded-full border border-gray-100 shadow-sm p-1 mt-1 shrink-0">
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-gray-500 hover:bg-gray-100 hover:text-black" onClick={() => handlePortionConfirm(0.9)}>
+              <span className="text-xl font-bold leading-none">−</span>
+            </Button>
+            <span className="w-8 text-center font-bold text-gray-900 select-none">1</span>
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-gray-500 hover:bg-gray-100 hover:text-black" onClick={() => handlePortionConfirm(1.1)}>
+              <span className="text-xl font-bold leading-none">+</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Categories / Pill Layout */}
+        <div className="space-y-3 mb-6">
+
+          {/* Main Calories Pill */}
+          <div className="bg-white rounded-3xl p-5 shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center shrink-0">
+              <Zap className="w-6 h-6 text-gray-800 fill-gray-800" />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 font-medium mb-1">{t("res_calories")}</p>
+              <p className="text-3xl font-black text-gray-900 leading-none">{Math.round(currentTotals.calories)}</p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 text-center mb-4">
-            {[
-              { label: t("res_calories"), val: Math.round(currentTotals.calories), unit: "", color: "#6C63FF", icon: Zap },
-              { label: t("res_protein_g"), val: Math.round(currentTotals.protein_g), unit: "g", color: "#6C63FF", icon: Dumbbell },
-              { label: t("res_carbs_g"), val: Math.round(currentTotals.carbs_g), unit: "g", color: "#43E97B", icon: Activity },
-              { label: t("res_fat_g"), val: Math.round(currentTotals.fat_g), unit: "g", color: "#6B7280", icon: Droplets }
-            ].map(m => (
-              <div key={m.label} className="p-2 rounded-2xl" style={{ background: "#F8F8FC" }}>
-                <p className="text-lg font-black" style={{ color: m.color }}>{m.val}<span className="text-[10px]">{m.unit}</span></p>
-                <p className="text-[10px] text-muted-foreground uppercase">{m.label}</p>
+          {/* Macros Group */}
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Dumbbell className="w-4 h-4 text-red-500 fill-red-500/20" />
+                <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_protein_g")}</span>
               </div>
-            ))}
+              <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.protein_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
+            </div>
+            <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Activity className="w-4 h-4 text-orange-500 fill-orange-500/20" />
+                <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_carbs_g")}</span>
+              </div>
+              <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.carbs_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
+            </div>
+            <div className="bg-white p-4 rounded-3xl shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 flex flex-col justify-between min-h-[100px]">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Droplets className="w-4 h-4 text-blue-500 fill-blue-500/20" />
+                <span className="text-[11px] text-gray-500 font-medium truncate">{t("res_fat_g")}</span>
+              </div>
+              <p className="text-xl font-black text-gray-900 leading-none">{Math.round(currentTotals.fat_g)}<span className="text-sm font-bold text-gray-400 ml-0.5">g</span></p>
+            </div>
           </div>
 
+          {/* Detailed Macros (Fiber, Sugar, Sodium) if applicable */}
           {(currentTotals.fiber_g > 0 || currentTotals.sugar_g > 0 || currentTotals.sodium_mg > 0) && (
-            <div className="grid grid-cols-3 gap-2 text-center border-t pt-4 border-gray-100">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { label: t("res_fiber_g"), val: Math.round(currentTotals.fiber_g), unit: "g" },
                 { label: t("res_sugar_g"), val: Math.round(currentTotals.sugar_g), unit: "g" },
                 { label: t("res_sodium_mg"), val: Math.round(currentTotals.sodium_mg), unit: "mg" }
               ].map(m => m.val > 0 && (
-                <div key={m.label} className="p-2 rounded-xl bg-gray-50/80">
-                  <p className="text-sm font-bold text-gray-700">{m.val}<span className="text-[10px] whitespace-nowrap">{m.unit}</span></p>
-                  <p className="text-[9px] text-muted-foreground uppercase">{m.label}</p>
+                <div key={m.label} className="bg-gray-100/50 p-3 rounded-2xl flex flex-col items-center justify-center border border-gray-100 shadow-sm">
+                  <p className="text-sm font-bold text-gray-700">{m.val}<span className="text-[10px] text-gray-500 ml-0.5">{m.unit}</span></p>
+                  <p className="text-[10px] text-gray-500 font-medium uppercase mt-0.5 truncate w-full text-center">{m.label}</p>
                 </div>
               ))}
             </div>
           )}
-        </Card>
 
-        {/* Gym Intelligence & Health Tips */}
-        {((nutritionData as any).health_tip_ar || (nutritionData as any).health_tip_en || (nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar) && (
-          <Card className="p-5 premium-card border-[#6C63FF]/20" style={{ background: "rgba(27, 67, 50, 0.03)" }}>
-            <div className="flex items-center gap-2 mb-3">
-              <Dumbbell className="w-5 h-5 text-[#6C63FF]" />
-              <h3 className="font-bold text-[#6C63FF] uppercase tracking-wider text-sm">{t("res_health_insights")}</h3>
-            </div>
-            <div className="space-y-3">
-              <p className="text-sm font-medium leading-relaxed" style={{ color: "#6C63FF" }}>
+          {/* Health Score / Tip Pill */}
+          {((nutritionData as any).health_tip_ar || (nutritionData as any).health_tip_en || (nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar) && (
+            <div className="bg-white rounded-3xl p-5 shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 mt-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="bg-pink-100 p-1.5 rounded-lg">
+                    <Zap className="w-4 h-4 text-pink-500 fill-pink-500" />
+                  </div>
+                  <span className="text-sm font-semibold text-gray-700">{t("res_health_insights")}</span>
+                </div>
+                {/* Visual Fake Score Bar like Cal AI */}
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-gray-900">
+                    {currentTotals.protein_g > 15 ? '8/10' : '6/10'}
+                  </span>
+                  <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-400 rounded-full" style={{ width: currentTotals.protein_g > 15 ? '80%' : '60%' }} />
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm font-medium text-gray-600 leading-relaxed bg-gray-50 rounded-xl p-3">
                 {lang === "ar"
                   ? ((nutritionData as any).health_tip_ar || (nutritionData as any).gym_tip_ar || (nutritionData as any).health_tip_en)
                   : ((nutritionData as any).health_tip_en || (nutritionData as any).gym_tip || (nutritionData as any).health_tip_ar)}
               </p>
-              <div className="flex gap-4">
-                {(nutritionData as any).glycemic_index && (
-                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-[#6C63FF]/5">
-                    <p className="text-xs text-muted-foreground uppercase">{t("res_gi")}</p>
-                    <p className="text-lg font-black" style={{ color: (nutritionData as any).glycemic_index < 55 ? "#6C63FF" : "#43E97B" }}>
-                      {(nutritionData as any).glycemic_index}
-                    </p>
+            </div>
+          )}
+
+          {/* Vitamins Group if applicable */}
+          {(currentTotals.vitamin_c_mg > 0 || currentTotals.calcium_mg > 0 || currentTotals.iron_mg > 0) && (
+            <div className="bg-white rounded-3xl p-5 shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-50 mt-4">
+              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">{t("res_vitamins")}</h3>
+              <div className="flex gap-3">
+                {currentTotals.vitamin_c_mg > 0 && (
+                  <div className="flex-1 bg-yellow-50/50 border border-yellow-100 p-3 rounded-2xl text-center">
+                    <p className="text-yellow-700 font-bold">{Math.round(currentTotals.vitamin_c_mg)}mg</p>
+                    <p className="text-[10px] text-yellow-600/70 font-bold mt-0.5">Vit C</p>
                   </div>
                 )}
-                {(nutritionData as any).protein_quality_score && (
-                  <div className="text-center bg-white/50 p-2 rounded-xl flex-1 border border-[#6C63FF]/5">
-                    <p className="text-xs text-muted-foreground uppercase">{t("res_protein_quality")}</p>
-                    <p className="text-lg font-black text-[#6C63FF]">{(nutritionData as any).protein_quality_score}/10</p>
+                {currentTotals.calcium_mg > 0 && (
+                  <div className="flex-1 bg-blue-50/50 border border-blue-100 p-3 rounded-2xl text-center">
+                    <p className="text-blue-700 font-bold">{Math.round(currentTotals.calcium_mg)}mg</p>
+                    <p className="text-[10px] text-blue-600/70 font-bold mt-0.5">Calcium</p>
+                  </div>
+                )}
+                {currentTotals.iron_mg > 0 && (
+                  <div className="flex-1 bg-red-50/50 border border-red-100 p-3 rounded-2xl text-center">
+                    <p className="text-red-700 font-bold">{Math.round(currentTotals.iron_mg)}mg</p>
+                    <p className="text-[10px] text-red-600/70 font-bold mt-0.5">Iron</p>
                   </div>
                 )}
               </div>
             </div>
-          </Card>
-        )}
+          )}
+        </div>
 
-        {/* Micronutrients */}
-        {(currentTotals.vitamin_c_mg > 0 || currentTotals.calcium_mg > 0 || currentTotals.iron_mg > 0) && (
-          <Card className="p-5 premium-card">
-            <h3 className="font-bold text-sm text-gray-700 uppercase mb-3">{t("res_vitamins")}</h3>
-            <div className="flex gap-4">
-              {currentTotals.vitamin_c_mg > 0 && (
-                <div className="flex-1 bg-yellow-50 p-3 rounded-xl text-center">
-                  <p className="text-yellow-600 font-bold">{Math.round(currentTotals.vitamin_c_mg)}mg</p>
-                  <p className="text-[10px] text-yellow-600/70 uppercase">Vit C</p>
-                </div>
-              )}
-              {currentTotals.calcium_mg > 0 && (
-                <div className="flex-1 bg-blue-50 p-3 rounded-xl text-center">
-                  <p className="text-blue-600 font-bold">{Math.round(currentTotals.calcium_mg)}mg</p>
-                  <p className="text-[10px] text-blue-600/70 uppercase">Calcium</p>
-                </div>
-              )}
-              {currentTotals.iron_mg > 0 && (
-                <div className="flex-1 bg-red-50 p-3 rounded-xl text-center">
-                  <p className="text-red-600 font-bold">{Math.round(currentTotals.iron_mg)}mg</p>
-                  <p className="text-[10px] text-red-600/70 uppercase">Iron</p>
-                </div>
-              )}
-            </div>
-          </Card>
-        )}
-
-        {/* Ingredients List */}
-        <div className="space-y-3 mt-6">
-          <h3 className="font-bold text-sm text-[#6C63FF] uppercase tracking-wide px-2">{t("res_adjust_portions")} / {t("res_ingredients")}</h3>
-          <div>
+        {/* Ingredients Breakdowns (More Data) */}
+        <div className="mt-8">
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 px-2">{t("res_adjust_portions")} / {t("res_ingredients")}</h3>
+          <div className="space-y-2">
             {editableIngredients.map((ing, idx) => (
               <EditableIngredient
                 key={idx}
@@ -384,17 +463,13 @@ const NutritionResults = () => {
             ))}
           </div>
 
-          <div className="mt-4 p-5 rounded-3xl border-2 border-dashed border-[#6C63FF]/30 bg-[#6C63FF]/5 text-center">
-            <h4 className="font-bold text-[#6C63FF] mb-2 text-sm uppercase">{t("res_missing_something")}</h4>
-            <p className="text-xs text-[#6C63FF]/80 font-medium mb-4">
-              {t("res_missing_something_desc")}
-            </p>
-            <Button variant="outline" className="w-full rounded-2xl py-5 font-bold text-[#6C63FF] border-[#6C63FF]/20 hover:bg-[#6C63FF]/10" onClick={() => setShowAddModal(true)}>
-              <Plus className="w-5 h-5 mr-2" /> {t("res_add_hidden_ingredient")}
+          <div className="mt-4">
+            <Button variant="outline" className="w-full rounded-2xl py-6 font-bold text-[#6C63FF] border border-dashed border-[#6C63FF]/30 bg-transparent hover:bg-[#6C63FF]/5" onClick={() => setShowAddModal(true)}>
+              <Plus className="w-4 h-4 mr-2" /> {t("res_add_hidden_ingredient")}
             </Button>
           </div>
         </div>
-      </main>
+      </div>
 
       {/* Hidden Ingredient Search Modal */}
       {showAddModal && (
@@ -484,14 +559,21 @@ const NutritionResults = () => {
         </div>
       )}
 
-      <div className="fixed bottom-0 left-0 right-0 p-4" style={{ background: "#F8F8FC" }}>
+      {/* Floating Action Bar (Cal AI Style) */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 p-4 pb-8 flex items-center justify-between gap-3 z-50 shadow-[0_-10px_40px_rgb(0,0,0,0.05)]">
         <Button
-          className="w-full py-6 rounded-2xl btn-glow text-lg font-bold shadow-xl"
-          style={{ background: "#6C63FF" }}
+          variant="outline"
+          className="flex-1 py-7 rounded-full font-bold text-gray-700 border border-gray-200 bg-white hover:bg-gray-50 shadow-sm flex items-center gap-2"
+          onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+        >
+          <span className="text-lg">✨</span> Fix Results
+        </Button>
+        <Button
+          className="flex-1 py-7 rounded-full text-lg font-bold shadow-xl bg-gradient-to-r from-gray-900 to-black text-white hover:opacity-90 transition-opacity"
           onClick={handleSaveMeal}
           disabled={saving}
         >
-          {saving ? t("res_saving") : t("res_save_to_log", { kcal: Math.round(currentTotals.calories) })}
+          {saving ? '...' : 'Done'}
         </Button>
       </div>
     </div>
