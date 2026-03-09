@@ -110,13 +110,17 @@ const NutritionResults = () => {
     if (!editableIngredients.length) return;
     const adjusted = editableIngredients.map(ing => {
       const newWeight = ing.weight_g * multiplier;
+      const ratio = newWeight / 100;
       return {
         ...ing,
         weight_g: newWeight,
-        calories: ing.per100g.calories * (newWeight / 100),
-        protein: ing.per100g.protein * (newWeight / 100),
-        carbs: ing.per100g.carbs * (newWeight / 100),
-        fat: ing.per100g.fat * (newWeight / 100),
+        calories: ing.per100g.calories * ratio,
+        protein: ing.per100g.protein * ratio,
+        carbs: ing.per100g.carbs * ratio,
+        fat: ing.per100g.fat * ratio,
+        vitamin_c_mg: ing.per100g.vitamin_c_mg ? ing.per100g.vitamin_c_mg * ratio : 0,
+        calcium_mg: ing.per100g.calcium_mg ? ing.per100g.calcium_mg * ratio : 0,
+        iron_mg: ing.per100g.iron_mg ? ing.per100g.iron_mg * ratio : 0,
       };
     });
     setEditableIngredients(adjusted);
@@ -125,14 +129,18 @@ const NutritionResults = () => {
   const handleIngredientUpdate = (index: number, newWeight: number) => {
     const updatedIngredients = [...editableIngredients];
     const item = updatedIngredients[index];
+    const ratio = newWeight / 100;
 
     updatedIngredients[index] = {
       ...item,
       weight_g: newWeight,
-      calories: item.per100g.calories * (newWeight / 100),
-      protein: item.per100g.protein * (newWeight / 100),
-      carbs: item.per100g.carbs * (newWeight / 100),
-      fat: item.per100g.fat * (newWeight / 100),
+      calories: item.per100g.calories * ratio,
+      protein: item.per100g.protein * ratio,
+      carbs: item.per100g.carbs * ratio,
+      fat: item.per100g.fat * ratio,
+      vitamin_c_mg: item.per100g.vitamin_c_mg ? item.per100g.vitamin_c_mg * ratio : 0,
+      calcium_mg: item.per100g.calcium_mg ? item.per100g.calcium_mg * ratio : 0,
+      iron_mg: item.per100g.iron_mg ? item.per100g.iron_mg * ratio : 0,
     };
 
     setEditableIngredients(updatedIngredients);
@@ -143,15 +151,20 @@ const NutritionResults = () => {
     const weight = parseFloat(manualWeight) || selectedFood.typical_serving_g;
     const ratio = weight / 100;
 
+    const per100g = selectedFood.per100g as any;
+
     const newIngredient = {
       name_ar: selectedFood.name_ar,
       name_en: selectedFood.name_en,
       weight_g: weight,
-      calories: selectedFood.per100g.calories * ratio,
-      protein: selectedFood.per100g.protein * ratio,
-      carbs: selectedFood.per100g.carbs * ratio,
-      fat: selectedFood.per100g.fat * ratio,
-      per100g: selectedFood.per100g
+      calories: per100g.calories * ratio,
+      protein: per100g.protein * ratio,
+      carbs: per100g.carbs * ratio,
+      fat: per100g.fat * ratio,
+      vitamin_c_mg: per100g.vitamin_c_mg ? per100g.vitamin_c_mg * ratio : 0,
+      calcium_mg: per100g.calcium_mg ? per100g.calcium_mg * ratio : 0,
+      iron_mg: per100g.iron_mg ? per100g.iron_mg * ratio : 0,
+      per100g: per100g
     };
 
     setEditableIngredients([...editableIngredients, newIngredient]);
@@ -168,9 +181,12 @@ const NutritionResults = () => {
       acc.protein_g += ing.protein || 0;
       acc.carbs_g += ing.carbs || 0;
       acc.fat_g += ing.fat || 0;
+      acc.vitamin_c_mg += ing.vitamin_c_mg || 0;
+      acc.calcium_mg += ing.calcium_mg || 0;
+      acc.iron_mg += ing.iron_mg || 0;
       return acc;
     },
-    { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0 }
+    { calories: 0, protein_g: 0, carbs_g: 0, fat_g: 0, vitamin_c_mg: 0, calcium_mg: 0, iron_mg: 0 }
   );
 
   const handleSaveMeal = async () => {
@@ -256,16 +272,18 @@ const NutritionResults = () => {
           </div>
         </Card>
 
-        {/* Gym Intelligence */}
-        {((nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar) && (
+        {/* Gym Intelligence & Health Tips */}
+        {((nutritionData as any).health_tip_ar || (nutritionData as any).health_tip_en || (nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar) && (
           <Card className="p-5 premium-card border-[#6C63FF]/20" style={{ background: "rgba(27, 67, 50, 0.03)" }}>
             <div className="flex items-center gap-2 mb-3">
               <Dumbbell className="w-5 h-5 text-[#6C63FF]" />
-              <h3 className="font-bold text-[#6C63FF] uppercase tracking-wider text-sm">{t("res_gym_intel")}</h3>
+              <h3 className="font-bold text-[#6C63FF] uppercase tracking-wider text-sm">{t("res_health_insights")}</h3>
             </div>
             <div className="space-y-3">
               <p className="text-sm font-medium leading-relaxed" style={{ color: "#6C63FF" }}>
-                {lang === "ar" ? ((nutritionData as any).gym_tip_ar || (nutritionData as any).gym_tip) : ((nutritionData as any).gym_tip || (nutritionData as any).gym_tip_ar)}
+                {lang === "ar"
+                  ? ((nutritionData as any).health_tip_ar || (nutritionData as any).gym_tip_ar || (nutritionData as any).health_tip_en)
+                  : ((nutritionData as any).health_tip_en || (nutritionData as any).gym_tip || (nutritionData as any).health_tip_ar)}
               </p>
               <div className="flex gap-4">
                 {(nutritionData as any).glycemic_index && (
@@ -283,6 +301,33 @@ const NutritionResults = () => {
                   </div>
                 )}
               </div>
+            </div>
+          </Card>
+        )}
+
+        {/* Micronutrients */}
+        {(currentTotals.vitamin_c_mg > 0 || currentTotals.calcium_mg > 0 || currentTotals.iron_mg > 0) && (
+          <Card className="p-5 premium-card">
+            <h3 className="font-bold text-sm text-gray-700 uppercase mb-3">{t("res_vitamins")}</h3>
+            <div className="flex gap-4">
+              {currentTotals.vitamin_c_mg > 0 && (
+                <div className="flex-1 bg-yellow-50 p-3 rounded-xl text-center">
+                  <p className="text-yellow-600 font-bold">{Math.round(currentTotals.vitamin_c_mg)}mg</p>
+                  <p className="text-[10px] text-yellow-600/70 uppercase">Vit C</p>
+                </div>
+              )}
+              {currentTotals.calcium_mg > 0 && (
+                <div className="flex-1 bg-blue-50 p-3 rounded-xl text-center">
+                  <p className="text-blue-600 font-bold">{Math.round(currentTotals.calcium_mg)}mg</p>
+                  <p className="text-[10px] text-blue-600/70 uppercase">Calcium</p>
+                </div>
+              )}
+              {currentTotals.iron_mg > 0 && (
+                <div className="flex-1 bg-red-50 p-3 rounded-xl text-center">
+                  <p className="text-red-600 font-bold">{Math.round(currentTotals.iron_mg)}mg</p>
+                  <p className="text-[10px] text-red-600/70 uppercase">Iron</p>
+                </div>
+              )}
             </div>
           </Card>
         )}

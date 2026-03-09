@@ -18,10 +18,10 @@ async function callOpenAI(apiKey: string, base64Image: string, mimeType: string,
 When analyzing a food image:
 1. Identify the dish name in both Arabic and English. If it is a random mix of ingredients (e.g. cooked tomatoes and potatoes), DO NOT force a traditional dish name. Instead, name it descriptively (e.g., "Tomato and Potato Mix" / "خليط طماطم وبطاطس").
 2. Estimate the portion size in grams.
-3. List ALL visible ingredients with estimated weights. CRITICAL: For complex/layered dishes (like Couscous, Tagine, or Kabsa), DO NOT blindly hallucinate ingredients that aren't there. You may infer necessary cooking bases (like oils, ghee, or broth) if the food texture implies it (e.g. glossy/wet grains). However, DO NOT add solid ingredients (like meat, eggs, or vegetables) unless they are clearly visible or partially visible.
-4. Calculate precise nutrition per ingredient and total.
+3. List ALL visible ingredients with estimated weights. CRITICAL: NEVER return a single ingredient representing the whole dish. You must break down the dish into its individual raw or cooked components (e.g. "White Rice", "Chicken Breast", "Olive Oil", "Tomatoes").
+4. Calculate precise nutrition per ingredient and total, including micronutrients.
 5. Cross-reference with standard Arab cuisine recipes where applicable.
-6. If it's a restaurant dish, use standard restaurant portion sizes.
+6. Provide a short, simple health tip about the meal (e.g. "Low in protein", "High in carbs, consider a smaller portion").
 
 Return ONLY this JSON:
 {
@@ -37,7 +37,10 @@ Return ONLY this JSON:
     "fat": 0,
     "fiber": 0,
     "sugar": 0,
-    "sodium": 0
+    "sodium": 0,
+    "vitamin_c_mg": 0,
+    "calcium_mg": 0,
+    "iron_mg": 0
   },
   "ingredients": [
     {
@@ -47,15 +50,15 @@ Return ONLY this JSON:
       "calories": 0,
       "protein": 0,
       "carbs": 0,
-      "fat": 0
+      "fat": 0,
+      "vitamin_c_mg": 0,
+      "calcium_mg": 0,
+      "iron_mg": 0
     }
   ],
   "meal_type": "breakfast|lunch|dinner|snack",
-  "cuisine_type": "moroccan|levantine|gulf|egyptian|general_arab",
-  "glycemic_index": 65,
-  "protein_quality_score": 8,
-  "gym_tip": "Gym tip in English",
-  "gym_tip_ar": "نفس النصيحة بالعربية"
+  "health_tip_en": "High in protein, good for recovery.",
+  "health_tip_ar": "عالي بالبروتين، ممتاز للاستشفاء العضلي."
 }`;
 
   const resp = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -76,6 +79,7 @@ Return ONLY this JSON:
         }
       ],
       max_tokens: 2048,
+      temperature: 0.0,
       response_format: { type: "json_object" }
     })
   });
@@ -96,12 +100,12 @@ async function callGemini(apiKey: string, base64Image: string, mimeType: string,
 When analyzing a food image:
 1. Identify the dish name in both Arabic and English. If it is a random mix of ingredients (e.g. cooked tomatoes and potatoes), DO NOT force a traditional dish name. Instead, name it descriptively (e.g., "Tomato and Potato Mix" / "خليط طماطم وبطاطس").
 2. Estimate the portion size in grams.
-3. List ALL visible ingredients with estimated weights. CRITICAL: For complex/layered dishes (like Couscous, Tagine, or Kabsa), DO NOT blindly hallucinate ingredients that aren't there. You may infer necessary cooking bases (like oils, ghee, or broth) if the food texture implies it (e.g. glossy/wet grains). However, DO NOT add solid ingredients (like meat, eggs, or vegetables) unless they are clearly visible or partially visible.
-4. Calculate precise nutrition per ingredient and total.
+3. List ALL visible ingredients with estimated weights. CRITICAL: NEVER return a single ingredient representing the whole dish. You must break down the dish into its individual raw or cooked components (e.g. "White Rice", "Chicken Breast", "Olive Oil", "Tomatoes").
+4. Calculate precise nutrition per ingredient and total, including micronutrients.
 5. Cross-reference with standard Arab cuisine recipes where applicable.
-6. If it's a restaurant dish, use standard restaurant portion sizes.
+6. Provide a short, simple health tip about the meal (e.g. "Low in protein", "High in carbs, consider a smaller portion").
 
-Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_weight_g, total_nutrition (calories, protein, carbs, fat, fiber, sugar, sodium), ingredients [{name_ar, name_en, weight_g, calories, protein, carbs, fat}], meal_type, cuisine_type, glycemic_index, protein_quality_score, gym_tip, gym_tip_ar }`;
+Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_weight_g, total_nutrition: {calories, protein, carbs, fat, fiber, sugar, sodium, vitamin_c_mg, calcium_mg, iron_mg}, ingredients: [{name_ar, name_en, weight_g, calories, protein, carbs, fat, vitamin_c_mg, calcium_mg, iron_mg}], meal_type, health_tip_en, health_tip_ar }`;
 
   let lastError = '';
   for (const model of models) {
@@ -111,7 +115,8 @@ Return ONLY JSON: { image_hash, dish_name_ar, dish_name_en, confidence, total_we
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: systemPrompt }, { inline_data: { mime_type: mimeType, data: base64Image } }] }]
+          contents: [{ parts: [{ text: systemPrompt }, { inline_data: { mime_type: mimeType, data: base64Image } }] }],
+          generationConfig: { temperature: 0.0 }
         })
       });
 

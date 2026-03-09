@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface EditableIngredientProps {
   ingredient: {
@@ -10,11 +11,15 @@ interface EditableIngredientProps {
     protein: number;
     carbs: number;
     fat: number;
+    vitamin_c_mg?: number;
+    calcium_mg?: number;
+    iron_mg?: number;
   };
   onUpdate: (newWeight: number) => void;
 }
 
 export function EditableIngredient({ ingredient, onUpdate }: EditableIngredientProps) {
+  const { t, lang } = useLanguage();
   const [weight, setWeight] = useState(ingredient.weight_g.toString());
 
   useEffect(() => {
@@ -30,10 +35,12 @@ export function EditableIngredient({ ingredient, onUpdate }: EditableIngredientP
     }
   };
 
+  const hasMicros = ingredient.vitamin_c_mg || ingredient.calcium_mg || ingredient.iron_mg;
+
   return (
     <div className="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-gray-100 mb-3 hover:shadow-md transition-shadow">
       <div className="font-bold text-[#6C63FF] text-sm mb-3">
-        🥩 {ingredient.name_en} / {ingredient.name_ar}
+        🥩 {lang === 'ar' ? ingredient.name_ar || ingredient.name_en : ingredient.name_en || ingredient.name_ar}
       </div>
 
       <div className="flex items-center gap-3 mb-3">
@@ -48,18 +55,26 @@ export function EditableIngredient({ ingredient, onUpdate }: EditableIngredientP
           />
           <span className="text-gray-400 ml-2">]</span>
         </div>
-        <span className="text-sm font-medium text-gray-500">grams</span>
+        <span className="text-sm font-medium text-gray-500">{t("scan_grams") || "g"}</span>
         <span className="text-gray-400 mx-1">→</span>
         <span className="font-black text-lg" style={{ color: "#43E97B" }}>
-          {Math.round(ingredient.calories)} kcal
+          {Math.round(ingredient.calories)} {t("dash_kcal") || "kcal"}
         </span>
       </div>
 
-      <div className="flex gap-4 text-xs font-semibold text-gray-600 bg-gray-50 p-2 rounded-lg justify-center">
-        <span>Protein: {Math.round(ingredient.protein)}g</span>
-        <span>Fat: {Math.round(ingredient.fat)}g</span>
-        <span>Carbs: {Math.round(ingredient.carbs)}g</span>
+      <div className="flex flex-wrap gap-2 mb-2 text-xs font-semibold text-gray-600 bg-gray-50 p-2 rounded-lg justify-center">
+        <span>{t("res_protein_g") || "Protein"}: {Math.round(ingredient.protein)}g</span>
+        <span>{t("res_fat_g") || "Fat"}: {Math.round(ingredient.fat)}g</span>
+        <span>{t("res_carbs_g") || "Carbs"}: {Math.round(ingredient.carbs)}g</span>
       </div>
+
+      {hasMicros ? (
+        <div className="flex flex-wrap gap-2 text-[10px] font-semibold text-[#6C63FF]/80 justify-center">
+          {ingredient.vitamin_c_mg ? <span>Vit C: {Math.round(ingredient.vitamin_c_mg)}mg</span> : null}
+          {ingredient.calcium_mg ? <span>Calcium: {Math.round(ingredient.calcium_mg)}mg</span> : null}
+          {ingredient.iron_mg ? <span>Iron: {Math.round(ingredient.iron_mg)}mg</span> : null}
+        </div>
+      ) : null}
     </div>
   );
 }

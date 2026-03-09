@@ -203,31 +203,39 @@ const Scan = () => {
     const weight = parseFloat(manualWeight) || selectedFood.typical_serving_g;
     const ratio = weight / 100;
 
+    const per100g = selectedFood.per100g as any;
     const manualNutritionData = {
       dish_label: selectedFood.name_en,
       dish_label_ar: selectedFood.name_ar,
       confidence: 1.0,
       matched_from_db: true,
       total_nutrition: {
-        calories: selectedFood.per100g.calories * ratio,
-        protein_g: selectedFood.per100g.protein * ratio,
-        carbs_g: selectedFood.per100g.carbs * ratio,
-        fat_g: selectedFood.per100g.fat * ratio,
+        calories: per100g.calories * ratio,
+        protein_g: per100g.protein * ratio,
+        carbs_g: per100g.carbs * ratio,
+        fat_g: per100g.fat * ratio,
+        vitamin_c_mg: per100g.vitamin_c_mg ? per100g.vitamin_c_mg * ratio : 0,
+        calcium_mg: per100g.calcium_mg ? per100g.calcium_mg * ratio : 0,
+        iron_mg: per100g.iron_mg ? per100g.iron_mg * ratio : 0,
       },
       ingredients: selectedFood.ingredients.map(ing => {
         // adjust ingredient proportional to custom weight vs typical serving
         const servingRatio = weight / selectedFood.typical_serving_g;
         const ingWeight = ing.typical_g * servingRatio;
         const ingRatio = ingWeight / 100;
+        const ingPer100 = ing.per100g as any;
         return {
           name_en: ing.name_en,
           name_ar: ing.name_ar,
           weight_g: ingWeight,
-          calories: ing.per100g.calories * ingRatio,
-          protein: ing.per100g.protein * ingRatio,
-          carbs: ing.per100g.carbs * ingRatio,
-          fat: ing.per100g.fat * ingRatio,
-          per100g: ing.per100g
+          calories: ingPer100.calories * ingRatio,
+          protein: ingPer100.protein * ingRatio,
+          carbs: ingPer100.carbs * ingRatio,
+          fat: ingPer100.fat * ingRatio,
+          vitamin_c_mg: ingPer100.vitamin_c_mg ? ingPer100.vitamin_c_mg * ingRatio : 0,
+          calcium_mg: ingPer100.calcium_mg ? ingPer100.calcium_mg * ingRatio : 0,
+          iron_mg: ingPer100.iron_mg ? ingPer100.iron_mg * ingRatio : 0,
+          per100g: ingPer100
         };
       })
     };
