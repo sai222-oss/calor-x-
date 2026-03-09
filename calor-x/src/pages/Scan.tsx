@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Webcam from "react-webcam";
 import { BrowserMultiFormatReader } from "@zxing/browser";
-import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { generateImageHash } from "@/lib/imageHash";
@@ -184,8 +183,9 @@ const Scan = () => {
         setIsUploading(false); resetInput(); return;
       }
 
-      setNutritionData({ ...analysisData, imageUrl: imageUrl || dataUrl, imageHash });
+      const finalData = { ...analysisData, imageUrl: imageUrl || dataUrl, imageHash };
       setIsUploading(false);
+      navigate("/nutrition-results", { state: { nutritionData: finalData } });
     } catch (err: any) {
       setScanError(`خطأ: ${err?.message ?? "حدث خطأ غير متوقع"}`);
       setIsUploading(false); resetInput();
@@ -240,9 +240,9 @@ const Scan = () => {
       })
     };
 
-    setNutritionData(manualNutritionData);
     setShowManualModal(false);
-    setPreviewImage(null); // Optional: ensure preview image holds nothing
+    setPreviewImage(null);
+    navigate("/nutrition-results", { state: { nutritionData: manualNutritionData } });
   };
 
   const isAtLimit = !planLoading && scansToday >= scanLimit;
@@ -381,53 +381,7 @@ const Scan = () => {
           </div>
         )}
 
-        {/* Nutrition Data Bottom Sheet with Framer Motion */}
-        <AnimatePresence>
-          {nutritionData && !isUploading && (
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute bottom-0 left-0 right-0 z-50"
-            >
-              <div className="bg-white/15 backdrop-blur-xl border-t border-white/20 rounded-t-[32px] p-6 pb-12 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
-                <div className="w-12 h-1.5 bg-white/30 rounded-full mx-auto mb-6"></div>
-
-                <p className="text-white/70 text-sm font-medium uppercase tracking-wider mb-1">Detected Food</p>
-                <h2 className="text-3xl font-black text-white mb-6 leading-tight">
-                  {lang === 'ar' ? nutritionData.dish_label_ar : nutritionData.dish_label}
-                </h2>
-
-                <div className="grid grid-cols-4 gap-3 mb-8">
-                  <div className="flex flex-col items-center p-3 rounded-2xl bg-orange-500/10 border border-orange-500/30">
-                    <span className="text-orange-400 text-xl font-bold">{Math.round(nutritionData.total_nutrition?.calories || 0)}</span>
-                    <span className="text-orange-400/80 text-[10px] font-medium uppercase mt-1">kcal</span>
-                  </div>
-                  <div className="flex flex-col items-center p-3 rounded-2xl bg-blue-500/10 border border-blue-500/30">
-                    <span className="text-blue-400 text-xl font-bold">{Math.round(nutritionData.total_nutrition?.protein_g || 0)}g</span>
-                    <span className="text-blue-400/80 text-[10px] font-medium uppercase mt-1">Protein</span>
-                  </div>
-                  <div className="flex flex-col items-center p-3 rounded-2xl bg-green-500/10 border border-green-500/30">
-                    <span className="text-green-400 text-xl font-bold">{Math.round(nutritionData.total_nutrition?.carbs_g || 0)}g</span>
-                    <span className="text-green-400/80 text-[10px] font-medium uppercase mt-1">Carbs</span>
-                  </div>
-                  <div className="flex flex-col items-center p-3 rounded-2xl bg-red-500/10 border border-red-500/30">
-                    <span className="text-red-400 text-xl font-bold">{Math.round(nutritionData.total_nutrition?.fat_g || 0)}g</span>
-                    <span className="text-red-400/80 text-[10px] font-medium uppercase mt-1">Fats</span>
-                  </div>
-                </div>
-
-                <Button
-                  className="w-full py-6 rounded-2xl text-lg font-bold bg-white text-black hover:bg-gray-100 transition-all shadow-xl"
-                  onClick={() => navigate("/nutrition-results", { state: { nutritionData } })}
-                >
-                  Log to Diary
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Nutrition Data Bottom Sheet with Framer Motion removed for direct navigation */}
       </div>
 
       <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" className="hidden" onClick={(e) => { (e.target as any).value = null }} onChange={handleFileSelect} />
