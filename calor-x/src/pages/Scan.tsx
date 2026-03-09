@@ -5,7 +5,7 @@ import { Camera, X, Upload, RefreshCcw, Loader2, Lock, TrendingUp, AlertTriangle
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Webcam from "react-webcam";
-import { BrowserMultiFormatReader } from "@zxing/library";
+import { BrowserMultiFormatReader } from "@zxing/browser";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -64,6 +64,7 @@ const Scan = () => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/auth"); return; }
+
       // Count today's scans
       const today = new Date().toISOString().split("T")[0];
       const { count } = await supabase
