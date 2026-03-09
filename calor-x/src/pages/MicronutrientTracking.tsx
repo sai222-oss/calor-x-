@@ -133,7 +133,7 @@ const MicronutrientTracking = () => {
 
     const getPctColor = (pct: number) => {
         if (pct >= 80) return "#6C63FF";
-        if (pct >= 40) return "#43E97B";
+        if (pct >= 40) return "#9CA3AF";
         return "#EF4444";
     };
 
@@ -157,7 +157,7 @@ const MicronutrientTracking = () => {
             <div className="min-h-screen flex flex-col" style={{ background: "#F8F8FC" }}>
                 {header}
                 <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #1A1A2E, #6C63FF)" }}>
                         <Lock className="w-12 h-12 text-white" />
                     </div>
                     <div>
@@ -280,7 +280,7 @@ const MicronutrientTracking = () => {
                         <div className="space-y-1.5">
                             {[
                                 { color: "#6C63FF", label: lang === "ar" ? "≥ 80% — ممتاز" : "≥ 80% — Excellent" },
-                                { color: "#43E97B", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
+                                { color: "#9CA3AF", label: lang === "ar" ? "40–79% — جيد" : "40–79% — Good" },
                                 { color: "#EF4444", label: lang === "ar" ? "< 40% — يحتاج تحسين" : "< 40% — Needs improvement" },
                             ].map(({ color, label }) => (
                                 <div key={color} className="flex items-center gap-2 text-xs">

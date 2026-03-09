@@ -77,10 +77,10 @@ const Progress = () => {
   const fatTarget = goals?.fat_g_target ?? 65;
 
   const macros = [
-    { icon: Flame, label: t("prog_calories"), value: todayTotals.cal, target: calTarget, unit: "kcal", color: "#43E97B" },
-    { icon: Zap, label: t("prog_protein"), value: todayTotals.protein, target: protTarget, unit: "g", color: "#6C63FF" },
-    { icon: TrendingUp, label: t("prog_carbs"), value: todayTotals.carbs, target: carbTarget, unit: "g", color: "#6B7280" },
-    { icon: Droplets, label: t("prog_fat"), value: todayTotals.fat, target: fatTarget, unit: "g", color: "#9CA3AF" },
+    { icon: Flame, label: t("prog_calories"), value: todayTotals.cal, target: calTarget, unit: "kcal", color: "#6C63FF" },
+    { icon: Zap, label: t("prog_protein"), value: todayTotals.protein, target: protTarget, unit: "g", color: "#6B7280" },
+    { icon: TrendingUp, label: t("prog_carbs"), value: todayTotals.carbs, target: carbTarget, unit: "g", color: "#9CA3AF" },
+    { icon: Droplets, label: t("prog_fat"), value: todayTotals.fat, target: fatTarget, unit: "g", color: "#D1D5DB" },
   ];
 
   return (
@@ -99,7 +99,7 @@ const Progress = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 gap-3">
             <Card className="p-5 text-center premium-card">
-              <p className="text-4xl font-black" style={{ color: "#43E97B" }}>{streak}</p>
+              <p className="text-4xl font-black" style={{ color: "#6C63FF" }}>{streak}</p>
               <p className="text-xs text-muted-foreground mt-1">{t("prog_day_streak")}</p>
             </Card>
             <Card className="p-5 text-center premium-card">
@@ -130,14 +130,14 @@ const Progress = () => {
                     />
                     <Bar dataKey="calories" radius={[8, 8, 0, 0]}>
                       {chartData.map((entry, i) => (
-                        <Cell key={i} fill={entry.calories >= calTarget ? "#43E97B" : entry.calories > 0 ? "#6C63FF" : "#E5E7EB"} />
+                        <Cell key={i} fill={entry.calories >= calTarget ? "#6C63FF" : entry.calories > 0 ? "#9CA3AF" : "#E5E7EB"} />
                       ))}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
                 <div className="flex items-center gap-4 mt-2 justify-center text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#6C63FF" }} />{lang === "ar" ? "دون الهدف" : "Below goal"}</span>
-                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#43E97B" }} />{lang === "ar" ? "الهدف محقق ✓" : "Goal reached ✓"}</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#9CA3AF" }} />{lang === "ar" ? "دون الهدف" : "Below goal"}</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "#6C63FF" }} />{lang === "ar" ? "الهدف محقق ✓" : "Goal reached ✓"}</span>
                 </div>
               </>
             )}
@@ -146,8 +146,8 @@ const Progress = () => {
           {/* Today vs Goals */}
           <Card className="p-5 premium-card">
             <div className="flex items-center gap-2 mb-4">
-              <Target className="w-4 h-4" style={{ color: "#43E97B" }} />
-              <h2 className="font-bold" style={{ color: "#6C63FF" }}>{t("prog_today_vs_goals")}</h2>
+              <Target className="w-4 h-4" style={{ color: "#6C63FF" }} />
+              <h2 className="font-bold" style={{ color: "#1A1A2E" }}>{t("prog_today_vs_goals")}</h2>
             </div>
             {goals ? (
               <div className="space-y-4">
@@ -160,14 +160,14 @@ const Progress = () => {
                       </div>
                       <span className="text-xs text-muted-foreground">
                         {value}{unit} / {target}{unit} &nbsp;
-                        <span className="font-semibold" style={{ color: pct(value, target) >= 100 ? "#43E97B" : "#6C63FF" }}>
+                        <span className="font-semibold" style={{ color: pct(value, target) >= 100 ? "#6C63FF" : "#9CA3AF" }}>
                           {pct(value, target)}%
                         </span>
                       </span>
                     </div>
-                    {/* Green bg, gold fill progress bar */}
-                    <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(27, 67, 50, 0.1)" }}>
-                      <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct(value, target)}%`, background: color }} />
+                    {/* Mono bg, fill progress bar */}
+                    <div className="h-2 rounded-full overflow-hidden" style={{ background: "#E5E7EB" }}>
+                      <div className="h-full rounded-full transition-all duration-500 bg-gray-600" style={{ width: `${pct(value, target)}%` }} />
                     </div>
                   </div>
                 ))}
@@ -185,8 +185,8 @@ const Progress = () => {
             onClick={() => navigate("/micronutrients")}
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "rgba(27, 67, 50, 0.08)" }}>
-                <FlaskConical className="w-5 h-5" style={{ color: "#6C63FF" }} />
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "#E5E7EB" }}>
+                <FlaskConical className="w-5 h-5" style={{ color: "#1A1A2E" }} />
               </div>
               <div>
                 <p className="font-bold text-sm" style={{ color: "#6C63FF" }}>{t("micro_title")}</p>

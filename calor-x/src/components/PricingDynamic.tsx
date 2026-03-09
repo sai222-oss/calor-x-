@@ -141,7 +141,7 @@ const PricingDynamic = () => {
               {t("toggle_yearly")}
             </button>
           </div>
-          <Badge className="bg-[#43E97B] text-[#1A1A2E] border-0 text-xs font-black uppercase shadow-sm px-4 py-1 animate-pulse">
+          <Badge className="bg-[#1A1A2E] text-white border-0 text-xs font-black uppercase shadow-sm px-4 py-1 animate-pulse">
             ⭐ وفر 40% مع الخطة السنوية
           </Badge>
         </div>
@@ -162,7 +162,7 @@ const PricingDynamic = () => {
               {/* Popular badge */}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="px-4 py-1 text-sm font-bold border-none" style={{ background: "#43E97B", color: "#1A1A2E" }}>
+                  <Badge className="px-4 py-1 text-sm font-bold border-none" style={{ background: "#1A1A2E", color: "white" }}>
                     {t("popular_badge")}
                   </Badge>
                 </div>
@@ -205,7 +205,7 @@ const PricingDynamic = () => {
                   {plan.features.map((f, j) => (
                     <li key={j} className="flex items-start gap-3">
                       {f.included ? (
-                        <Check className="w-5 h-5 mt-0.5 shrink-0" style={{ color: plan.highlight ? "#43E97B" : "#6C63FF" }} />
+                        <Check className="w-5 h-5 mt-0.5 shrink-0" style={{ color: plan.highlight ? "white" : "#6C63FF" }} />
                       ) : (
                         <X className="w-5 h-5 mt-0.5 shrink-0" style={{ color: plan.highlight ? "rgba(255,255,255,0.3)" : "#EAE9F2" }} />
                       )}

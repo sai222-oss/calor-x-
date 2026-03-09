@@ -128,7 +128,7 @@ const MealPlanning = () => {
                     <h1 className="text-lg font-bold">{t("meal_plan_title")}</h1>
                 </div>
                 <div className="flex flex-col items-center justify-center p-8 text-center space-y-6 pt-16">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
+                    <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #1A1A2E, #6C63FF)" }}>
                         <Lock className="w-12 h-12 text-white" />
                     </div>
                     <div>
@@ -189,8 +189,8 @@ const MealPlanning = () => {
                     <div className="space-y-4">
                         <Card className="p-5 premium-card">
                             <div className="flex items-center gap-2 mb-3">
-                                <Sparkles className="w-5 h-5" style={{ color: "#43E97B" }} />
-                                <h2 className="font-bold" style={{ color: "#6C63FF" }}>{t("meal_plan_ai_title")}</h2>
+                                <Sparkles className="w-5 h-5" style={{ color: "#6C63FF" }} />
+                                <h2 className="font-bold" style={{ color: "#1A1A2E" }}>{t("meal_plan_ai_title")}</h2>
                             </div>
                             <p className="text-sm text-muted-foreground mb-4">
                                 {lang === "ar"
@@ -245,7 +245,7 @@ const MealPlanning = () => {
                                                     </p>
                                                 </div>
                                                 <div className="text-right shrink-0">
-                                                    <p className="text-xs font-bold" style={{ color: "#43E97B" }}>{meal.cal} {t("meal_plan_recipe_cal")}</p>
+                                                    <p className="text-xs font-bold" style={{ color: "#1A1A2E" }}>{meal.cal} {t("meal_plan_recipe_cal")}</p>
                                                     <p className="text-[10px] text-muted-foreground">{meal.protein}g {t("meal_plan_recipe_protein")}</p>
                                                 </div>
                                             </div>
@@ -280,7 +280,7 @@ const MealPlanning = () => {
                                             <p className="text-xs text-muted-foreground mt-1.5">⏱ {recipe.time}</p>
                                         </div>
                                         <div className="text-right ml-4 shrink-0">
-                                            <p className="text-xl font-black" style={{ color: "#43E97B" }}>{recipe.cal}</p>
+                                            <p className="text-xl font-black" style={{ color: "#1A1A2E" }}>{recipe.cal}</p>
                                             <p className="text-[10px] text-muted-foreground">{t("meal_plan_recipe_cal")}</p>
                                             <p className="text-sm font-bold mt-1" style={{ color: "#6C63FF" }}>{recipe.protein}g</p>
                                             <p className="text-[10px] text-muted-foreground">{t("meal_plan_recipe_protein")}</p>

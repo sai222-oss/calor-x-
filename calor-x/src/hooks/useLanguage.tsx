@@ -16,24 +16,16 @@ const LanguageContext = createContext<LanguageContextValue>({
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-    const [lang, setLangState] = useState<Lang>(() => {
-        try {
-            return (localStorage.getItem("calor_lang") as Lang) || "ar";
-        } catch {
-            return "ar";
-        }
-    });
+    const [lang] = useState<Lang>("ar");
 
     const setLang = (l: Lang) => {
-        setLangState(l);
-        try { localStorage.setItem("calor_lang", l); } catch { /* ok */ }
+        // Disabled: App is enforced to Arabic only.
     };
 
     // Apply direction to html element
     useEffect(() => {
-        const dir = lang === "ar" ? "rtl" : "ltr";
-        document.documentElement.setAttribute("dir", dir);
-        document.documentElement.setAttribute("lang", lang);
+        document.documentElement.setAttribute("dir", "rtl");
+        document.documentElement.setAttribute("lang", "ar");
     }, [lang]);
 
     const t = (key: StringKey, vars?: Record<string, string | number>) =>

@@ -7,7 +7,7 @@ const APP_PATHS = ["/dashboard", "/scan", "/nutrition-results", "/progress", "/a
 const BottomNav = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { t, lang, setLang } = useLanguage();
+    const { t, lang } = useLanguage();
 
     const isAppPage = APP_PATHS.some(p => pathname.startsWith(p));
     if (!isAppPage) return null;

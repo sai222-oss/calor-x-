@@ -17,9 +17,9 @@ async function callOpenAI(apiKey: string, base64Image: string, mimeType: string,
 
 When analyzing a food image:
 1. Identify the dish or food name in both Arabic and English. If it is a random mix of ingredients, name it descriptively.
-2. Estimate the portion size in grams.
+2. Estimate the portion size in grams WITH HIGH PRECISION. Do NOT default to 100g. Visually analyze the actual size of the objects relative to their container or reference objects (e.g. a cup, a plate, a table, a hand). If it's a small piece of fruit or a handful of nuts (like the peanuts in a cup), estimate its true visual weight (e.g. 50g-70g for a small fruit, 15g-30g for a handful of nuts). Accuracy in weight estimation is the absolute most critical part of your job.
 3. List ALL visible ingredients with estimated weights. CRITICAL: If the image is a complex dish (like Kabsa, Salad, Pizza), you must break it down into its individual raw or cooked components. However, if the image is obviously a single raw or simple food item (e.g., just "Peanuts", just "An Apple", just "A Banana"), then it is perfectly fine and correct to return just that single ingredient in the list. Do not force a breakdown if it's just a handful of peanuts.
-4. Calculate precise nutrition per ingredient and total, including micronutrients.
+4. Calculate precise nutrition per ingredient and total, based strictly on the estimated actual weights (not a flat 100g), including micronutrients.
 5. Cross-reference with standard Arab cuisine recipes where applicable.
 6. Provide a short, simple health tip about the meal (e.g. "Low in protein", "High in carbs, consider a smaller portion", or "Great source of healthy fats" for peanuts).
 
@@ -99,9 +99,9 @@ async function callGemini(apiKey: string, base64Image: string, mimeType: string,
 
 When analyzing a food image:
 1. Identify the dish or food name in both Arabic and English. If it is a random mix of ingredients, name it descriptively.
-2. Estimate the portion size in grams.
+2. Estimate the portion size in grams WITH HIGH PRECISION. Do NOT default to 100g. Visually analyze the actual size of the objects relative to their container or reference objects (e.g. a cup, a plate, a table, a hand). If it's a small piece of fruit or a handful of nuts (like the peanuts in a cup), estimate its true visual weight (e.g. 50g-70g for a small fruit, 15g-30g for a handful of nuts). Accuracy in weight estimation is the absolute most critical part of your job.
 3. List ALL visible ingredients with estimated weights. CRITICAL: If the image is a complex dish (like Kabsa, Salad, Pizza), you must break it down into its individual raw or cooked components. However, if the image is obviously a single raw or simple food item (e.g., just "Peanuts", just "An Apple", just "A Banana"), then it is perfectly fine and correct to return just that single ingredient in the list. Do not force a breakdown if it's just a handful of peanuts.
-4. Calculate precise nutrition per ingredient and total, including micronutrients.
+4. Calculate precise nutrition per ingredient and total, based strictly on the estimated actual weights (not a flat 100g), including micronutrients.
 5. Cross-reference with standard Arab cuisine recipes where applicable.
 6. Provide a short, simple health tip about the meal (e.g. "Low in protein", "High in carbs, consider a smaller portion", or "Great source of healthy fats" for peanuts).
 

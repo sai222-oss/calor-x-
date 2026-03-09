@@ -81,7 +81,7 @@ const AICoach = () => {
       <div className="min-h-screen flex flex-col" style={{ background: "#F8F8FC" }}>
         {header}
         <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
-          <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
+          <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg, #1A1A2E, #6C63FF)" }}>
             <Lock className="w-12 h-12 text-white" />
           </div>
           <div>
@@ -128,7 +128,7 @@ const AICoach = () => {
         {messages.map((msg, i) => (
           <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
             <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white ${msg.role === "user" ? "" : ""}`}
-              style={{ background: msg.role === "user" ? "#6C63FF" : "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
+              style={{ background: msg.role === "user" ? "#6C63FF" : "#1A1A2E" }}>
               {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
             </div>
             <Card
@@ -141,7 +141,7 @@ const AICoach = () => {
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white" style={{ background: "linear-gradient(135deg, #43E97B, #6C63FF)" }}>
+            <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white" style={{ background: "#1A1A2E" }}>
               <Bot className="w-4 h-4" />
             </div>
             <Card className="p-3 border-0 rounded-2xl rounded-bl-sm" style={{ background: "white" }}>

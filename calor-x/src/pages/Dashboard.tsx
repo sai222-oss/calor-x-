@@ -102,9 +102,9 @@ const Dashboard = () => {
     new Date(iso).toLocaleTimeString(lang === "ar" ? "ar-SA" : "en-US", { hour: "2-digit", minute: "2-digit" });
 
   const macros = [
-    { icon: Droplets, label: t("dash_protein"), value: protein, target: proteinTarget, unit: "g", color: "#43E97B" }, // Mint Green for Protein
-    { icon: Zap, label: t("dash_carbs"), value: carbs, target: carbsTarget, unit: "g", color: "#FF6584" }, // Coral Pink for Carbs
-    { icon: Flame, label: t("dash_fat"), value: fat, target: fatTarget, unit: "g", color: "#6C63FF" }, // Purple for Fat
+    { icon: Droplets, label: t("dash_protein"), value: protein, target: proteinTarget, unit: "g", color: "#6C63FF" },
+    { icon: Zap, label: t("dash_carbs"), value: carbs, target: carbsTarget, unit: "g", color: "#9CA3AF" },
+    { icon: Flame, label: t("dash_fat"), value: fat, target: fatTarget, unit: "g", color: "#D1D5DB" },
   ];
 
   return (
@@ -196,8 +196,8 @@ const Dashboard = () => {
                   strokeLinecap="round" className="transition-all duration-1000 ease-out" />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#6C63FF" />
-                    <stop offset="100%" stopColor="#43E97B" />
+                    <stop offset="0%" stopColor="#8b84fa" />
+                    <stop offset="100%" stopColor="#6C63FF" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -229,7 +229,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-2 gap-3">
             <Card
               className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
-              style={{ background: "linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%)" }}
+              style={{ background: "linear-gradient(135deg, #1A1A2E 0%, #303050 100%)" }}
               onClick={() => navigate("/ai-coach")}
             >
               <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
@@ -243,7 +243,7 @@ const Dashboard = () => {
 
             <Card
               className="relative overflow-hidden p-5 rounded-[28px] border-0 shadow-soft cursor-pointer hover:scale-[1.02] transition-transform group"
-              style={{ background: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)" }}
+              style={{ background: "linear-gradient(135deg, #6C63FF 0%, #8b84fa 100%)" }}
               onClick={() => navigate("/progress")}
             >
               <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 bg-white opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>

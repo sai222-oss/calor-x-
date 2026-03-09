@@ -128,9 +128,9 @@ const Profile = () => {
     : null;
 
   const goalLabels: Record<string, { label: string; color: string }> = {
-    lose_weight: { label: t("prof_goal_fat_loss"), color: "bg-red-50 text-red-600" },
-    gain_muscle: { label: t("prof_goal_muscle"), color: "bg-blue-50 text-blue-600" },
-    maintain_weight: { label: t("prof_goal_maintain"), color: "bg-green-50 text-green-700" },
+    lose_weight: { label: t("prof_goal_fat_loss"), color: "bg-[#F8F8FC] text-[#6C63FF]" },
+    gain_muscle: { label: t("prof_goal_muscle"), color: "bg-[#F8F8FC] text-[#1A1A2E]" },
+    maintain_weight: { label: t("prof_goal_maintain"), color: "bg-[#F2F2F2] text-[#6B7280]" },
   };
   const activityLabels: Record<string, string> = {
     sedentary: t("prof_act_sedentary"), light: t("prof_act_light"), moderate: t("prof_act_moderate"),
@@ -258,9 +258,9 @@ const Profile = () => {
                 <div className="space-y-3">
                   {[
                     { label: t("prog_calories"), value: goals.calories_target, unit: "kcal", color: "#6C63FF" },
-                    { label: t("prog_protein"), value: goals.protein_g_target, unit: "g", color: "#43E97B" },
-                    { label: t("prog_carbs"), value: goals.carbs_g_target, unit: "g", color: "#FF6584" },
-                    { label: t("prog_fat"), value: goals.fat_g_target, unit: "g", color: "#6C63FF" },
+                    { label: t("prog_protein"), value: goals.protein_g_target, unit: "g", color: "#6B7280" },
+                    { label: t("prog_carbs"), value: goals.carbs_g_target, unit: "g", color: "#9CA3AF" },
+                    { label: t("prog_fat"), value: goals.fat_g_target, unit: "g", color: "#D1D5DB" },
                   ].map(({ label, value, unit, color }) => (
                     <div key={label} className="flex items-center justify-between">
                       <span className="text-sm font-semibold text-[#8888A0]">{label}</span>
@@ -279,8 +279,8 @@ const Profile = () => {
                   <p className="text-2xl font-black text-[#6C63FF]">{weeklyMeals}</p>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#8888A0] mt-0.5">{t("prof_meals_logged")}</p>
                 </div>
-                <div className="p-3 rounded-xl text-center bg-[#FFF0F3] border border-[#FFE0E6]">
-                  <p className="text-2xl font-black text-[#FF6584]">{Math.round(totalCaloriesTracked / 1000 * 10) / 10}k</p>
+                <div className="p-3 rounded-xl text-center bg-[#F8F8FC] border border-[#EAE9F2]">
+                  <p className="text-2xl font-black text-[#1A1A2E]">{Math.round(totalCaloriesTracked / 1000 * 10) / 10}k</p>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#8888A0] mt-0.5">{t("prof_kcal_tracked")}</p>
                 </div>
               </div>
@@ -288,8 +288,8 @@ const Profile = () => {
 
             {/* Support */}
             <Card className="p-5 premium-card" >
-              <h3 className="font-bold mb-3 flex items-center gap-2" style={{ color: "#6C63FF" }}>
-                <Headphones className="w-4 h-4" style={{ color: "#43E97B" }} />{t("support_title")}
+              <h3 className="font-bold mb-3 flex items-center gap-2" style={{ color: "#1A1A2E" }}>
+                <Headphones className="w-4 h-4" style={{ color: "#6C63FF" }} />{t("support_title")}
               </h3>
               <div className="mb-3 p-3 rounded-2xl" style={{ background: "#F8F8FC" }}>
                 {isPro ? (
@@ -308,7 +308,7 @@ const Profile = () => {
                 </Button>
                 <Button
                   className="flex-1 rounded-full gap-2 text-white"
-                  style={{ background: "#25D366" }}
+                  style={{ background: "#1A1A2E" }}
                   onClick={() => window.open("https://wa.me/+1234567890?text=Hello%2C%20I%20need%20support%20with%20Calor%20X", "_blank")}
                 >
                   <MessageCircle className="w-4 h-4" />واتساب
@@ -345,14 +345,14 @@ const Profile = () => {
                 </div>
                 <ChevronRight className="w-5 h-5 text-[#8888A0]" />
               </button>
-              <button className="w-full p-4 flex items-center justify-between hover:bg-[#FFF0F3] transition-colors text-left" onClick={handleLogout}>
+              <button className="w-full p-4 flex items-center justify-between hover:bg-[#F8F8FC] transition-colors text-left" onClick={handleLogout}>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#FFF0F3] flex items-center justify-center">
-                    <LogOut className="w-4 h-4 text-[#FF6584]" />
+                  <div className="w-8 h-8 rounded-full bg-[#E5E7EB] flex items-center justify-center">
+                    <LogOut className="w-4 h-4 text-[#1A1A2E]" />
                   </div>
-                  <span className="font-semibold text-[#FF6584]">{t("prof_logout")}</span>
+                  <span className="font-semibold text-[#1A1A2E]">{t("prof_logout")}</span>
                 </div>
-                <ChevronRight className="w-5 h-5 text-[#FF6584]/50" />
+                <ChevronRight className="w-5 h-5 text-[#8888A0]" />
               </button>
             </Card>
           </>

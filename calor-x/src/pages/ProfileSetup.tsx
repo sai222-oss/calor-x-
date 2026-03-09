@@ -251,7 +251,7 @@ const ProfileSetup = () => {
           >
             {loading ? <Loader2 className="animate-spin w-6 h-6" /> : (
               <>
-                <Sparkles className="w-6 h-6 text-[#43E97B]" />
+                <Sparkles className="w-6 h-6 text-white" />
                 {t("setup_start")}
               </>
             )}

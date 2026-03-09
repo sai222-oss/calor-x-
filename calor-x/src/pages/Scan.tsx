@@ -306,8 +306,8 @@ const Scan = () => {
                   {/* Viewfinder Overlay strictly positioned absolute inset-0 */}
                   {!cameraError && (
                     <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                      <div className="w-[60vw] h-[60vw] max-w-[250px] max-h-[250px] border-4 border-[#43E97B] rounded-3xl shadow-[0_0_0_100vh_rgba(0,0,0,0.5)] box-content relative">
-                        <div className="absolute -inset-1 border-4 border-[#43E97B] rounded-3xl opacity-50 blur-sm"></div>
+                      <div className="w-[60vw] h-[60vw] max-w-[250px] max-h-[250px] border-4 border-white/80 rounded-3xl shadow-[0_0_0_100vh_rgba(0,0,0,0.5)] box-content relative">
+                        <div className="absolute -inset-1 border-4 border-white/80 rounded-3xl opacity-50 blur-sm"></div>
                       </div>
                     </div>
                   )}
@@ -347,7 +347,7 @@ const Scan = () => {
                     className="w-20 h-20 rounded-full border-[6px] border-white/30 flex items-center justify-center p-1 cursor-pointer"
                     onClick={capturePhoto}
                   >
-                    <div className="w-full h-full bg-[#43E97B] rounded-full shadow-[0_0_20px_rgba(67,233,123,0.5)] transition-transform active:scale-90" />
+                    <div className="w-full h-full bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.5)] transition-transform active:scale-90" />
                   </button>
                 ) : (
                   <button
@@ -375,7 +375,7 @@ const Scan = () => {
         {/* Loading Overlay */}
         {isUploading && (
           <div className="absolute inset-0 z-40 bg-black/60 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in">
-            <Loader2 className="w-12 h-12 animate-spin text-[#43E97B] mb-4" />
+            <Loader2 className="w-12 h-12 animate-spin text-[#6C63FF] mb-4" />
             <p className="font-bold text-white text-lg">{t("scan_analysing")}</p>
             <p className="text-white/60 text-sm mt-2">{t("scan_please_wait")}</p>
           </div>

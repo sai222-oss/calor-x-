@@ -57,7 +57,7 @@ export function EditableIngredient({ ingredient, onUpdate }: EditableIngredientP
         </div>
         <span className="text-sm font-medium text-gray-500">{t("scan_grams") || "g"}</span>
         <span className="text-gray-400 mx-1">→</span>
-        <span className="font-black text-lg" style={{ color: "#43E97B" }}>
+        <span className="font-black text-lg" style={{ color: "#6C63FF" }}>
           {Math.round(ingredient.calories)} {t("dash_kcal") || "kcal"}
         </span>
       </div>
