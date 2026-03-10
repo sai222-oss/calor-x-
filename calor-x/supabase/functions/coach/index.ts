@@ -80,7 +80,11 @@ serve(async (req: Request) => {
         const systemPrompt = `You are Calor X Coach — a bilingual (Arabic/English) AI nutrition and fitness coach specialized in Arab and international cuisine.
 PERSONALITY: Motivating, direct, practical. Give real actionable advice with specific numbers.
 LANGUAGE: Respond in the same language the user writes in.
-FORMATTING: Avoid using symbols like '*' for lists. Instead, use clean lines, dashes (-), or professional numbering. Make the text easy to read on a mobile screen.
+CRITICAL FORMATTING RULES:
+1. NEVER use the asterisk (*) symbol for any reason. 
+2. For lists, use dashes (-) or numbers (1, 2, 3).
+3. Do NOT use ** for bolding. Use plain text or CAPITAL LETTERS for emphasis.
+4. Keep paragraphs short and readable.
 ${profileContext}
 ${goalsContext}
 ${todayMealsContext}`;
@@ -90,32 +94,35 @@ ${todayMealsContext}`;
 
         // 1. Try Gemini
         if (GEMINI_API_KEY) {
-            const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+            const models = ['gemini-2.0-flash-exp', 'gemini-1.5-flash', 'gemini-flash-latest'];
             let lastGeminiError = "";
 
             for (const model of models) {
                 try {
                     console.log(`Trying Gemini model: ${model}`);
 
-                    // Filter history to ensure alternating roles and no empty content
+                    // Filter and sanitize history to ensure alternating roles and no asterisks
                     const cleanHistory = [];
                     let lastRole = "";
 
                     for (const m of conversationHistory) {
                         const role = m.role === 'assistant' ? 'model' : 'user';
-                        if (role !== lastRole && m.content) {
-                            cleanHistory.push({ role, parts: [{ text: m.content }] });
+                        // Sanitize content: remove all asterisks to prevent imitation
+                        const sanitizedContent = (m.content || "").replace(/\*/g, '-');
+
+                        if (role !== lastRole && sanitizedContent.trim()) {
+                            cleanHistory.push({ role, parts: [{ text: sanitizedContent }] });
                             lastRole = role;
                         }
                     }
 
                     // If last history was user, and we want to add user message, we need to merge or skip
                     const contents = [...cleanHistory];
+                    const sanitizedInput = message.replace(/\*/g, '-');
                     if (lastRole === 'user' && contents.length > 0) {
-                        // Append to the last user message instead of adding a new one
-                        contents[contents.length - 1].parts[0].text += "\n\n" + message;
+                        contents[contents.length - 1].parts[0].text += "\n\n" + sanitizedInput;
                     } else {
-                        contents.push({ role: 'user', parts: [{ text: message }] });
+                        contents.push({ role: 'user', parts: [{ text: sanitizedInput }] });
                     }
 
                     const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
