@@ -1,0 +1,1 @@
+{"slug":"analyze-food","name":"analyze-food","verify_jwt":false,"body":"Deno.serve(async (req: Request) => {\r\n    return new Response(JSON.stringify({ message: \"Zero-dependency Hello from Calor-X!\" }), {\r\n        headers: { \"Content-Type\": \"application/json\" },\r\n    });\r\n});\r\n"}

@@ -1,0 +1,255 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : warning: 
+[options] source value 
+8 is obsolete and will 
+be removed in a future 
+release
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_12.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (warning: [opt   
+ io... future relea    
+se:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] To 
+suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+3 warnings
+warning: [options] 
+source value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] To 
+suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+3 warnings
+warning: [options] 
+source value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] To 
+suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+3 warnings
+warning: [options] 
+source value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] To 
+suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+3 warnings
+warning: [options] 
+source value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+warning: [options] To 
+suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\camera_
+android_camerax-0.6.30\
+android\src\main\java\i
+o\flutter\plugins\camer
+ax\Camera2CameraControl
+ProxyApi.java:54: 
+error: cannot infer 
+type arguments for 
+FutureCallback<V>
+        new 
+FutureCallback<>() {
+                       
+   ^
+  reason: '<>' with 
+anonymous inner 
+classes is not 
+supported in -source 8
+    (use -source 9 or 
+higher to enable '<>' 
+with anonymous inner 
+classes)
+  where V is a 
+type-variable:
+    V extends Object 
+declared in interface 
+FutureCallback
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\camera_
+android_camerax-0.6.30\
+android\src\main\java\i
+o\flutter\plugins\camer
+ax\CameraControlProxyAp
+i.java:44: error: 
+cannot infer type 
+arguments for 
+FutureCallback<V>
+        new 
+FutureCallback<>() {
+                       
+   ^
+  reason: '<>' with 
+anonymous inner 
+classes is not 
+supported in -source 8
+    (use -source 9 or 
+higher to enable '<>' 
+with anonymous inner 
+classes)
+  where V is a 
+type-variable:
+    V extends Object 
+declared in interface 
+FutureCallback
+2 errors
+3 warnings
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':camera_android_c
+amerax:compileDebugJava
+WithJavac'.
+> Compilation failed; 
+see the compiler 
+output below.
+  warning: [options] 
+target value 8 is 
+obsolete and will be 
+removed in a future 
+release
+  warning: [options] 
+source value 8 is 
+obsolete and will be 
+removed in a future 
+release
+  warning: [options] 
+To suppress warnings 
+about obsolete 
+options, use 
+-Xlint:-options.
+  C:\Users\The Godfathe
+r\AppData\Local\Pub\Cac
+he\hosted\pub.dev\camer
+a_android_camerax-0.6.3
+0\android\src\main\java
+\io\flutter\plugins\cam
+erax\Camera2CameraContr
+olProxyApi.java:54: 
+error: cannot infer 
+type arguments for 
+FutureCallback<V>
+          new 
+FutureCallback<>() {
+                       
+     ^
+    reason: '<>' with 
+anonymous inner 
+classes is not 
+supported in -source 8
+      (use -source 9 
+or higher to enable 
+'<>' with anonymous 
+inner classes)
+    where V is a 
+type-variable:
+      V extends Object 
+declared in interface 
+FutureCallback
+  C:\Users\The Godfathe
+r\AppData\Local\Pub\Cac
+he\hosted\pub.dev\camer
+a_android_camerax-0.6.3
+0\android\src\main\java
+\io\flutter\plugins\cam
+erax\CameraControlProxy
+Api.java:44: error: 
+cannot infer type 
+arguments for 
+FutureCallback<V>
+          new 
+FutureCallback<>() {
+                       
+     ^
+    reason: '<>' with 
+anonymous inner 
+classes is not 
+supported in -source 8
+      (use -source 9 
+or higher to enable 
+'<>' with anonymous 
+inner classes)
+    where V is a 
+type-variable:
+      V extends Object 
+declared in interface 
+FutureCallback
+  2 errors
+  3 warnings
+
+* Try:
+> Check your code and 
+dependencies to fix 
+the compilation 
+error(s)
+> Run with --scan to 
+get full insights.
+
+BUILD FAILED in 1m 30s
+Running Gradle task 'assembleDebug'...                             91.4s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

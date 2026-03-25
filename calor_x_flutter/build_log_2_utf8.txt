@@ -1,0 +1,1629 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : 
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_2.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+A problem occurred 
+configuring project ':p
+ermission_handler_andro
+id'.
+> Could not resolve 
+all artifacts for 
+configuration 
+'classpath'.
+   > Could not resolve 
+org.jetbrains.kotlin:ko
+tlin-stdlib-jdk8:1.3.72
+.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:aapt
+compiler:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.lint:lint-
+gradle-api:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:grad
+le-api:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools.build:builder-mo
+del:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdk-common:27.1.
+0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:common:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools.build:manifest-m
+erger:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools.analytics-librar
+y:tracker:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.lint:lint-
+gradle-api:27.1.0 > com
+.android.tools.lint:lin
+t-model:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdklib:27.1.0 > 
+com.android.tools:repos
+itory:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdk-common:27.1.
+0 > com.android.tools.a
+nalytics-library:shared
+:27.1.0
+      > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-jdk
+8:1.3.72.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/org/jetbrains/kotl
+in/kotlin-stdlib-jdk8/1
+.3.72/kotlin-stdlib-jdk
+8-1.3.72.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/org/jetbrains/kotlin/k
+otlin-stdlib-jdk8/1.3.7
+2/kotlin-stdlib-jdk8-1.
+3.72.pom'.
+               > No 
+such host is known 
+(repo.maven.apache.org)
+   > Could not resolve 
+com.google.crypto.tink:
+tink:1.3.0-rc2.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0
+      > Could not 
+resolve com.google.cryp
+to.tink:tink:1.3.0-rc2.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/com/google/crypto/
+tink/tink/1.3.0-rc2/tin
+k-1.3.0-rc2.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/com/google/crypto/tink
+/tink/1.3.0-rc2/tink-1.
+3.0-rc2.pom'.
+               > 
+repo.maven.apache.org
+   > Could not resolve 
+org.tensorflow:tensorfl
+ow-lite-metadata:0.1.0-
+rc1.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0
+      > Could not 
+resolve org.tensorflow:
+tensorflow-lite-metadat
+a:0.1.0-rc1.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/org/tensorflow/ten
+sorflow-lite-metadata/0
+.1.0-rc1/tensorflow-lit
+e-metadata-0.1.0-rc1.po
+m'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/org/tensorflow/tensorf
+low-lite-metadata/0.1.0
+-rc1/tensorflow-lite-me
+tadata-0.1.0-rc1.pom'.
+               > 
+repo.maven.apache.org
+   > Could not resolve 
+org.bouncycastle:bcprov
+-jdk15on:1.56.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdk-common:27.1.
+0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools.build:apkzlib:4.
+1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > org.bouncyc
+astle:bcpkix-jdk15on:1.
+56
+      > Could not 
+resolve org.bouncycastl
+e:bcprov-jdk15on:1.56.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/org/bouncycastle/b
+cprov-jdk15on/1.56/bcpr
+ov-jdk15on-1.56.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/org/bouncycastle/bcpro
+v-jdk15on/1.56/bcprov-j
+dk15on-1.56.pom'.
+               > 
+repo.maven.apache.org
+   > Could not resolve 
+com.google.code.gson:gs
+on:2.8.5.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.g
+oogle.protobuf:protobuf
+-java-util:3.10.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdklib:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools.build:manifest-m
+erger:27.1.0
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > com.a
+ndroid.tools.build:buil
+der:4.1.0 > com.android
+.tools:sdk-common:27.1.
+0 > com.android.tools.a
+nalytics-library:shared
+:27.1.0
+      > Could not 
+resolve com.google.code
+.gson:gson:2.8.5.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/com/google/code/gs
+on/gson/2.8.5/gson-2.8.
+5.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/com/google/code/gson/g
+son/2.8.5/gson-2.8.5.po
+m'.
+               > No 
+such host is known 
+(repo.maven.apache.org)
+   > Could not resolve 
+org.glassfish.jaxb:txw2
+:2.3.1.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0 > org.glassfish.jax
+b:jaxb-runtime:2.3.1
+      > Could not 
+resolve org.glassfish.j
+axb:txw2:2.3.1.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/org/glassfish/jaxb
+/txw2/2.3.1/txw2-2.3.1.
+pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/org/glassfish/jaxb/txw
+2/2.3.1/txw2-2.3.1.pom'
+.
+               > 
+repo.maven.apache.org
+   > Could not resolve 
+com.sun.istack:istack-c
+ommons-runtime:3.0.7.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0 > org.glassfish.jax
+b:jaxb-runtime:2.3.1
+      > Could not 
+resolve com.sun.istack:
+istack-commons-runtime:
+3.0.7.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/com/sun/istack/ist
+ack-commons-runtime/3.0
+.7/istack-commons-runti
+me-3.0.7.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/com/sun/istack/istack-
+commons-runtime/3.0.7/i
+stack-commons-runtime-3
+.0.7.pom'.
+               > 
+repo.maven.apache.org
+   > Could not resolve 
+javax.activation:javax.
+activation-api:1.2.0.
+     Required by:
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0 > org.glassfish.jax
+b:jaxb-runtime:2.3.1
+         project :permi
+ssion_handler_android 
+> com.android.tools.bui
+ld:gradle:4.1.0 > andro
+idx.databinding:databin
+ding-compiler-common:4.
+1.0 > org.glassfish.jax
+b:jaxb-runtime:2.3.1 > 
+javax.xml.bind:jaxb-api
+:2.3.1
+      > Could not 
+resolve javax.activatio
+n:javax.activation-api:
+1.2.0.
+         > Could not 
+get resource 'https://r
+epo.maven.apache.org/ma
+ven2/javax/activation/j
+avax.activation-api/1.2
+.0/javax.activation-api
+-1.2.0.pom'.
+            > Could 
+not HEAD 'https://repo.
+maven.apache.org/maven2
+/javax/activation/javax
+.activation-api/1.2.0/j
+avax.activation-api-1.2
+.0.pom'.
+               > 
+repo.maven.apache.org
+> Failed to notify 
+project evaluation 
+listener.
+   > java.lang.NullPoin
+terException (no error 
+message)
+   > java.lang.NullPoin
+terException (no error 
+message)
+> There is 1 more 
+failure with an 
+identical cause.
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 9m
+Running Gradle task 'assembleDebug'...                            552.0s
+[!] Gradle threw an 
+error while 
+downloading artifacts 
+from the network.
+Retrying Gradle Build: #1, wait time: 100ms
+Running Gradle task 'assembleDebug'...                          
+Checking the license for package Android SDK Platform 30 in C:\Users\The Godfather\AppData\Local\Android\Sdk\licenses
+License for package Android SDK Platform 30 accepted.
+Preparing "Install Android SDK Platform 30 (revision 3)".
+"Install Android SDK Platform 30 (revision 3)" ready.
+Installing Android SDK Platform 30 in C:\Users\The Godfather\AppData\Local\Android\Sdk\platforms\android-30
+"Install Android SDK Platform 30 (revision 3)" complete.
+"Install Android SDK Platform 30 (revision 3)" finished.
+[=========                              ] 25%                                   
+[=========                              ] 25% Fetch remote repository...        
+[=======================================] 100% Fetch remote repository...       
+
+Checking the license for package Android SDK Platform 34 in C:\Users\The Godfather\AppData\Local\Android\Sdk\licenses
+License for package Android SDK Platform 34 accepted.
+Preparing "Install Android SDK Platform 34 (revision 3)".
+D/FlutterJNI(25124): Beginning load of flutter...
+D/FlutterJNI(25124): flutter (null) was loaded normally!
+I/flutter (25124): [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+D/FlutterRenderer(25124): Width is zero. 0,0
+I/flutter (25124): supabase.supabase_flutter: INFO: ***** Supabase init completed ***** 
+D/FlutterRenderer(25124): Width is zero. 0,0
+D/FlutterJNI(25124): Sending viewport metrics to the engine.
+D/FlutterJNI(25124): Sending viewport metrics to the engine.
+D/FlutterJNI(25124): Sending viewport metrics to the engine.
+"Install Android SDK Platform 34 (revision 3)" ready.
+Installing Android SDK Platform 34 in C:\Users\The Godfather\AppData\Local\Android\Sdk\platforms\android-34
+"Install Android SDK Platform 34 (revision 3)" complete.
+"Install Android SDK Platform 34 (revision 3)" finished.
+[=========                              ] 25%                                   
+[=========                              ] 25% Fetch remote repository...        
+[=======================================] 100% Fetch remote repository...       
+
+Checking the license for package Android SDK Platform 33 in C:\Users\The Godfather\AppData\Local\Android\Sdk\licenses
+License for package Android SDK Platform 33 accepted.
+Preparing "Install Android SDK Platform 33 (revision 3)".
+"Install Android SDK Platform 33 (revision 3)" ready.
+Installing Android SDK Platform 33 in C:\Users\The Godfather\AppData\Local\Android\Sdk\platforms\android-33
+"Install Android SDK Platform 33 (revision 3)" complete.
+"Install Android SDK Platform 33 (revision 3)" finished.
+[=========                              ] 25%                                   
+[=========                              ] 25% Fetch remote repository...        
+[=======================================] 100% Fetch remote repository...       
+
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:440:47: 
+Error: Type 'MealLog' 
+not found.
+  Widget _buildMealItem
+(BuildContext context, 
+MealLog meal) {
+                       
+                       
+^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:23:3: Error: 
+Type 
+'ARSessionManager' not 
+found.
+  ARSessionManager? 
+_arSessionManager;
+  ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:24:3: Error: 
+Type 'ARObjectManager' 
+not found.
+  ARObjectManager? 
+_arObjectManager;
+  ^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:25: Error: 
+Type 
+'ARSessionManager' not 
+found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+ ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:60: Error: 
+Type 'ARObjectManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+             
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:93: Error: 
+Type 'ARAnchorManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:126: Error: 
+Type 
+'ARLocationManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^^^
+lib/core/router.dart:30
+:44: Error: Couldn't 
+find constructor 
+'HomeScreen'.
+        builder: 
+(context, state) => 
+const HomeScreen(),
+                       
+                    
+^^^^^^^^^^
+lib/core/router.dart:82
+:44: Error: Couldn't 
+find constructor 
+'ProfileScreen'.
+        builder: 
+(context, state) => 
+const ProfileScreen(),
+                       
+                    
+^^^^^^^^^^^^^
+lib/core/router.dart:86
+:44: Error: Couldn't 
+find constructor 
+'PricingScreen'.
+        builder: 
+(context, state) => 
+const PricingScreen(),
+                       
+                    
+^^^^^^^^^^^^^
+lib/main.dart:32:27: 
+Error: Member not 
+found: 'darkTheme'.
+      darkTheme: 
+AppTheme.darkTheme,
+                       
+   ^^^^^^^^^
+lib/core/theme.dart:29:
+32: Error: Member not 
+found: 'black'.
+        fontWeight: 
+FontWeight.black,
+                       
+        ^^^^^
+lib/core/theme.dart:35:
+32: Error: Member not 
+found: 'black'.
+        fontWeight: 
+FontWeight.black,
+                       
+        ^^^^^
+lib/core/theme.dart:40:
+32: Error: Member not 
+found: 'medium'.
+        fontWeight: 
+FontWeight.medium,
+                       
+        ^^^^^^
+lib/core/theme.dart:45:
+32: Error: Member not 
+found: 'medium'.
+        fontWeight: 
+FontWeight.medium,
+                       
+        ^^^^^^
+lib/core/theme.dart:49:
+16: Error: The 
+argument type 
+'CardTheme' can't be 
+assigned to the 
+parameter type 
+'CardThemeData?'.
+ - 'CardTheme' is from 
+'package:flutter/src/ma
+terial/card_theme.dart'
+ ('/C:/src/flutter/pack
+ages/flutter/lib/src/ma
+terial/card_theme.dart'
+).
+ - 'CardThemeData' is 
+from 'package:flutter/s
+rc/material/card_theme.
+dart' ('/C:/src/flutter
+/packages/flutter/lib/s
+rc/material/card_theme.
+dart').
+    cardTheme: 
+CardTheme(
+               ^
+lib/features/dashboard/
+presentation/nutrition_
+results_screen.dart:126
+:83: Error: Member not 
+found: 'black'.
+                      
+style: const 
+TextStyle(fontSize: 
+26, fontWeight: 
+FontWeight.black, 
+color: 
+Color(0xFF1E1E1E), 
+height: 1.1),
+                       
+                       
+                       
+             ^^^^^
+lib/features/dashboard/
+presentation/nutrition_
+results_screen.dart:208
+:77: Error: Member not 
+found: 'black'.
+                style: 
+const 
+TextStyle(fontSize: 
+32, fontWeight: 
+FontWeight.black, 
+height: 1.0),
+                       
+                       
+                       
+       ^^^^^
+lib/features/dashboard/
+presentation/nutrition_
+results_screen.dart:245
+:73: Error: Member not 
+found: 'black'.
+            style: 
+const 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black),
+                       
+                       
+                       
+   ^^^^^
+lib/features/dashboard/
+presentation/nutrition_
+results_screen.dart:270
+:74: Error: Member not 
+found: 'black'.
+              const 
+Text('8/10', style: 
+TextStyle(fontWeight: 
+FontWeight.black, 
+fontSize: 13)),
+                       
+                       
+                       
+    ^^^^^
+lib/features/coach/pres
+entation/ai_coach_scree
+n.dart:312:105: Error: 
+Member not found: 
+'black'.
+            Text('coach
+_locked_title'.tr(), 
+style: const 
+TextStyle(fontSize: 
+22, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/planning/p
+resentation/meal_planni
+ng_screen.dart:335:106:
+ Error: Member not 
+found: 'black'.
+                    Tex
+t('${recipe['cal']}', 
+style: const 
+TextStyle(fontSize: 
+20, fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/planning/p
+resentation/meal_planni
+ng_screen.dart:379:100:
+ Error: Member not 
+found: 'black'.
+            Text('upgra
+de_title'.tr(), style: 
+const 
+TextStyle(fontSize: 
+22, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/tracking/p
+resentation/micronutrie
+nt_tracking_screen.dart
+:206:95: Error: Member 
+not found: 'black'.
+                  
+Text('${micro.pct}%', 
+style: 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black, 
+color: color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/tracking/p
+resentation/micronutrie
+nt_tracking_screen.dart
+:276:105: Error: 
+Member not found: 
+'black'.
+            Text('coach
+_locked_title'.tr(), 
+style: const 
+TextStyle(fontSize: 
+22, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/tracking/p
+resentation/progress_sc
+reen.dart:97:83: 
+Error: Member not 
+found: 'black'.
+          Text(value, 
+style: const 
+TextStyle(fontSize: 
+32, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+             ^^^^^
+lib/features/tracking/p
+resentation/progress_sc
+reen.dart:213:40: 
+Error: The method 
+'DailyNutrition' isn't 
+defined for the type 
+'_ProgressScreenState'.
+ - 
+'_ProgressScreenState' 
+is from 'package:calor_
+x_flutter/features/trac
+king/presentation/progr
+ess_screen.dart' ('lib/
+features/tracking/prese
+ntation/progress_screen
+.dart').
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'DailyNutrition'.
+    final today = 
+state.todayTotals ?? 
+DailyNutrition(date: 
+'');
+                       
+                
+^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:81:92: 
+Error: Member not 
+found: 'black'.
+                style: 
+TextStyle(color: 
+Colors.white, 
+fontSize: 10, 
+fontWeight: 
+FontWeight.black),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:88:97: 
+Error: Member not 
+found: 'black'.
+            style: 
+TextStyle(color: 
+AppTheme.headingColor, 
+fontSize: 18, 
+fontWeight: 
+FontWeight.black),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:155:102: 
+Error: Member not 
+found: 'black'.
+                    
+style: const 
+TextStyle(color: 
+Colors.white, 
+fontSize: 10, 
+fontWeight: 
+FontWeight.black),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:161:100: 
+Error: Member not 
+found: 'black'.
+                  
+style: const 
+TextStyle(color: 
+Colors.white, 
+fontSize: 24, 
+fontWeight: 
+FontWeight.black, 
+height: 1.1),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:204:109: 
+Error: Member not 
+found: 'black'.
+                Text('d
+ash_today_summary'.tr()
+, style: const 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:214:113: 
+Error: Member not 
+found: 'black'.
+                      
+style: const 
+TextStyle(color: 
+AppTheme.primaryColor, 
+fontSize: 10, 
+fontWeight: 
+FontWeight.black),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:236:89: 
+Error: Member not 
+found: 'black'.
+                       
+     style: const 
+TextStyle(fontSize: 
+28, fontWeight: 
+FontWeight.black, 
+color: 
+AppTheme.headingColor),
+                       
+                       
+                       
+                   
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:306:110: 
+Error: Member not 
+found: 'black'.
+          child: Text('
+dash_quick_actions'.tr(
+), style: const 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:379:120: 
+Error: Member not 
+found: 'black'.
+                    
+child: const 
+Text('PRO', style: 
+TextStyle(color: 
+Colors.white, 
+fontSize: 8, 
+fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:384:134: 
+Error: Member not 
+found: 'black'.
+            
+Text(title, style: 
+TextStyle(color: 
+isLight ? 
+AppTheme.headingColor 
+: Colors.white, 
+fontSize: 16, 
+fontWeight: 
+FontWeight.black, 
+height: 1.1)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:399:109: 
+Error: Member not 
+found: 'black'.
+          child: Text('
+dash_recent_meals'.tr()
+, style: const 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:440:47: 
+Error: 'MealLog' isn't 
+a type.
+  Widget _buildMealItem
+(BuildContext context, 
+MealLog meal) {
+                       
+                       
+^^^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:459:79: 
+Error: Member not 
+found: 'black'.
+                  
+style: const 
+TextStyle(fontSize: 
+14, fontWeight: 
+FontWeight.black, 
+color: 
+AppTheme.headingColor),
+                       
+                       
+                       
+         ^^^^^
+lib/features/dashboard/
+presentation/dashboard_
+screen.dart:479:116: 
+Error: Member not 
+found: 'black'.
+                Text(me
+al.calories.round().toS
+tring(), style: const 
+TextStyle(fontSize: 
+14, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:23:3: Error: 
+'ARSessionManager' 
+isn't a type.
+  ARSessionManager? 
+_arSessionManager;
+  ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:24:3: Error: 
+'ARObjectManager' 
+isn't a type.
+  ARObjectManager? 
+_arObjectManager;
+  ^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:25: Error: 
+'ARSessionManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+ ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:60: Error: 
+'ARObjectManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+             
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:93: Error: 
+'ARAnchorManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:126: Error: 
+'ARLocationManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:65:53: Error: 
+The getter 
+'nutritionData' isn't 
+defined for the type 
+'ScanScreenState'.
+ - 'ScanScreenState' 
+is from 'package:calor_
+x_flutter/features/dash
+board/presentation/scan
+_view_model.dart' ('lib
+/features/dashboard/pre
+sentation/scan_view_mod
+el.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 
+'nutritionData'.
+    if (mounted && 
+state.scanError == 
+null && 
+state.nutritionData != 
+null) {
+                       
+                       
+      ^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:66:45: Error: 
+The getter 
+'nutritionData' isn't 
+defined for the type 
+'ScanScreenState'.
+ - 'ScanScreenState' 
+is from 'package:calor_
+x_flutter/features/dash
+board/presentation/scan
+_view_model.dart' ('lib
+/features/dashboard/pre
+sentation/scan_view_mod
+el.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 
+'nutritionData'.
+      context.push('/re
+sults', extra: 
+state.nutritionData);
+                       
+                     
+^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:171:120: Error: 
+Member not found: 
+'black'.
+              Text('sca
+n_title'.tr(), style: 
+const TextStyle(color: 
+Colors.white, 
+fontSize: 18, 
+fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/legal/pres
+entation/not_found_scre
+en.dart:20:71: Error: 
+Member not found: 
+'black'.
+                style: 
+TextStyle(fontSize: 
+72, fontWeight: 
+FontWeight.black, 
+color: 
+AppTheme.primaryColor),
+                       
+                       
+                       
+ ^^^^^
+lib/features/auth/data/
+auth_repository.dart:20
+:7: Error: The getter 
+'Provider' isn't 
+defined for the type 
+'AuthRepository'.
+ - 'AuthRepository' is 
+from 'package:calor_x_f
+lutter/features/auth/da
+ta/auth_repository.dart
+' ('lib/features/auth/d
+ata/auth_repository.dar
+t').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'Provider'.
+      Provider.google,
+      ^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:71: 
+Error: Not a constant 
+expression.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+                       
+ ^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:90:98: 
+Error: No named 
+parameter with the 
+name 'date'.
+        final row = nut
+ritionRows.firstWhere((
+r) => r.date == date, 
+orElse: () => 
+DailyNutrition(date: 
+date));
+                       
+                       
+                       
+                     
+^^^^
+lib/features/dashboard/
+data/dashboard_models.d
+art:8:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:102:108: 
+Error: No named 
+parameter with the 
+name 'date'.
+      final 
+todayTotals = nutrition
+Rows.firstWhere((r) => 
+r.date == todayStr, 
+orElse: () => 
+DailyNutrition(date: 
+todayStr));
+                       
+                       
+                       
+                     
+^^^^
+lib/features/dashboard/
+data/dashboard_models.d
+art:8:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:81:93: 
+Error: The method 
+'in_' isn't defined 
+for the type 'Postgrest
+FilterBuilder<List<Map<
+String, dynamic>>>'.
+ - 'PostgrestFilterBuil
+der' is from 'package:p
+ostgrest/src/postgrest_
+builder.dart' ('../../.
+./AppData/Local/Pub/Cac
+he/hosted/pub.dev/postg
+rest-2.6.0/lib/src/post
+grest_builder.dart').
+ - 'List' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'in_'.
+        Supabase.instan
+ce.client.from('daily_n
+utrition').select('*').
+eq('user_id', 
+user.id).in_('date', 
+last7Days),
+                       
+                       
+                       
+                     
+^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:58: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+           ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:79:43: 
+Error: The argument 
+type 'List<dynamic>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:90:55: 
+Error: The getter 
+'date' isn't defined 
+for the type 
+'DailyNutrition'.
+ - 'DailyNutrition' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'date'.
+        final row = nut
+ritionRows.firstWhere((
+r) => r.date == date, 
+orElse: () => 
+DailyNutrition(date: 
+date));
+                       
+                       
+        ^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:102:61: 
+Error: The getter 
+'date' isn't defined 
+for the type 
+'DailyNutrition'.
+ - 'DailyNutrition' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'date'.
+      final 
+todayTotals = nutrition
+Rows.firstWhere((r) => 
+r.date == todayStr, 
+orElse: () => 
+DailyNutrition(date: 
+todayStr));
+                       
+                       
+              ^^^^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:67:76: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+profileData = 
+results[0] != null ? Pr
+ofileData.fromJson(resu
+lts[0]) : null;
+                       
+                       
+                       
+      ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:68:74: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final dailyGoals 
+= results[1] != null ? 
+DailyGoals.fromJson(res
+ults[1]) : null;
+                       
+                       
+                       
+    ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:69:82: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+dailyNutrition = 
+results[2] != null ? Da
+ilyNutrition.fromJson(r
+esults[2]) : null;
+                       
+                       
+                       
+            ^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:56:29: 
+Error: Not a constant 
+expression.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+                       
+     ^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:56:16: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+               ^
+Target kernel_snapshot_
+program failed: 
+Exception
+
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:compileFlutt
+erBuildDebug'.
+> Process 'command 'C:\
+src\flutter\bin\flutter
+.bat'' finished with 
+non-zero exit value 1
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 5m 27s
+Running Gradle task 'assembleDebug'...                            328.8s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

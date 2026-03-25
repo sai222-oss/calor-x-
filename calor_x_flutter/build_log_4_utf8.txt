@@ -1,0 +1,352 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : lib/features/
+tracking/presentation/p
+rogress_screen.dart:213
+:40: Error: The method 
+'DailyNutrition' isn't 
+defined for the type 
+'_ProgressScreenState'.
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_4.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (lib/features/   
+ tr...ssScreenState    
+'.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+ - 
+'_ProgressScreenState' 
+is from 'package:calor_
+x_flutter/features/trac
+king/presentation/progr
+ess_screen.dart' ('lib/
+features/tracking/prese
+ntation/progress_screen
+.dart').
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'DailyNutrition'.
+    final today = 
+state.todayTotals ?? 
+DailyNutrition(date: 
+'', totalCalories: 0, 
+totalProteinG: 0, 
+totalCarbsG: 0, 
+totalFatG: 0, 
+mealsCount: 0);
+                       
+                
+^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:71: 
+Error: Not a constant 
+expression.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+                       
+ ^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:90:97: 
+Error: Required named 
+parameter 
+'totalCalories' must 
+be provided.
+        final row = nut
+ritionRows.firstWhere((
+r) => r.date == date, 
+orElse: () => 
+DailyNutrition(date: 
+date));
+                       
+                       
+                       
+                     ^
+lib/features/dashboard/
+data/dashboard_models.d
+art:9:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:102:107: 
+Error: Required named 
+parameter 
+'totalCalories' must 
+be provided.
+      final 
+todayTotals = nutrition
+Rows.firstWhere((r) => 
+r.date == todayStr, 
+orElse: () => 
+DailyNutrition(date: 
+todayStr));
+                       
+                       
+                       
+                     ^
+lib/features/dashboard/
+data/dashboard_models.d
+art:9:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:81:93: 
+Error: The method 
+'in_' isn't defined 
+for the type 'Postgrest
+FilterBuilder<List<Map<
+String, dynamic>>>'.
+ - 'PostgrestFilterBuil
+der' is from 'package:p
+ostgrest/src/postgrest_
+builder.dart' ('../../.
+./AppData/Local/Pub/Cac
+he/hosted/pub.dev/postg
+rest-2.6.0/lib/src/post
+grest_builder.dart').
+ - 'List' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'in_'.
+        Supabase.instan
+ce.client.from('daily_n
+utrition').select('*').
+eq('user_id', 
+user.id).in_('date', 
+last7Days),
+                       
+                       
+                       
+                     
+^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:58: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+           ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:79:43: 
+Error: The argument 
+type 'List<dynamic>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:67:76: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+profileData = 
+results[0] != null ? Pr
+ofileData.fromJson(resu
+lts[0]) : null;
+                       
+                       
+                       
+      ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:68:74: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final dailyGoals 
+= results[1] != null ? 
+DailyGoals.fromJson(res
+ults[1]) : null;
+                       
+                       
+                       
+    ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:69:82: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+dailyNutrition = 
+results[2] != null ? Da
+ilyNutrition.fromJson(r
+esults[2]) : null;
+                       
+                       
+                       
+            ^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:61:29: 
+Error: Not a constant 
+expression.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+                       
+     ^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:61:16: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+               ^
+lib/features/dashboard/
+presentation/profile_vi
+ew_model.dart:65:43: 
+Error: The argument 
+type 'List<Object>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/auth/data/
+auth_repository.dart:20
+:7: Error: The getter 
+'Provider' isn't 
+defined for the type 
+'AuthRepository'.
+ - 'AuthRepository' is 
+from 'package:calor_x_f
+lutter/features/auth/da
+ta/auth_repository.dart
+' ('lib/features/auth/d
+ata/auth_repository.dar
+t').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'Provider'.
+      Provider.google,
+      ^^^^^^^^
+Target kernel_snapshot_
+program failed: 
+Exception
+
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:compileFlutt
+erBuildDebug'.
+> Process 'command 'C:\
+src\flutter\bin\flutter
+.bat'' finished with 
+non-zero exit value 1
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 36s
+Running Gradle task 'assembleDebug'...                             38.2s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

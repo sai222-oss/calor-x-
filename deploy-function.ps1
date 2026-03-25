@@ -13,31 +13,12 @@ $configDirs = @(
     "$env:USERPROFILE\.supabase"
 )
 
-$accessToken = $null
-foreach ($dir in $configDirs) {
-    Write-Host "Checking $dir"
-    if (Test-Path $dir) {
-        Get-ChildItem $dir -Recurse | ForEach-Object { Write-Host $_.FullName }
-        $tf = Join-Path $dir "access-token"
-        if (Test-Path $tf) {
-            $accessToken = Get-Content $tf -Raw
-            Write-Host "Found token!"
-            break
-        }
-    }
-}
+$accessToken = "sbp_977200b8183996687048ac0ec26ff97249ff7834"
 
-if (-not $accessToken) {
-    Write-Host "Could not find access token automatically."
-    $accessToken = Read-Host "Please paste your Supabase personal access token"
-}
+$fileContent = Get-Content -Path "calor-x\supabase\functions\analyze-food\index.ts" -Raw
+$utilsContent = Get-Content -Path "calor-x\supabase\functions\analyze-food\utils.ts" -Raw
 
-$accessToken = $accessToken.Trim()
-
-$fileContent = Get-Content -Path "supabase\functions\analyze-food\index.ts" -Raw
-$utilsContent = Get-Content -Path "supabase\functions\analyze-food\utils.ts" -Raw
-
-$projectRef = "kguihdvqodvadmuzamoq"
+$projectRef = "lurcmwqvgjfsfzsmvkne"
 $body = @{
     slug       = "analyze-food"
     name       = "analyze-food"

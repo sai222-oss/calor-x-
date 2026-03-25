@@ -1,0 +1,93 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : e: file:///C:
+/Users/The%20Godfather/
+Downloads/calor-x/calor
+_x_flutter/android/buil
+d.gradle.kts:29:17: 
+Using 'kotlinOptions(Ko
+tlinJvmOptionsDeprecate
+d /* = 
+KotlinJvmOptions */.() 
+-> Unit): Unit' is an 
+error. Please migrate 
+to the compilerOptions 
+DSL. More details are 
+here: 
+https://kotl.in/u1r8ln
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_11.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (e: file:///C:   
+ /U.../kotl.in/u1r8    
+ln:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+
+FAILURE: Build failed 
+with an exception.
+
+* Where:
+Build file 
+'C:\Users\The Godfather
+\Downloads\calor-x\calo
+r_x_flutter\android\bui
+ld.gradle.kts' line: 29
+
+* What went wrong:
+Script compilation 
+errors:
+
+  Line 29:             
+    kotlinOptions {
+                       
+    ^ Using 'kotlinOpti
+ons(KotlinJvmOptionsDep
+recated /* = 
+KotlinJvmOptions */.() 
+-> Unit): Unit' is an 
+error. Please migrate 
+to the compilerOptions 
+DSL. More details are 
+here: 
+https://kotl.in/u1r8ln
+
+  Line 30:             
+        jvmTarget = 
+"1.8"
+                       
+        ^ 'jvmTarget: 
+String' is deprecated. 
+Please migrate to the 
+compilerOptions DSL. 
+More details are here: 
+https://kotl.in/u1r8ln
+
+2 errors
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 8s
+Running Gradle task 'assembleDebug'...                              8.4s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

@@ -1,0 +1,107 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : Incorrect pac
+kage="io.carius.lars.ar
+_flutter_plugin" found 
+in source 
+AndroidManifest.xml: 
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\ar_flut
+ter_plugin-0.7.3\androi
+d\src\main\AndroidManif
+est.xml.
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_8.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Incorrect pac   
+ ka...idManifest.xm    
+l.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+Setting the namespace 
+via the package 
+attribute in the 
+source 
+AndroidManifest.xml is 
+no longer supported.
+Recommendation: remove 
+package="io.carius.lars
+.ar_flutter_plugin" 
+from the source 
+AndroidManifest.xml: 
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\ar_flut
+ter_plugin-0.7.3\androi
+d\src\main\AndroidManif
+est.xml.
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':ar_flutter_plugi
+n:processDebugManifest'
+.
+> A failure occurred 
+while executing com.and
+roid.build.gradle.tasks
+.ProcessLibraryManifest
+$ProcessLibWorkAction
+   > Incorrect package=
+"io.carius.lars.ar_flut
+ter_plugin" found in 
+source 
+AndroidManifest.xml: 
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\ar_flut
+ter_plugin-0.7.3\androi
+d\src\main\AndroidManif
+est.xml.
+     Setting the 
+namespace via the 
+package attribute in 
+the source 
+AndroidManifest.xml is 
+no longer supported.
+     Recommendation: 
+remove package="io.cari
+us.lars.ar_flutter_plug
+in" from the source 
+AndroidManifest.xml: 
+C:\Users\The Godfather\
+AppData\Local\Pub\Cache
+\hosted\pub.dev\ar_flut
+ter_plugin-0.7.3\androi
+d\src\main\AndroidManif
+est.xml.
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 4m 58s
+Running Gradle task 'assembleDebug'...                            298.4s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

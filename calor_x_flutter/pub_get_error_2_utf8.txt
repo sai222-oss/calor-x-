@@ -1,0 +1,48 @@
+﻿Resolving dependencies...
+flutter : Because 
+custom_lint 0.8.1 
+depends on 
+freezed_annotation 
+^3.0.0 and no versions 
+of custom_lint match 
+>0.8.1 <0.9.0, 
+custom_lint ^0.8.1 
+requires 
+freezed_annotation 
+^3.0.0.
+At line:1 char:1
++ flutter pub get > 
+pub_get_error_2.txt 
+2>&1; Get-Content 
+-Path pub_get ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Because custo   
+ m_...otation ^3.0.    
+0.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+So, because 
+calor_x_flutter 
+depends on both 
+freezed_annotation 
+^2.4.4 and custom_lint 
+^0.8.1, version 
+solving failed.
+
+
+You can try the 
+following suggestion 
+to make the pubspec 
+resolve:
+* Try an upgrade of 
+your constraints: 
+flutter pub upgrade 
+--major-versions
+Failed to update 
+packages.

@@ -1,0 +1,175 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : 
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_18.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:checkDebugDu
+plicateClasses'.
+> A failure occurred 
+while executing com.and
+roid.build.gradle.inter
+nal.tasks.CheckDuplicat
+esRunnable
+   > Duplicate class an
+droid.support.v4.app.IN
+otificationSideChannel 
+found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.app.IN
+otificationSideChannel$
+Stub found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.app.IN
+otificationSideChannel$
+Stub$Proxy found in 
+modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.IRe
+sultReceiver found in 
+modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.IRe
+sultReceiver$Stub 
+found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.IRe
+sultReceiver$Stub$Proxy
+ found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.Res
+ultReceiver found in 
+modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.Res
+ultReceiver$1 found in 
+modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.Res
+ultReceiver$MyResultRec
+eiver found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+     Duplicate class an
+droid.support.v4.os.Res
+ultReceiver$MyRunnable 
+found in modules 
+core-1.17.0.aar -> 
+core-1.17.0-runtime (an
+droidx.core:core:1.17.0
+) and support-compat-27
+.1.0.aar -> support-com
+pat-27.1.0-runtime (com
+.android.support:suppor
+t-compat:27.1.0)
+
+     Learn how to fix 
+dependency resolution 
+errors at https://d.and
+roid.com/r/tools/classp
+ath-sync-errors
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 7m 17s
+Running Gradle task 'assembleDebug'...                            441.4s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

@@ -1,0 +1,1914 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : 
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_9.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':ar_flutter_plugi
+n:compileDebugKotlin'.
+> Error while 
+evaluating property 'fr
+iendPathsSet$kotlin_gra
+dle_plugin_common' of 
+task ':ar_flutter_plugi
+n:compileDebugKotlin'.
+   > Could not resolve 
+all files for 
+configuration ':ar_flut
+ter_plugin:debugCompile
+Classpath'.
+      > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+        Required by:
+            project 
+:ar_flutter_plugin > or
+g.jetbrains.kotlin:kotl
+in-stdlib:1.8.22
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://storage.googleapis.c
+om/download.flutter.io/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+               > Could 
+not GET 'https://storag
+e.googleapis.com/downlo
+ad.flutter.io/org/jetbr
+ains/kotlin/kotlin-stdl
+ib-common/1.8.22/kotlin
+-stdlib-common-1.8.22.p
+om'.
+                  > 
+storage.googleapis.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://jcenter.bintray.com/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+               > Could 
+not GET 'https://jcente
+r.bintray.com/org/jetbr
+ains/kotlin/kotlin-stdl
+ib-common/1.8.22/kotlin
+-stdlib-common-1.8.22.p
+om'.
+                  > 
+jcenter.bintray.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+      > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+        Required by:
+            project 
+:ar_flutter_plugin > co
+m.google.android.gms:pl
+ay-services-basement:16
+.0.1
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://storage.googleapis.c
+om/download.flutter.io/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+               > Could 
+not GET 'https://storag
+e.googleapis.com/downlo
+ad.flutter.io/com/andro
+id/support/support-v4/2
+6.1.0/support-v4-26.1.0
+.pom'.
+                  > 
+storage.googleapis.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://jcenter.bintray.com/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+               > Could 
+not GET 'https://jcente
+r.bintray.com/com/andro
+id/support/support-v4/2
+6.1.0/support-v4-26.1.0
+.pom'.
+                  > 
+jcenter.bintray.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+> There are 23 more 
+failures with 
+identical causes.
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 54s
+Running Gradle task 'assembleDebug'...                             55.2s
+[!] Gradle threw an 
+error while 
+downloading artifacts 
+from the network.
+Retrying Gradle Build: #1, wait time: 100ms
+Running Gradle task 'assembleDebug'...                          
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':ar_flutter_plugi
+n:compileDebugKotlin'.
+> Error while 
+evaluating property 'fr
+iendPathsSet$kotlin_gra
+dle_plugin_common' of 
+task ':ar_flutter_plugi
+n:compileDebugKotlin'.
+   > Could not resolve 
+all files for 
+configuration ':ar_flut
+ter_plugin:debugCompile
+Classpath'.
+      > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+        Required by:
+            project 
+:ar_flutter_plugin > or
+g.jetbrains.kotlin:kotl
+in-stdlib:1.8.22
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://storage.googleapis.c
+om/download.flutter.io/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+               > Could 
+not GET 'https://storag
+e.googleapis.com/downlo
+ad.flutter.io/org/jetbr
+ains/kotlin/kotlin-stdl
+ib-common/1.8.22/kotlin
+-stdlib-common-1.8.22.p
+om'.
+                  > 
+storage.googleapis.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://jcenter.bintray.com/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+               > Could 
+not GET 'https://jcente
+r.bintray.com/org/jetbr
+ains/kotlin/kotlin-stdl
+ib-common/1.8.22/kotlin
+-stdlib-common-1.8.22.p
+om'.
+                  > 
+jcenter.bintray.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/org/jetbrai
+ns/kotlin/kotlin-stdlib
+-common/1.8.22/kotlin-s
+tdlib-common-1.8.22.pom
+'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/org/jetbrains/kotlin
+/kotlin-stdlib-common/1
+.8.22/kotlin-stdlib-com
+mon-1.8.22.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve org.jetbrains.k
+otlin:kotlin-stdlib-com
+mon:1.8.22.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/org/jetbrains/
+kotlin/kotlin-stdlib-co
+mmon/1.8.22/kotlin-stdl
+ib-common-1.8.22.pom'.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+org/jetbrains/kotlin/ko
+tlin-stdlib-common/1.8.
+22/kotlin-stdlib-common
+-1.8.22.pom'.
+                  > 
+repo.maven.apache.org
+      > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+        Required by:
+            project 
+:ar_flutter_plugin > co
+m.google.android.gms:pl
+ay-services-basement:16
+.0.1
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://storage.googleapis.c
+om/download.flutter.io/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+               > Could 
+not GET 'https://storag
+e.googleapis.com/downlo
+ad.flutter.io/com/andro
+id/support/support-v4/2
+6.1.0/support-v4-26.1.0
+.pom'.
+                  > 
+storage.googleapis.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://jcenter.bintray.com/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+               > Could 
+not GET 'https://jcente
+r.bintray.com/com/andro
+id/support/support-v4/2
+6.1.0/support-v4-26.1.0
+.pom'.
+                  > 
+jcenter.bintray.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://dl.google.com/dl/and
+roid/maven2/com/android
+/support/support-v4/26.
+1.0/support-v4-26.1.0.p
+om'.
+               > Could 
+not GET 'https://dl.goo
+gle.com/dl/android/mave
+n2/com/android/support/
+support-v4/26.1.0/suppo
+rt-v4-26.1.0.pom'.
+                  > 
+dl.google.com
+         > Could not 
+resolve com.android.sup
+port:support-v4:26.1.0.
+            > Could 
+not get resource 'https
+://repo.maven.apache.or
+g/maven2/com/android/su
+pport/support-v4/26.1.0
+/support-v4-26.1.0.pom'
+.
+               > Could 
+not GET 'https://repo.m
+aven.apache.org/maven2/
+com/android/support/sup
+port-v4/26.1.0/support-
+v4-26.1.0.pom'.
+                  > 
+repo.maven.apache.org
+> There are 23 more 
+failures with 
+identical causes.
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 4s
+Running Gradle task 'assembleDebug'...                              5.3s
+[!] Gradle threw an 
+error while 
+downloading artifacts 
+from the network.
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

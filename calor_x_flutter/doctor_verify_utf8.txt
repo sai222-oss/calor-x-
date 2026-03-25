@@ -1,0 +1,14 @@
+﻿Doctor summary (to see all details, run flutter doctor -v):
+[ΓêÜ] Flutter (Channel stable, 3.41.4, on Microsoft Windows [Version 10.0.22621.4317], locale en-US)
+[ΓêÜ] Windows Version (11 Pro 64-bit, 22H2, 2009)
+[!] Android toolchain - develop for Android devices (Android SDK version 36.1.0)
+    X Android SDK location currently contains spaces, which is not supported by the Android SDK as it causes problems with NDK tools. Try moving it from C:\Users\The Godfather\AppData\Local\Android\sdk to a path without spaces.
+[ΓêÜ] Chrome - develop for the web
+[X] Visual Studio - develop Windows apps
+    X Visual Studio not installed; this is necessary to develop Windows apps.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of its default components
+[ΓêÜ] Connected device (3 available)
+[ΓêÜ] Network resources
+
+! Doctor found issues in 2 categories.

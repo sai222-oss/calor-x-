@@ -1,0 +1,178 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : lib/features/
+tracking/presentation/p
+rogress_view_model.dart
+:82:65: Error: The 
+method 'FetchOptions' 
+isn't defined for the 
+type 
+'ProgressViewModel'.
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_6.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (lib/features/   
+ tr...ressViewModel    
+'.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+ - 'ProgressViewModel' 
+is from 'package:calor_
+x_flutter/features/trac
+king/presentation/progr
+ess_view_model.dart' ('
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart').
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'FetchOptions'.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+                  
+^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:58: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+           ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:79:43: 
+Error: The argument 
+type 'List<dynamic>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:61:23: 
+Error: The method 
+'FetchOptions' isn't 
+defined for the type 
+'ScanViewModel'.
+ - 'ScanViewModel' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/presentation/scan_vi
+ew_model.dart' ('lib/fe
+atures/dashboard/presen
+tation/scan_view_model.
+dart').
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'FetchOptions'.
+        .select('id', 
+FetchOptions(count: 
+CountOption.exact))
+                      
+^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:61:16: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        .select('id', 
+FetchOptions(count: 
+CountOption.exact))
+               ^
+lib/features/dashboard/
+presentation/profile_vi
+ew_model.dart:65:43: 
+Error: The argument 
+type 'List<Object>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+Target kernel_snapshot_
+program failed: 
+Exception
+
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:compileFlutt
+erBuildDebug'.
+> Process 'command 'C:\
+src\flutter\bin\flutter
+.bat'' finished with 
+non-zero exit value 1
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 2m 49s
+Running Gradle task 'assembleDebug'...                            190.1s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1

@@ -1,0 +1,1187 @@
+﻿Launching lib\main.dart on itel P10002L in debug mode...
+Running Gradle task 'assembleDebug'...                          
+flutter : lib/features/
+dashboard/presentation/
+scan_screen.dart:23:3: 
+Error: Type 
+'ARSessionManager' not 
+found.
+At line:1 char:1
++ flutter run -d 
+119477146O000888 > 
+build_log_3.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (lib/features/   
+ da...ger' not foun    
+d.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+  ARSessionManager? 
+_arSessionManager;
+  ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:24:3: Error: 
+Type 'ARObjectManager' 
+not found.
+  ARObjectManager? 
+_arObjectManager;
+  ^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:25: Error: 
+Type 
+'ARSessionManager' not 
+found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+ ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:60: Error: 
+Type 'ARObjectManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+             
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:93: Error: 
+Type 'ARAnchorManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:126: Error: 
+Type 
+'ARLocationManager' 
+not found.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^^^
+lib/core/router.dart:91
+:44: Error: Couldn't 
+find constructor 
+'PrivacyPolicyScreen'.
+        builder: 
+(context, state) => 
+const 
+PrivacyPolicyScreen(),
+                       
+                    
+^^^^^^^^^^^^^^^^^^^
+lib/core/router.dart:95
+:44: Error: Couldn't 
+find constructor 
+'TermsOfServiceScreen'.
+        builder: 
+(context, state) => 
+const 
+TermsOfServiceScreen(),
+                       
+                    
+^^^^^^^^^^^^^^^^^^^^
+lib/core/theme.dart:52:
+64: Error: Cannot 
+invoke a non-'const' 
+constructor where a 
+const expression is 
+expected.
+Try using a 
+constructor or factory 
+that is 'const'.
+      shape: RoundedRec
+tangleBorder(borderRadi
+us: BorderRadius.circul
+ar(32)),
+                       
+                       
+                 
+^^^^^^^^
+lib/features/tracking/p
+resentation/micronutrie
+nt_tracking_screen.dart
+:206:95: Error: Member 
+not found: 'black'.
+                  
+Text('${micro.pct}%', 
+style: 
+TextStyle(fontSize: 
+18, fontWeight: 
+FontWeight.black, 
+color: color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/tracking/p
+resentation/micronutrie
+nt_tracking_screen.dart
+:276:105: Error: 
+Member not found: 
+'black'.
+            Text('coach
+_locked_title'.tr(), 
+style: const 
+TextStyle(fontSize: 
+22, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/tracking/p
+resentation/progress_sc
+reen.dart:97:83: 
+Error: Member not 
+found: 'black'.
+          Text(value, 
+style: const 
+TextStyle(fontSize: 
+32, fontWeight: 
+FontWeight.black, 
+color: AppTheme.primary
+Color)),
+                       
+                       
+                       
+             ^^^^^
+lib/features/tracking/p
+resentation/progress_sc
+reen.dart:213:40: 
+Error: The method 
+'DailyNutrition' isn't 
+defined for the type 
+'_ProgressScreenState'.
+ - 
+'_ProgressScreenState' 
+is from 'package:calor_
+x_flutter/features/trac
+king/presentation/progr
+ess_screen.dart' ('lib/
+features/tracking/prese
+ntation/progress_screen
+.dart').
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'DailyNutrition'.
+    final today = 
+state.todayTotals ?? 
+DailyNutrition(date: 
+'');
+                       
+                
+^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:23:3: Error: 
+'ARSessionManager' 
+isn't a type.
+  ARSessionManager? 
+_arSessionManager;
+  ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:24:3: Error: 
+'ARObjectManager' 
+isn't a type.
+  ARObjectManager? 
+_arObjectManager;
+  ^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:25: Error: 
+'ARSessionManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+ ^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:60: Error: 
+'ARObjectManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+             
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:93: Error: 
+'ARAnchorManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:51:126: Error: 
+'ARLocationManager' 
+isn't a type.
+  void _onARViewCreated
+(ARSessionManager 
+arSessionManager, 
+ARObjectManager 
+arObjectManager, 
+ARAnchorManager 
+arAnchorManager, 
+ARLocationManager 
+arLocationManager) {
+                       
+                       
+                       
+                     
+^^^^^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:65:53: Error: 
+The getter 
+'nutritionData' isn't 
+defined for the type 
+'ScanScreenState'.
+ - 'ScanScreenState' 
+is from 'package:calor_
+x_flutter/features/dash
+board/presentation/scan
+_view_model.dart' ('lib
+/features/dashboard/pre
+sentation/scan_view_mod
+el.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 
+'nutritionData'.
+    if (mounted && 
+state.scanError == 
+null && 
+state.nutritionData != 
+null) {
+                       
+                       
+      ^^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_scree
+n.dart:66:45: Error: 
+The getter 
+'nutritionData' isn't 
+defined for the type 
+'ScanScreenState'.
+ - 'ScanScreenState' 
+is from 'package:calor_
+x_flutter/features/dash
+board/presentation/scan
+_view_model.dart' ('lib
+/features/dashboard/pre
+sentation/scan_view_mod
+el.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 
+'nutritionData'.
+      context.push('/re
+sults', extra: 
+state.nutritionData);
+                       
+                     
+^^^^^^^^^^^^^
+lib/features/legal/pres
+entation/not_found_scre
+en.dart:20:71: Error: 
+Member not found: 
+'black'.
+                style: 
+TextStyle(fontSize: 
+72, fontWeight: 
+FontWeight.black, 
+color: 
+AppTheme.primaryColor),
+                       
+                       
+                       
+ ^^^^^
+lib/features/home/prese
+ntation/home_screen.dar
+t:87:24: Error: Member 
+not found: 'violet'.
+                Colors.
+violet.withOpacity(0.1)
+,
+                       
+^^^^^^
+lib/features/home/prese
+ntation/home_screen.dar
+t:88:24: Error: Member 
+not found: 'fuchsia'.
+                Colors.
+fuchsia.withOpacity(0.1
+),
+                       
+^^^^^^^
+lib/features/home/prese
+ntation/home_screen.dar
+t:118:100: Error: 
+Member not found: 
+'black'.
+                  
+style: const 
+TextStyle(color: 
+Colors.white, 
+fontSize: 40, 
+fontWeight: 
+FontWeight.black, 
+height: 1.2),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/home/prese
+ntation/home_screen.dar
+t:146:135: Error: 
+Member not found: 
+'black'.
+                       
+ child: 
+Text('hero_cta'.tr(), 
+style: const 
+TextStyle(color: 
+Colors.white, 
+fontSize: 20, 
+fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:183:27: 
+Error: The getter 
+'weightKg' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'weightKg'.
+    final bmi = 
+(profile?.weightKg != 
+null && 
+profile?.heightCm != 
+null) ? 
+(profile!.weightKg! / 
+((profile.heightCm! / 
+100) * 
+(profile.heightCm! / 10
+0))).toStringAsFixed(1)
+ : null;
+                       
+   ^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:183:56: 
+Error: The getter 
+'heightCm' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'heightCm'.
+    final bmi = 
+(profile?.weightKg != 
+null && 
+profile?.heightCm != 
+null) ? 
+(profile!.weightKg! / 
+((profile.heightCm! / 
+100) * 
+(profile.heightCm! / 10
+0))).toStringAsFixed(1)
+ : null;
+                       
+                       
+         ^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:183:86: 
+Error: The getter 
+'weightKg' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'weightKg'.
+    final bmi = 
+(profile?.weightKg != 
+null && 
+profile?.heightCm != 
+null) ? 
+(profile!.weightKg! / 
+((profile.heightCm! / 
+100) * 
+(profile.heightCm! / 10
+0))).toStringAsFixed(1)
+ : null;
+                       
+                       
+                       
+                
+^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:183:108: 
+Error: The getter 
+'heightCm' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'heightCm'.
+    final bmi = 
+(profile?.weightKg != 
+null && 
+profile?.heightCm != 
+null) ? 
+(profile!.weightKg! / 
+((profile.heightCm! / 
+100) * 
+(profile.heightCm! / 10
+0))).toStringAsFixed(1)
+ : null;
+                       
+                       
+                       
+                     
+^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:183:136: 
+Error: The getter 
+'heightCm' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'heightCm'.
+    final bmi = 
+(profile?.weightKg != 
+null && 
+profile?.heightCm != 
+null) ? 
+(profile!.weightKg! / 
+((profile.heightCm! / 
+100) * 
+(profile.heightCm! / 10
+0))).toStringAsFixed(1)
+ : null;
+                       
+                       
+                       
+                     
+^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:200:58: 
+Error: The getter 
+'weightKg' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'weightKg'.
+              _buildBio
+Item('prof_weight'.tr()
+, profile?.weightKg != 
+null ? '${profile!.weig
+htKg}kg' : 'ΓÇö'),
+                       
+                       
+           ^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:200:89: 
+Error: The getter 
+'weightKg' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'weightKg'.
+              _buildBio
+Item('prof_weight'.tr()
+, profile?.weightKg != 
+null ? '${profile!.weig
+htKg}kg' : 'ΓÇö'),
+                       
+                       
+                       
+                   
+^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:202:58: 
+Error: The getter 
+'heightCm' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'heightCm'.
+              _buildBio
+Item('prof_height'.tr()
+, profile?.heightCm != 
+null ? '${profile!.heig
+htCm}cm' : 'ΓÇö'),
+                       
+                       
+           ^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:202:89: 
+Error: The getter 
+'heightCm' isn't 
+defined for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'heightCm'.
+              _buildBio
+Item('prof_height'.tr()
+, profile?.heightCm != 
+null ? '${profile!.heig
+htCm}cm' : 'ΓÇö'),
+                       
+                       
+                       
+                   
+^^^^^^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:204:55: 
+Error: The getter 
+'age' isn't defined 
+for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'age'.
+              _buildBio
+Item('prof_age'.tr(), 
+profile?.age != null ? 
+'${profile!.age}' : 
+'ΓÇö'),
+                       
+                       
+        ^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:204:81: 
+Error: The getter 
+'age' isn't defined 
+for the type 
+'ProfileData'.
+ - 'ProfileData' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'age'.
+              _buildBio
+Item('prof_age'.tr(), 
+profile?.age != null ? 
+'${profile!.age}' : 
+'ΓÇö'),
+                       
+                       
+                       
+           ^^^
+lib/features/dashboard/
+presentation/profile_sc
+reen.dart:323:77: 
+Error: Member not 
+found: 'black'.
+            Text(val, 
+style: 
+TextStyle(fontSize: 
+24, fontWeight: 
+FontWeight.black, 
+color: textCol)),
+                       
+                       
+                       
+       ^^^^^
+lib/features/dashboard/
+presentation/pricing_sc
+reen.dart:120:140: 
+Error: Member not 
+found: 'black'.
+          child: 
+Text(label, style: 
+TextStyle(color: 
+active ? Colors.white 
+: const 
+Color(0xFF8888A0), 
+fontSize: 13, 
+fontWeight: 
+FontWeight.black)),
+                       
+                       
+                       
+                     
+^^^^^
+lib/features/dashboard/
+presentation/pricing_sc
+reen.dart:198:85: 
+Error: Member not 
+found: 'black'.
+                  
+Text(price, style: 
+TextStyle(fontSize: 
+56, fontWeight: 
+FontWeight.black, 
+color: textCol)),
+                       
+                       
+                       
+               ^^^^^
+lib/features/dashboard/
+presentation/profile_vi
+ew_model.dart:65:43: 
+Error: The argument 
+type 'List<Object>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/auth/data/
+auth_repository.dart:20
+:7: Error: The getter 
+'Provider' isn't 
+defined for the type 
+'AuthRepository'.
+ - 'AuthRepository' is 
+from 'package:calor_x_f
+lutter/features/auth/da
+ta/auth_repository.dart
+' ('lib/features/auth/d
+ata/auth_repository.dar
+t').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'Provider'.
+      Provider.google,
+      ^^^^^^^^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:56:29: 
+Error: Not a constant 
+expression.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+                       
+     ^^^^^^^^^^^^
+lib/features/dashboard/
+presentation/scan_view_
+model.dart:56:16: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        .select('id', 
+const 
+FetchOptions(count: 
+CountOption.exact))
+               ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:67:76: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+profileData = 
+results[0] != null ? Pr
+ofileData.fromJson(resu
+lts[0]) : null;
+                       
+                       
+                       
+      ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:68:74: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final dailyGoals 
+= results[1] != null ? 
+DailyGoals.fromJson(res
+ults[1]) : null;
+                       
+                       
+                       
+    ^
+lib/features/dashboard/
+presentation/dashboard_
+view_model.dart:69:82: 
+Error: The argument 
+type 'Object?' can't 
+be assigned to the 
+parameter type 
+'Map<String, dynamic>'.
+ - 'Object' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+      final 
+dailyNutrition = 
+results[2] != null ? Da
+ilyNutrition.fromJson(r
+esults[2]) : null;
+                       
+                       
+                       
+            ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:71: 
+Error: Not a constant 
+expression.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+                       
+ ^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:90:98: 
+Error: No named 
+parameter with the 
+name 'date'.
+        final row = nut
+ritionRows.firstWhere((
+r) => r.date == date, 
+orElse: () => 
+DailyNutrition(date: 
+date));
+                       
+                       
+                       
+                     
+^^^^
+lib/features/dashboard/
+data/dashboard_models.d
+art:8:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:102:108: 
+Error: No named 
+parameter with the 
+name 'date'.
+      final 
+todayTotals = nutrition
+Rows.firstWhere((r) => 
+r.date == todayStr, 
+orElse: () => 
+DailyNutrition(date: 
+todayStr));
+                       
+                       
+                       
+                     
+^^^^
+lib/features/dashboard/
+data/dashboard_models.d
+art:8:3: Context: 
+Found this candidate, 
+but the arguments 
+don't match.
+  DailyNutrition({
+  ^^^^^^^^^^^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:81:93: 
+Error: The method 
+'in_' isn't defined 
+for the type 'Postgrest
+FilterBuilder<List<Map<
+String, dynamic>>>'.
+ - 'PostgrestFilterBuil
+der' is from 'package:p
+ostgrest/src/postgrest_
+builder.dart' ('../../.
+./AppData/Local/Pub/Cac
+he/hosted/pub.dev/postg
+rest-2.6.0/lib/src/post
+grest_builder.dart').
+ - 'List' is from 
+'dart:core'.
+ - 'Map' is from 
+'dart:core'.
+Try correcting the 
+name to the name of an 
+existing method, or 
+defining a method 
+named 'in_'.
+        Supabase.instan
+ce.client.from('daily_n
+utrition').select('*').
+eq('user_id', 
+user.id).in_('date', 
+last7Days),
+                       
+                       
+                       
+                     
+^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:82:58: 
+Error: Too many 
+positional arguments: 
+1 allowed, but 2 found.
+Try removing the extra 
+positional arguments.
+        Supabase.instan
+ce.client.from('meal_lo
+gs').select('id', 
+const 
+FetchOptions(count: Cou
+ntOption.exact)).eq('us
+er_id', user.id),
+                       
+                       
+           ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:79:43: 
+Error: The argument 
+type 'List<dynamic>' 
+can't be assigned to 
+the parameter type 'Ite
+rable<Future<dynamic>>'
+.
+ - 'List' is from 
+'dart:core'.
+ - 'Iterable' is from 
+'dart:core'.
+ - 'Future' is from 
+'dart:async'.
+      final responses 
+= await Future.wait([
+                       
+                   ^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:90:55: 
+Error: The getter 
+'date' isn't defined 
+for the type 
+'DailyNutrition'.
+ - 'DailyNutrition' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'date'.
+        final row = nut
+ritionRows.firstWhere((
+r) => r.date == date, 
+orElse: () => 
+DailyNutrition(date: 
+date));
+                       
+                       
+        ^^^^
+lib/features/tracking/p
+resentation/progress_vi
+ew_model.dart:102:61: 
+Error: The getter 
+'date' isn't defined 
+for the type 
+'DailyNutrition'.
+ - 'DailyNutrition' is 
+from 'package:calor_x_f
+lutter/features/dashboa
+rd/data/dashboard_model
+s.dart' ('lib/features/
+dashboard/data/dashboar
+d_models.dart').
+Try correcting the 
+name to the name of an 
+existing getter, or 
+defining a getter or 
+field named 'date'.
+      final 
+todayTotals = nutrition
+Rows.firstWhere((r) => 
+r.date == todayStr, 
+orElse: () => 
+DailyNutrition(date: 
+todayStr));
+                       
+                       
+              ^^^^
+Target kernel_snapshot_
+program failed: 
+Exception
+
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:compileFlutt
+erBuildDebug'.
+> Process 'command 'C:\
+src\flutter\bin\flutter
+.bat'' finished with 
+non-zero exit value 1
+
+* Try:
+> Run with 
+--stacktrace option to 
+get the stack trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+get full insights.
+> Get more help at http
+s://help.gradle.org.
+
+BUILD FAILED in 1m 58s
+Running Gradle task 'assembleDebug'...                            122.1s
+Error: Gradle task 
+assembleDebug failed 
+with exit code 1
